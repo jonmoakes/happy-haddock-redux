@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
-import { getRedirectResult } from "firebase/auth";
+// import { useNavigate } from "react-router-dom";
+import {
+  getRedirectResult,
+  getAuth,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 // import { useDispatch, useSelector } from "react-redux";
-// import Swal from "sweetalert2";
-// import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import {
   auth,
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
 // import {
@@ -14,7 +20,7 @@ import {
 //   selectEmailAddress,
 // } from "../../redux/user/user.selectors";
 
-// import Loader from "../../components/loader/loader.component";
+import Loader from "../loader/loader.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import { Div } from "../../styles/div/div.styles";
@@ -26,37 +32,41 @@ import {
   SmallScreenDiv,
 } from "../../styles/form/form.styles";
 
-// import {
-//   okMessage,
-//   passwordResetSuccessMessage,
-//   passwordResetSuccessText,
-// } from "../../strings/strings";
+import {
+  okMessage,
+  passwordResetSuccessMessage,
+  passwordResetSuccessText,
+} from "../../strings/strings";
 
 import "../../styles/confirm.css";
 
+const defaultFormFields = {
+  email: "",
+  password: "",
+  emailForPasswordReset: "",
+};
+
 const SignInForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const [showForgotPasswordField, setShowForgotPasswordField] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    async function fetchData() {
+    async function getGoogleSignInResult() {
       const response = await getRedirectResult(auth);
-      if (response) {
-        const userDocRef = await createUserDocumentFromAuth(response.user);
-        console.log(userDocRef);
-      }
+      if (!response) return;
+      setIsLoading(true);
+      await createUserDocumentFromAuth(response.user);
+      setIsLoading(false);
     }
-    fetchData();
+    getGoogleSignInResult();
   }, []);
 
-  const [userCredentials, setCredentials] = useState({
-    email: "",
-    password: "",
-    emailForPasswordReset: "",
-  });
-  const [showForgotPasswordField, setShowForgotPasswordField] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  const { email, password, emailForPasswordReset } = userCredentials;
+  const { email, password, emailForPasswordReset } = formFields;
   // const dispatch = useDispatch();
-  // const swal = withReactContent(Swal);
+  const swal = withReactContent(Swal);
+  const authFromFirebase = getAuth();
+  // const navigate = useNavigate();
   // const error = useSelector(selectError);
   // const emailAddress = useSelector(selectEmailAddress);
 
@@ -119,7 +129,39 @@ const SignInForm = () => {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    setCredentials({ ...userCredentials, [name]: value });
+    setFormFields({ ...formFields, [name]: value });
+  };
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await signInAuthUserWithEmailAndPassword(email, password);
+      setIsLoading(false);
+      resetFormFields();
+      // navigate("/menu");
+    } catch (error) {
+      swal.fire({
+        title: "error signing in.",
+        text: "please check your login details and try again. if you have forgot your password, tap the forgot password button at the bottom of the page.",
+        background: "black",
+        backdrop: `
+     rgba(0,0,123,0.8)`,
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: `${okMessage}`,
+        customClass: "confirm",
+        allowOutsideClick: false,
+      });
+      resetFormFields();
+      setIsLoading(false);
+      return;
+    }
   };
 
   // const handleSubmit = async (event) => {
@@ -130,6 +172,61 @@ const SignInForm = () => {
   //     payload: { email, password },
   //   });
   // };
+
+  const handlePasswordResetSubmit = async (event) => {
+    event.preventDefault();
+
+    sendPasswordResetEmail(authFromFirebase, emailForPasswordReset)
+      .then(() => {
+        swal
+          .fire({
+            title: passwordResetSuccessMessage,
+            text: passwordResetSuccessText,
+            background: "black",
+            backdrop: `
+rgba(0,0,123,0.8)`,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: `${okMessage}`,
+            customClass: "confirm",
+            allowOutsideClick: false,
+          })
+          .then(resetFormFields());
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found") {
+          swal.fire({
+            title: "email address not found, please try again.",
+            background: "black",
+            backdrop: `
+   rgba(0,0,123,0.8)`,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: `${okMessage}`,
+            customClass: "confirm",
+            allowOutsideClick: false,
+          });
+          resetFormFields();
+        } else {
+          swal.fire({
+            title: errorCode,
+            text: errorMessage,
+            background: "black",
+            backdrop: `
+   rgba(0,0,123,0.8)`,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: `${okMessage}`,
+            customClass: "confirm",
+            allowOutsideClick: false,
+          });
+          resetFormFields();
+        }
+      });
+  };
 
   // const handleSubmitForPasswordReset = async (event) => {
   //   event.preventDefault();
@@ -143,14 +240,14 @@ const SignInForm = () => {
 
   return (
     <Div>
-      {/* {isLoading && <Loader />} */}
+      {isLoading && <Loader />}
 
       <h1>sign in</h1>
       <p>Please Sign in with your email and password.</p>
 
       <hr className="top" />
 
-      <Form className="sign-in-up">
+      <Form className="sign-in-up" onSubmit={handleSubmit}>
         <label>email</label>
         <input
           name="email"
@@ -207,10 +304,7 @@ const SignInForm = () => {
         )}
 
         {showForgotPasswordField && (
-          <Form
-            className="sign-in-up"
-            // onSubmit={handleSubmitForPasswordReset}
-          >
+          <Form className="sign-in-up" onSubmit={handlePasswordResetSubmit}>
             <label className="forgot-password">
               enter your email & then click "reset password."
             </label>

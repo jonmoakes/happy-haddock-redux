@@ -136,6 +136,7 @@ const SignUp = () => {
           customClass: "confirm",
           allowOutsideClick: false,
         });
+        return;
       } else {
         swal.fire({
           title: error.code,
@@ -148,6 +149,7 @@ const SignUp = () => {
           customClass: "confirm",
           allowOutsideClick: false,
         });
+        return;
       }
     }
 
