@@ -13,6 +13,7 @@ const Navigation = lazy(() =>
 );
 const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
+const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/" element={<Navigation />}>
               <Route index element={<Home />} />
               <Route path="sign-in" element={<SignIn />} />
+              <Route path="sign-up" element={<SignUp />} />
             </Route>
           </Routes>
         </Suspense>

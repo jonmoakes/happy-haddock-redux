@@ -56,7 +56,7 @@ export const Form = styled.form`
   }
 
   input {
-    width: 95%;
+    width: 100%;
     height: 50px;
     padding: 12px;
     border: 2px solid black;
