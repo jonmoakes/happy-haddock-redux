@@ -2,7 +2,10 @@ import { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import Swal from "sweetalert2";
 // import withReactContent from "sweetalert2-react-content";
-import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
+import {
+  signInWithGooglePopup,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase.utils";
 
 // import {
 //   selectError,
@@ -31,8 +34,8 @@ import "../../styles/confirm.css";
 
 const SignIn = () => {
   const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup();
-    console.log(response);
+    const { user } = await signInWithGooglePopup();
+    const userDocRef = await createUserDocumentFromAuth(user);
   };
   const [userCredentials, setCredentials] = useState({
     email: "",
