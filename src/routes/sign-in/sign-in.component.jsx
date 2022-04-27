@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getRedirectResult } from "firebase/auth";
 // import { useDispatch, useSelector } from "react-redux";
 // import Swal from "sweetalert2";
 // import withReactContent from "sweetalert2-react-content";
 import {
-  signInWithGooglePopup,
+  auth,
+  signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
@@ -33,10 +35,17 @@ import {
 import "../../styles/confirm.css";
 
 const SignIn = () => {
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
-  };
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getRedirectResult(auth);
+      if (response) {
+        const userDocRef = await createUserDocumentFromAuth(response.user);
+        console.log(userDocRef);
+      }
+    }
+    fetchData();
+  }, []);
+
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -174,16 +183,9 @@ const SignIn = () => {
             <CustomButton
               type="button"
               className="google-button"
-              // onClick={() => dispatch({ type: "GOOGLE_SIGN_IN_START" })}
+              onClick={signInWithGoogleRedirect}
             >
               Sign In with google
-            </CustomButton>
-            <CustomButton
-              type="button"
-              className="google-button"
-              onClick={logGoogleUser}
-            >
-              Sign In with google 2
             </CustomButton>
           </div>
         </Form>
