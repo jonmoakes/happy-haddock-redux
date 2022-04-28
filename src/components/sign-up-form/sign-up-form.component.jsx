@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 // import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +37,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const swal = withReactContent(Swal);
+  const navigate = useNavigate();
   const { displayName, email, password, confirmPassword } = formFields;
 
   // const dispatch = useDispatch();
@@ -121,6 +123,7 @@ const SignUp = () => {
       await createUserDocumentFromAuth(user, { displayName });
       setIsLoading(false);
       resetFormFields();
+      navigate("/menu");
     } catch (error) {
       setIsLoading(false);
       console.log("user creation encountered an error ", error);

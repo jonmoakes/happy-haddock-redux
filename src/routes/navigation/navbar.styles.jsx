@@ -36,6 +36,7 @@ export const HamburgerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  backgroun-color: red;
 
   &.help-icon {
     width: 50px;

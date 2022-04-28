@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getRedirectResult,
   getAuth,
@@ -72,7 +72,7 @@ const SignInForm = () => {
   const { email, password, emailForPasswordReset } = formFields;
   const swal = withReactContent(Swal);
   const authFromFirebase = getAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // const dispatch = useDispatch();
   // const error = useSelector(selectError);
@@ -152,7 +152,7 @@ const SignInForm = () => {
       await signInAuthUserWithEmailAndPassword(email, password);
       setIsLoading(false);
       resetFormFields();
-      // navigate("/menu");
+      navigate("/menu");
     } catch (error) {
       swal.fire({
         title: errorSigningInTitle,

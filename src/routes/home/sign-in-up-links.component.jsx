@@ -1,18 +1,17 @@
-// import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 // import { useSelector } from "react-redux";
-
 // import { selectCurrentUser } from "../../redux/user/user.selectors";
-
-// import CustomButton from "../../components/custom-button/custom-button.component";
+import { UserContext } from "../../contexts/user.context";
+import CustomButton from "../../components/custom-button/custom-button.component";
 
 import { Div } from "../../styles/div/div.styles";
 
 const SignInUpLinks = () => {
-  // const currentUser = useSelector(selectCurrentUser);
+  const { currentUser } = useContext(UserContext);
   return (
     <Div>
-      <h1>hi</h1>
-      {/* {currentUser ? (
+      {currentUser ? (
         <Link to="/menu">
           <CustomButton>Order Online</CustomButton>
         </Link>
@@ -29,7 +28,7 @@ const SignInUpLinks = () => {
 
           <p>it's quick and easy!</p>
         </>
-      )} */}
+      )}
     </Div>
   );
 };

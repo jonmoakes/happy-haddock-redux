@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import { UserProvider } from "./contexts/user.context";
+import { ProductsProvider } from "./contexts/products.context";
+import { HamburgerMenuProvider } from "./contexts/hamburger-menu.context";
 
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -16,7 +18,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <HamburgerMenuProvider>
+            <App />
+          </HamburgerMenuProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

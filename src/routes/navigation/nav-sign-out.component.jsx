@@ -7,6 +7,7 @@ import withReactContent from "sweetalert2-react-content";
 // import { useDispatch, useSelector } from "react-redux";
 
 import { UserContext } from "../../contexts/user.context";
+import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import {
@@ -19,13 +20,15 @@ import "../../styles/confirm.css";
 import { MenuLink } from "./navbar.styles";
 
 const NavSignOut = () => {
+  const { currentUser } = useContext(UserContext);
+  const { showHamburgerMenu, setShowHamburgerMenu } =
+    useContext(HamburgerMenuContext);
+
   const navigate = useNavigate();
   const swal = withReactContent(Swal);
   // const dispatch = useDispatch();
   // const currentUser = useSelector(selectCurrentUser);
   // const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
-
-  const { currentUser } = useContext(UserContext);
 
   const signOutHandler = async () => {
     await signOutUser();
@@ -50,12 +53,14 @@ const NavSignOut = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          setShowHamburgerMenu(false);
           // dispatch({ type: "SIGN_OUT_START" });
           signOutHandler();
         }
-        // if (showHamburgerMenu) {
-        //   dispatch({ type: "HIDE_HAMBURGER_MENU" });
-        // }
+        if (showHamburgerMenu) {
+          setShowHamburgerMenu(false);
+          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
+        }
       });
   }
 

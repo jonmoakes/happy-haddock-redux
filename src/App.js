@@ -15,6 +15,7 @@ const Navigation = lazy(() =>
 const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
+const Menu = lazy(() => import("./routes/menu/menu.component"));
 
 const App = () => {
   const { currentUser } = useContext(UserContext);
@@ -29,6 +30,7 @@ const App = () => {
               <Route index element={<Home />} />
               <Route path="sign-in" element={!currentUser && <SignIn />} />
               <Route path="sign-up" element={!currentUser && <SignUp />} />
+              <Route path="menu" element={currentUser && <Menu />} />
             </Route>
           </Routes>
         </Suspense>

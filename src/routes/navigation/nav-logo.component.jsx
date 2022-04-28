@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
+import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
 
 import Logo from "../../assets/happy-haddock-200x200.png";
 
@@ -16,6 +19,7 @@ import "../../styles/confirm.css";
 import { LogoContainer, LogoImage } from "./navbar.styles";
 
 const NavLogo = () => {
+  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
   const location = useLocation();
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -41,8 +45,10 @@ const NavLogo = () => {
       .then((result) => {
         if (result.isConfirmed) {
           navigate("/");
+          setShowHamburgerMenu(false);
           // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         } else if (!result.isConfirmed || result.isDismissed) {
+          setShowHamburgerMenu(false);
           // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         }
       });
@@ -59,6 +65,7 @@ const NavLogo = () => {
         <LogoContainer
           onClick={() => {
             navigate("/");
+            setShowHamburgerMenu(false);
             // dispatch({ type: "HIDE_HAMBURGER_MENU" });
           }}
         >

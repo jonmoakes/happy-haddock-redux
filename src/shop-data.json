@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "beef burger",
+        "description": "",
+        "price": 2.9
+    },
+    {
+        "id": 2,
+        "name": "chicken burger",
+        "description": "",
+        "price": 3
+    },
+    {
+        "id": 3,
+        "name": "chicken fillet sandwich",
+        "description": "",
+        "price": 3.5
+    },
+    {
+        "id": 4,
+        "name": "veggie burger",
+        "description": "",
+        "price": 2.8
+    },
+    {
+        "id": 5,
+        "name": "halloumi burger",
+        "description": "",
+        "price": 2.8
+    },
+    {
+        "id": 6,
+        "name": "zinger burger",
+        "description": "",
+        "price": 3.1
+    }
+]
