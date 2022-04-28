@@ -44,8 +44,8 @@ const NavLogo = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          navigate("/");
           setShowHamburgerMenu(false);
+          navigate("/");
           // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         } else if (!result.isConfirmed || result.isDismissed) {
           setShowHamburgerMenu(false);
