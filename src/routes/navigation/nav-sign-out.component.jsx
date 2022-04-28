@@ -1,27 +1,36 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { selectShowHamburgerMenu } from "../../redux/hamburger-menu/hamburger-menu.selectors";
-
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+// import { selectCurrentUser } from "../../redux/user/user.selectors";
+// import { selectShowHamburgerMenu } from "../../redux/hamburger-menu/hamburger-menu.selectors";
+// import { useDispatch, useSelector } from "react-redux";
+
+import { UserContext } from "../../contexts/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import {
   signOutConfirmMessage,
   yesSignMeOutMessage,
 } from "../../strings/strings";
 
-import "../../components/styles/confirm.css";
+import "../../styles/confirm.css";
 
 import { MenuLink } from "./navbar.styles";
 
 const NavSignOut = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentUser = useSelector(selectCurrentUser);
-  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
   const swal = withReactContent(Swal);
+  // const dispatch = useDispatch();
+  // const currentUser = useSelector(selectCurrentUser);
+  // const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
+
+  const { currentUser } = useContext(UserContext);
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    navigate("/sign-in");
+  };
 
   function showSignOutConfirmSwal() {
     swal
@@ -41,12 +50,12 @@ const NavSignOut = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          dispatch({ type: "SIGN_OUT_START" });
-          navigate("/sign-in");
+          // dispatch({ type: "SIGN_OUT_START" });
+          signOutHandler();
         }
-        if (showHamburgerMenu) {
-          dispatch({ type: "HIDE_HAMBURGER_MENU" });
-        }
+        // if (showHamburgerMenu) {
+        //   dispatch({ type: "HIDE_HAMBURGER_MENU" });
+        // }
       });
   }
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+// import { useDispatch, useSelector } from "react-redux";
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -21,6 +21,7 @@ import {
   okMessage,
   displayNameTooLongMessage,
   passwordsDontMatchMessage,
+  emailAlreadyInUse,
 } from "../../strings/strings";
 
 const defaultFormFields = {
@@ -34,8 +35,9 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { displayName, email, password, confirmPassword } = formFields;
   const swal = withReactContent(Swal);
+  const { displayName, email, password, confirmPassword } = formFields;
+
   // const dispatch = useDispatch();
   // const error = useSelector(selectError);
 
@@ -116,7 +118,6 @@ const SignUp = () => {
         email,
         password
       );
-
       await createUserDocumentFromAuth(user, { displayName });
       setIsLoading(false);
       resetFormFields();
@@ -125,8 +126,7 @@ const SignUp = () => {
       console.log("user creation encountered an error ", error);
       if (error.code === "auth/email-already-in-use") {
         swal.fire({
-          title:
-            "this email is already in use. Please try another email address.",
+          title: emailAlreadyInUse,
           background: "black",
           backdrop: `
   rgba(0,0,123,0.8)`,

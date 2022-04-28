@@ -1,10 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { GlobalStyle } from "./global-styles";
 
-import ErrorFallback from "./components/error-fallback/error-fallback.component";
+import { UserContext } from "./contexts/user.context";
 
+import ErrorFallback from "./components/error-fallback/error-fallback.component";
 import Loader from "./components/loader/loader.component";
 import Footer from "./components/footer/footer.component";
 
@@ -16,6 +17,8 @@ const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 
 const App = () => {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <div>
       <GlobalStyle />
@@ -24,8 +27,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigation />}>
               <Route index element={<Home />} />
-              <Route path="sign-in" element={<SignIn />} />
-              <Route path="sign-up" element={<SignUp />} />
+              <Route path="sign-in" element={!currentUser && <SignIn />} />
+              <Route path="sign-up" element={!currentUser && <SignUp />} />
             </Route>
           </Routes>
         </Suspense>

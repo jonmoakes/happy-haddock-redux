@@ -6,12 +6,12 @@ import { Outlet } from "react-router-dom";
 // import CartIcon from "../../components/cart-icon/cart-icon.component";
 
 import NavLogo from "./nav-logo.component";
+import NavSignInAndUp from "./nav-sign-in-and-up.component";
+import NavSignOut from "./nav-sign-out.component";
 // import NavHamburger from "./nav-hamburger.component";
 // import NavDashboard from "./nav-dashboard.component";
 // import NavMenu from "./nav-menu.component";
 // import NavContact from "./nav-contact.component";
-import NavSignInAndUp from "./nav-sign-in-and-up.component";
-// import NavSignOut from "./nav-sign-out.component";
 
 import { Nav, Menu } from "./navbar.styles";
 
@@ -24,15 +24,14 @@ const Navigation = () => {
         <NavLogo />
         <Menu>
           <NavSignInAndUp />
+          <NavSignOut />
         </Menu>
         {/* <NavHamburger showHamburgerMenu={showHamburgerMenu} />
         
         <Menu showHamburgerMenu={showHamburgerMenu}>
-          <NavSignInAndUp />
           <NavDashboard />
           <NavMenu />
           <NavContact />
-          <NavSignOut />
           <CartIcon />
         </Menu> */}
       </Nav>

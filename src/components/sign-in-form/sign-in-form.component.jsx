@@ -1,24 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 // import { useNavigate } from "react-router-dom";
 import {
   getRedirectResult,
   getAuth,
   sendPasswordResetEmail,
 } from "firebase/auth";
-// import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import {
   auth,
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
+// import { useDispatch, useSelector } from "react-redux";
 // import {
 //   selectError,
 //   selectEmailAddress,
 // } from "../../redux/user/user.selectors";
+
+import { UserContext } from "../../contexts/user.context";
 
 import Loader from "../loader/loader.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -36,6 +38,9 @@ import {
   okMessage,
   passwordResetSuccessMessage,
   passwordResetSuccessText,
+  errorSigningInTitle,
+  errorSigningInText,
+  emailAddressNotFound,
 } from "../../strings/strings";
 
 import "../../styles/confirm.css";
@@ -50,6 +55,7 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [showForgotPasswordField, setShowForgotPasswordField] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
     async function getGoogleSignInResult() {
@@ -57,16 +63,18 @@ const SignInForm = () => {
       if (!response) return;
       setIsLoading(true);
       await createUserDocumentFromAuth(response.user);
+      setCurrentUser(response.user);
       setIsLoading(false);
     }
     getGoogleSignInResult();
-  }, []);
+  }, [setCurrentUser]);
 
   const { email, password, emailForPasswordReset } = formFields;
-  // const dispatch = useDispatch();
   const swal = withReactContent(Swal);
   const authFromFirebase = getAuth();
   // const navigate = useNavigate();
+
+  // const dispatch = useDispatch();
   // const error = useSelector(selectError);
   // const emailAddress = useSelector(selectEmailAddress);
 
@@ -147,8 +155,8 @@ const SignInForm = () => {
       // navigate("/menu");
     } catch (error) {
       swal.fire({
-        title: "error signing in.",
-        text: "please check your login details and try again. if you have forgot your password, tap the forgot password button at the bottom of the page.",
+        title: errorSigningInTitle,
+        text: errorSigningInText,
         background: "black",
         backdrop: `
      rgba(0,0,123,0.8)`,
@@ -199,7 +207,7 @@ rgba(0,0,123,0.8)`,
         const errorMessage = error.message;
         if (errorCode === "auth/user-not-found") {
           swal.fire({
-            title: "email address not found, please try again.",
+            title: emailAddressNotFound,
             background: "black",
             backdrop: `
    rgba(0,0,123,0.8)`,

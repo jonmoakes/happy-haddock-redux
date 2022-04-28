@@ -64,3 +64,10 @@ export const displayNameTooLongMessage =
   "please make sure your display name is a maximum of 8 characters in length.";
 export const passwordsDontMatchMessage =
   "your passwords don't match! please try again.";
+export const errorSigningInTitle = "error signing in.";
+export const errorSigningInText =
+  "please check your login details and try again. if you have forgot your password, tap the forgot password button at the bottom of the page.";
+export const emailAddressNotFound =
+  "email address not found, please try again.";
+export const emailAlreadyInUse =
+  "this email is already in use. Please try another email address.";
