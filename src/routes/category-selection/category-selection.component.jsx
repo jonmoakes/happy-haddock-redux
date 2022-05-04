@@ -1,13 +1,14 @@
-import { useContext, Fragment } from "react";
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { ProductsContext } from "../../contexts/products.context";
+import { selectProductsMap } from "../../store/products/product.selector";
 
 import { Container } from "../../styles/container/container.styles";
 import { TitleDiv } from "../../styles/product-item/product-item.styles";
 
 const CategorySelection = () => {
-  const { productsMap } = useContext(ProductsContext);
+  const productsMap = useSelector(selectProductsMap);
   const location = useLocation();
   const navigate = useNavigate();
 

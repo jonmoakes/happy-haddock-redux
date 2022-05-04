@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 
 import App from "./App";
-import { ProductsProvider } from "./contexts/products.context";
 
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -18,9 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ProductsProvider>
-          <App />
-        </ProductsProvider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

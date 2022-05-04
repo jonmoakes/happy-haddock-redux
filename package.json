@@ -16,6 +16,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
+    "reselect": "^4.1.5",
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.9",
     "sweetalert2-react-content": "^5.0.0",

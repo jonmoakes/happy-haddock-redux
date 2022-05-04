@@ -23,6 +23,7 @@ const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
+// const Contact = lazy(() => import("./routes/contact/contact.component"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const App = () => {
               <Route path="sign-in" element={!user && <SignIn />} />
               <Route path="sign-up" element={!user && <SignUp />} />
               <Route path="menu/*" element={user && <Menu />} />
+              {/* <Route path="contact" element={<Contact />} /> */}
             </Route>
           </Routes>
         </Suspense>

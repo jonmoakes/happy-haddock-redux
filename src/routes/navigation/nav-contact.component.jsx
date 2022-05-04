@@ -3,13 +3,15 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action.js";
+
 import {
   areYouSureMessage,
   imSureMessage,
   forwardToContactMessage,
 } from "../../strings/strings";
 
-import "../../components/styles/confirm.css";
+import "../../styles/confirm.css";
 
 import { MenuLink } from "./navbar.styles";
 
@@ -38,10 +40,10 @@ const NavContact = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          dispatch({ type: "HIDE_HAMBURGER_MENU" });
+          dispatch(hideHamburgerMenu());
           navigate("/contact");
         } else if (!result.isConfirmed || result.isDismissed) {
-          dispatch({ type: "HIDE_HAMBURGER_MENU" });
+          dispatch(hideHamburgerMenu());
         }
       });
   }
@@ -55,8 +57,8 @@ const NavContact = () => {
         location.pathname !== "/contact" && (
           <MenuLink
             onClick={() => {
+              dispatch(hideHamburgerMenu());
               navigate("/contact");
-              dispatch({ type: "HIDE_HAMBURGER_MENU" });
             }}
           >
             contact
