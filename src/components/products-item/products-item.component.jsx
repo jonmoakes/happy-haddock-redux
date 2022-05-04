@@ -19,7 +19,7 @@ const ProductsItem = ({ product }) => {
 
   // function showItemOptions() {
   //   return [
-  //     // dispatch({ type: "ADD_SELECTED_ITEM", payload: item }),
+  //     dispatch({ type: "ADD_SELECTED_ITEM", payload: item }),
   //     navigate(`/products/${item.name}`),
   //   ];
   // }

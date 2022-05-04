@@ -644,7 +644,7 @@ const PRODUCTS_DATA = [
       },
       {
         id: 98,
-        name: "chicken zonger burger & chips",
+        name: "chicken zinger burger & chips",
         description: "",
         price: 3.9,
       },

@@ -1,23 +1,14 @@
-import { useContext } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import { ProductsContext } from "../../contexts/products.context";
-
-import ProductsItem from "../../components/products-item/products-item.component";
-
-import { Container } from "../../styles/container/container.styles";
-import { Div } from "../../styles/div/div.styles";
+import CategorySelection from "../category-selection/category-selection.component";
+import Category from "../category/category.component";
 
 const Menu = () => {
-  const { products } = useContext(ProductsContext);
-
   return (
-    <Container>
-      <Div className="products-overview-div">
-        {products.map((product) => (
-          <ProductsItem key={product.id} product={product} />
-        ))}
-      </Div>
-    </Container>
+    <Routes>
+      <Route index element={<CategorySelection />} />
+      <Route path=":category" element={<Category />} />
+    </Routes>
   );
 };
 

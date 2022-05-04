@@ -6,12 +6,12 @@ export const ProductsContext = createContext({
 });
 
 export const ProductsProvider = ({ children }) => {
-  const [productsMap, setProductsMap] = useState([]);
+  const [productsMap, setProductsMap] = useState({});
 
   useEffect(() => {
     const getProductsMap = async () => {
       const productMap = await getCollectionAndDocuments();
-      console.log(productMap);
+      setProductsMap(productMap);
     };
     getProductsMap();
   }, []);

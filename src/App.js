@@ -30,7 +30,7 @@ const App = () => {
               <Route index element={<Home />} />
               <Route path="sign-in" element={!currentUser && <SignIn />} />
               <Route path="sign-up" element={!currentUser && <SignUp />} />
-              <Route path="menu" element={currentUser && <Menu />} />
+              <Route path="menu/*" element={currentUser && <Menu />} />
             </Route>
           </Routes>
         </Suspense>
