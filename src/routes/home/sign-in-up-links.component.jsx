@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { selectCurrentUser } from "../../store/user/user.selectors";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import CustomButton from "../../components/custom-button/custom-button.component";
 

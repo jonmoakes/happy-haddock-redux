@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selectors";
+import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selector";
 
 import NavLogo from "./nav-logo.component";
 import NavMenu from "./nav-menu.component";

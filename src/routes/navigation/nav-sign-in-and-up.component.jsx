@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentUser } from "../../store/user/user.selectors";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 

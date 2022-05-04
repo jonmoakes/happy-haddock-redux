@@ -6,7 +6,7 @@ const slideInLeftAnimation = keyframes`${slideInLeft}`;
 export const TitleDiv = styled.div`
   background-color: salmon;
   width: 50%;
-  margin: 50px auto;
+  margin: 50px auto 50px auto;
   border-radius: 15px;
   border: 2px solid black;
   height: 100px;
@@ -30,12 +30,16 @@ export const TitleDiv = styled.div`
     cursor: pointer;
   }
 
+  &.products {
+    margin: 150px auto 50px auto;
+  }
+
   @media screen and (max-width: 850px) {
     width: 70%;
   }
 
   @media screen and (max-width: 600px) {
-    margin: 25px auto;
+    margin: 25px auto 25px auto;
     height: 70px;
   }
 

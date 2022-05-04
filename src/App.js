@@ -9,7 +9,7 @@ import {
 } from "./utils/firebase/firebase.utils";
 
 import { setCurrentUser } from "./store/user/user.action";
-import { selectCurrentUser } from "./store/user/user.selectors";
+import { selectCurrentUser } from "./store/user/user.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
@@ -23,6 +23,7 @@ const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
+const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
 // const Contact = lazy(() => import("./routes/contact/contact.component"));
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
               <Route path="sign-up" element={!user && <SignUp />} />
               <Route path="menu/*" element={user && <Menu />} />
               {/* <Route path="contact" element={<Contact />} /> */}
+              <Route path="checkout" element={user && <Checkout />} />
             </Route>
           </Routes>
         </Suspense>

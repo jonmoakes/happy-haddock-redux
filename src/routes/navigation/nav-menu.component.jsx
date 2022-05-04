@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action.js";
-import { selectCurrentUser } from "../../store/user/user.selectors";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import {
   areYouSureMessage,

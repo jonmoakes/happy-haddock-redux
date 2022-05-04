@@ -7,8 +7,20 @@ export const HelpDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
-  width: 100%;
+  margin: 0px auto -20px auto;
+  width: 90%;
+
+  h1 {
+    margin-bottom: -10px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 600px) {
+    margin: 0px auto -10px auto;
+  }
 `;
 
 export const ClearButtonDiv = styled.div`

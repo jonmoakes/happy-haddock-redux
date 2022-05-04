@@ -21,7 +21,7 @@ const Category = () => {
 
   return (
     <Container>
-      <TitleDiv>
+      <TitleDiv className="products">
         {category === "jacketpotato" ? (
           <h1>our jacket potatoes</h1>
         ) : category === "chickencurry" ? (
