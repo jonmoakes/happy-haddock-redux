@@ -1,9 +1,7 @@
-import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-// import { selectShowHamburgerMenu } from "../../redux/hamburger-menu/hamburger-menu.selectors";
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selectors";
 
 import NavLogo from "./nav-logo.component";
 import NavMenu from "./nav-menu.component";
@@ -18,11 +16,9 @@ import NavHamburger from "./nav-hamburger.component";
 import { Nav, Menu } from "./navbar.styles";
 
 const Navigation = () => {
-  const { showHamburgerMenu } = useContext(HamburgerMenuContext);
-  // const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
+  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
   return (
     <>
-      {/* <Nav showHamburgerMenu={showHamburgerMenu}> */}
       <Nav showHamburgerMenu={showHamburgerMenu}>
         <NavLogo />
         <NavHamburger showHamburgerMenu={showHamburgerMenu} />
@@ -36,7 +32,7 @@ const Navigation = () => {
         {/* 
           <NavDashboard />
           <NavContact />
-        </Menu> */}
+        */}
       </Nav>
       <Outlet />
     </>

@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-// import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { UserContext } from "../../contexts/user.context";
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action.js";
+import { selectCurrentUser } from "../../store/user/user.selectors";
 
 import {
   areYouSureMessage,
@@ -19,11 +17,9 @@ import "../../styles/confirm.css";
 import { MenuLink } from "./navbar.styles";
 
 const NavMenu = () => {
-  const { currentUser } = useContext(UserContext);
-  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
+  const currentUser = useSelector(selectCurrentUser);
   const location = useLocation();
-  // const currentUser = useSelector(selectCurrentUser);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const swal = withReactContent(Swal);
 
@@ -46,12 +42,10 @@ const NavMenu = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          setShowHamburgerMenu(false);
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
+          dispatch(hideHamburgerMenu());
           navigate("/menu");
         } else if (!result.isConfirmed || result.isDismissed) {
-          setShowHamburgerMenu(false);
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
+          dispatch(hideHamburgerMenu());
         }
       });
   }
@@ -67,9 +61,8 @@ const NavMenu = () => {
         location.pathname !== "/menu" && (
           <MenuLink
             onClick={() => {
-              setShowHamburgerMenu(false);
+              dispatch(hideHamburgerMenu());
               navigate("/menu");
-              // dispatch({ type: "HIDE_HAMBURGER_MENU" });
             }}
           >
             menu

@@ -1,8 +1,7 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 
 import {
   Wrapper,
@@ -12,17 +11,15 @@ import {
 } from "./cart-icon.styles";
 
 const OtherPagesCartIcon = () => {
-  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
       <IconsDiv
         onClick={() => {
-          setShowHamburgerMenu(false);
+          dispatch(hideHamburgerMenu());
           navigate("/checkout");
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         }}
       >
         <ShoppingIcon />

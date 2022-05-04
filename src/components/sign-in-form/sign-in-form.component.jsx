@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   getRedirectResult,
@@ -14,13 +15,12 @@ import {
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-// import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../../store/user/user.action";
+
 // import {
 //   selectError,
 //   selectEmailAddress,
 // } from "../../redux/user/user.selectors";
-
-import { UserContext } from "../../contexts/user.context";
 
 import Loader from "../loader/loader.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -55,7 +55,12 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [showForgotPasswordField, setShowForgotPasswordField] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { setCurrentUser } = useContext(UserContext);
+
+  const dispatch = useDispatch();
+  const { email, password, emailForPasswordReset } = formFields;
+  const swal = withReactContent(Swal);
+  const authFromFirebase = getAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getGoogleSignInResult() {
@@ -63,18 +68,13 @@ const SignInForm = () => {
       if (!response) return;
       setIsLoading(true);
       await createUserDocumentFromAuth(response.user);
-      setCurrentUser(response.user);
+      dispatch(setCurrentUser(response.user));
+      navigate("/menu");
       setIsLoading(false);
     }
     getGoogleSignInResult();
-  }, [setCurrentUser]);
+  }, [dispatch, navigate]);
 
-  const { email, password, emailForPasswordReset } = formFields;
-  const swal = withReactContent(Swal);
-  const authFromFirebase = getAuth();
-  const navigate = useNavigate();
-
-  // const dispatch = useDispatch();
   // const error = useSelector(selectError);
   // const emailAddress = useSelector(selectEmailAddress);
 

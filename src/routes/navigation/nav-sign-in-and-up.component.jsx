@@ -1,21 +1,16 @@
-import { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selectors";
 
-import { UserContext } from "../../contexts/user.context";
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 
 import { MenuLink } from "./navbar.styles";
 
 const NavSignInAndUp = () => {
-  const { currentUser } = useContext(UserContext);
-  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
+  const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const location = useLocation();
-
-  // const dispatch = useDispatch();
-  // const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -25,18 +20,17 @@ const NavSignInAndUp = () => {
         <>
           <MenuLink
             onClick={() => {
-              setShowHamburgerMenu(false);
+              dispatch(hideHamburgerMenu());
+
               navigate("/sign-in");
-              // dispatch({ type: "HIDE_HAMBURGER_MENU" });
             }}
           >
             sign in
           </MenuLink>
           <MenuLink
             onClick={() => {
-              setShowHamburgerMenu(false);
+              dispatch(hideHamburgerMenu());
               navigate("/sign-up");
-              // dispatch({ type: "HIDE_HAMBURGER_MENU" });
             }}
           >
             sign up
@@ -45,9 +39,8 @@ const NavSignInAndUp = () => {
       ) : location.pathname === "/sign-in" && !currentUser ? (
         <MenuLink
           onClick={() => {
-            setShowHamburgerMenu(false);
+            dispatch(hideHamburgerMenu());
             navigate("/sign-up");
-            // dispatch({ type: "HIDE_HAMBURGER_MENU" });
           }}
         >
           sign up
@@ -57,9 +50,8 @@ const NavSignInAndUp = () => {
         !currentUser && (
           <MenuLink
             onClick={() => {
-              setShowHamburgerMenu(false);
+              dispatch(hideHamburgerMenu());
               navigate("/sign-in");
-              // dispatch({ type: "HIDE_HAMBURGER_MENU" });
             }}
           >
             sign in

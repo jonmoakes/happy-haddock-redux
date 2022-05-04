@@ -1,14 +1,14 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { UserContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+
+import { selectCurrentUser } from "../../store/user/user.selectors";
+
 import CustomButton from "../../components/custom-button/custom-button.component";
 
 import { Div } from "../../styles/div/div.styles";
 
 const SignInUpLinks = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   return (
     <Div>
       {currentUser ? (

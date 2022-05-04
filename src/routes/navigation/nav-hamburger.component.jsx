@@ -1,17 +1,17 @@
-import { useContext } from "react";
-// import { useDispatch } from "react-redux";
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { useDispatch } from "react-redux";
+
+import { toggleHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 
 import { HamburgerContainer, Hamburger } from "./navbar.styles";
 
 const NavHamburger = ({ showHamburgerMenu }) => {
-  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
-
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <>
       <HamburgerContainer>
-        <Hamburger onClick={() => setShowHamburgerMenu(!showHamburgerMenu)}>
+        <Hamburger
+          onClick={() => dispatch(toggleHamburgerMenu(!showHamburgerMenu))}
+        >
           {!showHamburgerMenu ? (
             <>
               <span />

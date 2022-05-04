@@ -1,11 +1,9 @@
-import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
-
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 import Logo from "../../assets/happy-haddock-200x200.png";
 
 import {
@@ -19,10 +17,9 @@ import "../../styles/confirm.css";
 import { LogoContainer, LogoImage } from "./navbar.styles";
 
 const NavLogo = () => {
-  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
   const location = useLocation();
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const swal = withReactContent(Swal);
 
   function showHomePageSwal() {
@@ -44,12 +41,10 @@ const NavLogo = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          setShowHamburgerMenu(false);
+          dispatch(hideHamburgerMenu());
           navigate("/");
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         } else if (!result.isConfirmed || result.isDismissed) {
-          setShowHamburgerMenu(false);
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
+          dispatch(hideHamburgerMenu());
         }
       });
   }
@@ -65,8 +60,7 @@ const NavLogo = () => {
         <LogoContainer
           onClick={() => {
             navigate("/");
-            setShowHamburgerMenu(false);
-            // dispatch({ type: "HIDE_HAMBURGER_MENU" });
+            dispatch(hideHamburgerMenu());
           }}
         >
           <LogoImage src={Logo} alt="logo" />

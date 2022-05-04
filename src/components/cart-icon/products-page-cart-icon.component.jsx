@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 
 import {
   areYouSureMessage,
@@ -22,11 +21,9 @@ import {
 } from "./cart-icon.styles";
 
 const ProductsPageCartIcon = () => {
-  const { setShowHamburgerMenu } = useContext(HamburgerMenuContext);
-
   const swal = withReactContent(Swal);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   function showCheckoutPageSwal() {
     swal
@@ -47,12 +44,10 @@ const ProductsPageCartIcon = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          setShowHamburgerMenu(false);
+          dispatch(hideHamburgerMenu());
           navigate("/checkout");
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         } else if (!result.isConfirmed || result.isDismissed) {
-          setShowHamburgerMenu(false);
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
+          dispatch(hideHamburgerMenu());
         }
       });
   }

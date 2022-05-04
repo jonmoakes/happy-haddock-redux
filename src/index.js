@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 import App from "./App";
-import { UserProvider } from "./contexts/user.context";
 import { ProductsProvider } from "./contexts/products.context";
-import { HamburgerMenuProvider } from "./contexts/hamburger-menu.context";
 
 import "./index.css";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -16,15 +16,13 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
+    <Provider store={store}>
+      <BrowserRouter>
         <ProductsProvider>
-          <HamburgerMenuProvider>
-            <App />
-          </HamburgerMenuProvider>
+          <App />
         </ProductsProvider>
-      </UserProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

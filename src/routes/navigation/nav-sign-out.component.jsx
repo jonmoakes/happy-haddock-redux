@@ -1,13 +1,11 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import { selectCurrentUser } from "../../redux/user/user.selectors";
-// import { selectShowHamburgerMenu } from "../../redux/hamburger-menu/hamburger-menu.selectors";
-// import { useDispatch, useSelector } from "react-redux";
 
-import { UserContext } from "../../contexts/user.context";
-import { HamburgerMenuContext } from "../../contexts/hamburger-menu.context";
+import { selectCurrentUser } from "../../store/user/user.selectors";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action.js";
+
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import {
@@ -20,15 +18,11 @@ import "../../styles/confirm.css";
 import { MenuLink } from "./navbar.styles";
 
 const NavSignOut = () => {
-  const { currentUser } = useContext(UserContext);
-  const { showHamburgerMenu, setShowHamburgerMenu } =
-    useContext(HamburgerMenuContext);
+  const currentUser = useSelector(selectCurrentUser);
 
   const navigate = useNavigate();
   const swal = withReactContent(Swal);
-  // const dispatch = useDispatch();
-  // const currentUser = useSelector(selectCurrentUser);
-  // const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
+  const dispatch = useDispatch();
 
   const signOutHandler = async () => {
     await signOutUser();
@@ -53,13 +47,8 @@ const NavSignOut = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          setShowHamburgerMenu(false);
-          // dispatch({ type: "SIGN_OUT_START" });
+          dispatch(hideHamburgerMenu());
           signOutHandler();
-        }
-        if (showHamburgerMenu) {
-          setShowHamburgerMenu(false);
-          // dispatch({ type: "HIDE_HAMBURGER_MENU" });
         }
       });
   }

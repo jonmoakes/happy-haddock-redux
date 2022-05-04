@@ -1,9 +1,15 @@
-import { lazy, Suspense, useContext } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { GlobalStyle } from "./global-styles";
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+} from "./utils/firebase/firebase.utils";
 
-import { UserContext } from "./contexts/user.context";
+import { setCurrentUser } from "./store/user/user.action";
+import { selectCurrentUser } from "./store/user/user.selectors";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
@@ -19,7 +25,19 @@ const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
 
 const App = () => {
-  const { currentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const user = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
 
   return (
     <div>
@@ -30,9 +48,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigation />}>
               <Route index element={<Home />} />
-              <Route path="sign-in" element={!currentUser && <SignIn />} />
-              <Route path="sign-up" element={!currentUser && <SignUp />} />
-              <Route path="menu/*" element={currentUser && <Menu />} />
+              <Route path="sign-in" element={!user && <SignIn />} />
+              <Route path="sign-up" element={!user && <SignUp />} />
+              <Route path="menu/*" element={user && <Menu />} />
             </Route>
           </Routes>
         </Suspense>
