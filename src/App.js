@@ -5,6 +5,7 @@ import { GlobalStyle } from "./global-styles";
 
 import { UserContext } from "./contexts/user.context";
 
+import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
 import Loader from "./components/loader/loader.component";
 import Footer from "./components/footer/footer.component";
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
+      <ScrollToTopAuto />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loader />}>
           <Routes>
