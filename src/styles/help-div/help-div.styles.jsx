@@ -11,7 +11,7 @@ export const HelpDiv = styled.div`
   width: 90%;
 
   h1 {
-    margin-bottom: -10px;
+    margin-bottom: 0px;
   }
 
   p {
@@ -84,7 +84,7 @@ export const Button = styled.button`
   font-size: 16px;
 
   &.dashboard {
-    margin-bottom: -10px;
+    margin-bottom: -5px;
   }
 
   &:hover {

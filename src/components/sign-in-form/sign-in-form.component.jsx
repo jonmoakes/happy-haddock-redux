@@ -1,26 +1,22 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  getRedirectResult,
-  getAuth,
-  sendPasswordResetEmail,
-} from "firebase/auth";
-import {
-  auth,
-  signInWithGoogleRedirect,
-  createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-import { setCurrentUser } from "../../store/user/user.action";
+import {
+  googleSignInStart,
+  emailSignInStart,
+  resetErrorMessage,
+} from "../../store/user/user.action";
 
-// import {
-//   selectError,
-//   selectEmailAddress,
-// } from "../../redux/user/user.selectors";
+import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selector";
+import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
+
+import {
+  selectIsSignInLoading,
+  selectUserError,
+} from "../../store/user/user.selector";
 
 import Loader from "../loader/loader.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -41,6 +37,8 @@ import {
   errorSigningInTitle,
   errorSigningInText,
   emailAddressNotFound,
+  noNetworkDetected,
+  networkRequestFailedError,
 } from "../../strings/strings";
 
 import "../../styles/confirm.css";
@@ -53,87 +51,51 @@ const defaultFormFields = {
 
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [passwordResetLoader, setPasswordResetLoader] = useState(false);
   const [showForgotPasswordField, setShowForgotPasswordField] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const isLoading = useSelector(selectIsSignInLoading);
+  const error = useSelector(selectUserError);
+  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
 
   const dispatch = useDispatch();
-  const { email, password, emailForPasswordReset } = formFields;
   const swal = withReactContent(Swal);
-  const authFromFirebase = getAuth();
-  const navigate = useNavigate();
+  const auth = getAuth();
+  const { email, password, emailForPasswordReset } = formFields;
 
   useEffect(() => {
-    async function getGoogleSignInResult() {
-      const response = await getRedirectResult(auth);
-      if (!response) return;
-      setIsLoading(true);
-      await createUserDocumentFromAuth(response.user);
-      dispatch(setCurrentUser(response.user));
-      navigate("/menu");
-      setIsLoading(false);
+    if (error && error.code.includes(networkRequestFailedError)) {
+      swal
+        .fire({
+          title: noNetworkDetected,
+          background: "black",
+          backdrop: `
+    rgba(0,0,123,0.8)`,
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `${okMessage}`,
+          customClass: "confirm",
+          allowOutsideClick: true,
+        })
+        .then(dispatch(resetErrorMessage()));
+    } else if (error && !error.code.includes(networkRequestFailedError)) {
+      resetFormFields();
+      swal
+        .fire({
+          title: errorSigningInTitle,
+          text: errorSigningInText,
+          background: "black",
+          backdrop: `
+    rgba(0,0,123,0.8)`,
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `${okMessage}`,
+          customClass: "confirm",
+          allowOutsideClick: true,
+        })
+        .then(dispatch(resetErrorMessage()));
     }
-    getGoogleSignInResult();
-  }, [dispatch, navigate]);
-
-  // const error = useSelector(selectError);
-  // const emailAddress = useSelector(selectEmailAddress);
-
-  //login or password reset  error
-  // useEffect(() => {
-  //   if (error) {
-  //     setIsLoading(false);
-  //     swal
-  //       .fire({
-  //         title: `${error}`,
-  //         background: "black",
-  //         backdrop: `
-  //   rgba(0,0,123,0.8)`,
-  //         icon: "error",
-  //         confirmButtonColor: "#3085d6",
-  //         confirmButtonText: `${okMessage}`,
-  //         customClass: "confirm",
-  //         allowOutsideClick: true,
-  //       })
-  //       .then(dispatch({ type: "RESET_ERROR_MESSAGE" }))
-  //       .then((result) => {
-  //         if (result.isConfirmed || result.isDismissed) {
-  //           setCredentials({
-  //             email: "",
-  //             password: "",
-  //             emailForPasswordReset: "",
-  //           });
-  //         }
-  //       });
-  //   }
-  // }, [error, swal, dispatch]);
-
-  // password reset success
-  // useEffect(() => {
-  //   if (emailAddress) {
-  //     setIsLoading(false);
-  //     swal
-  //       .fire({
-  //         title: `${passwordResetSuccessMessage}`,
-  //         text: `${passwordResetSuccessText}`,
-  //         background: "black",
-  //         backdrop: `
-  //   rgba(0,0,123,0.8)`,
-  //         icon: "success",
-  //         confirmButtonColor: "#3085d6",
-  //         confirmButtonText: `${okMessage}`,
-  //         customClass: "confirm",
-  //         allowOutsideClick: true,
-  //       })
-  //       .then(dispatch({ type: "RESET_EMAIL_ADDRESS" }))
-  //       .then((result) => {
-  //         if (result.isConfirmed || result.isDismissed) {
-  //           setCredentials({
-  //             emailForPasswordReset: "",
-  //           });
-  //         }
-  //       });
-  //   }
-  // }, [emailAddress, swal, dispatch]);
+  }, [error, swal, dispatch]);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -144,15 +106,20 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   };
 
+  const signInWithGoogle = async () => {
+    if (showHamburgerMenu) {
+      dispatch(hideHamburgerMenu());
+    }
+    await dispatch(googleSignInStart());
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
-      setIsLoading(false);
-      resetFormFields();
-      navigate("/menu");
+      if (showHamburgerMenu) {
+        dispatch(hideHamburgerMenu());
+      }
+      await dispatch(emailSignInStart(email, password));
     } catch (error) {
       swal.fire({
         title: errorSigningInTitle,
@@ -167,32 +134,25 @@ const SignInForm = () => {
         allowOutsideClick: false,
       });
       resetFormFields();
-      setIsLoading(false);
       return;
     }
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   setIsLoading(true);
-  //   dispatch({
-  //     type: "EMAIL_SIGN_IN_START",
-  //     payload: { email, password },
-  //   });
-  // };
-
   const handlePasswordResetSubmit = async (event) => {
     event.preventDefault();
 
-    sendPasswordResetEmail(authFromFirebase, emailForPasswordReset)
+    const email = emailForPasswordReset;
+    setPasswordResetLoader(true);
+    sendPasswordResetEmail(auth, email)
       .then(() => {
+        setPasswordResetLoader(false);
         swal
           .fire({
             title: passwordResetSuccessMessage,
             text: passwordResetSuccessText,
             background: "black",
             backdrop: `
-rgba(0,0,123,0.8)`,
+      rgba(0,0,123,0.8)`,
             icon: "success",
             confirmButtonColor: "#3085d6",
             confirmButtonText: `${okMessage}`,
@@ -202,53 +162,43 @@ rgba(0,0,123,0.8)`,
           .then(resetFormFields());
       })
       .catch((error) => {
-        console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode === "auth/user-not-found") {
-          swal.fire({
-            title: emailAddressNotFound,
-            background: "black",
-            backdrop: `
-   rgba(0,0,123,0.8)`,
-            icon: "error",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: `${okMessage}`,
-            customClass: "confirm",
-            allowOutsideClick: false,
-          });
-          resetFormFields();
+        setPasswordResetLoader(false);
+        if (error.code.includes("auth/user-not-found")) {
+          swal
+            .fire({
+              title: emailAddressNotFound,
+              background: "black",
+              backdrop: `
+      rgba(0,0,123,0.8)`,
+              icon: "error",
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: `${okMessage}`,
+              customClass: "confirm",
+              allowOutsideClick: true,
+            })
+            .then(resetFormFields());
         } else {
-          swal.fire({
-            title: errorCode,
-            text: errorMessage,
-            background: "black",
-            backdrop: `
-   rgba(0,0,123,0.8)`,
-            icon: "error",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: `${okMessage}`,
-            customClass: "confirm",
-            allowOutsideClick: false,
-          });
-          resetFormFields();
+          swal
+            .fire({
+              title: error.code,
+              text: error.message,
+              background: "black",
+              backdrop: `
+      rgba(0,0,123,0.8)`,
+              icon: "error",
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: `${okMessage}`,
+              customClass: "confirm",
+              allowOutsideClick: true,
+            })
+            .then(resetFormFields());
         }
       });
   };
 
-  // const handleSubmitForPasswordReset = async (event) => {
-  //   event.preventDefault();
-  //   const emailAddress = emailForPasswordReset;
-
-  //   dispatch({
-  //     type: "RESET_PASSWORD_START",
-  //     payload: emailAddress,
-  //   });
-  // };
-
   return (
     <Div>
-      {isLoading && <Loader />}
+      {(isLoading || passwordResetLoader) && <Loader />}
 
       <h1>sign in</h1>
       <p>Please Sign in with your email and password.</p>
@@ -287,7 +237,7 @@ rgba(0,0,123,0.8)`,
           <CustomButton
             type="button"
             className="google-button"
-            onClick={signInWithGoogleRedirect}
+            onClick={signInWithGoogle}
           >
             Sign In with google
           </CustomButton>

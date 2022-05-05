@@ -1,14 +1,10 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { GlobalStyle } from "./global-styles";
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-} from "./utils/firebase/firebase.utils";
 
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 import { selectCurrentUser } from "./store/user/user.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
@@ -31,14 +27,7 @@ const App = () => {
   const user = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
+    dispatch(checkUserSession());
   }, [dispatch]);
 
   return (
@@ -50,8 +39,14 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigation />}>
               <Route index element={<Home />} />
-              <Route path="sign-in" element={!user && <SignIn />} />
-              <Route path="sign-up" element={!user && <SignUp />} />
+              <Route
+                path="sign-in"
+                element={!user ? <SignIn /> : <Navigate replace to="/menu" />}
+              />
+              <Route
+                path="sign-up"
+                element={!user ? <SignUp /> : <Navigate replace to="/menu" />}
+              />
               <Route path="menu/*" element={user && <Menu />} />
               {/* <Route path="contact" element={<Contact />} /> */}
               <Route path="checkout" element={user && <Checkout />} />

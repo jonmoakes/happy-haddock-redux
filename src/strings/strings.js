@@ -71,3 +71,9 @@ export const emailAddressNotFound =
   "email address not found, please try again.";
 export const emailAlreadyInUse =
   "this email is already in use. Please try another email address.";
+export const weakPassword =
+  "for security reasons, please make sure your password is at least 6 characters long.";
+export const noNetworkDetected =
+  "internet connection not detected. Please check your connection";
+
+export const networkRequestFailedError = "network-request-failed";

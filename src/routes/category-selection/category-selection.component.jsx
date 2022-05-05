@@ -6,6 +6,8 @@ import {
   selectProductsIsLoading,
 } from "../../store/products/product.selector";
 
+import { selectCurrentUser } from "../../store/user/user.selector";
+
 import Loader from "../../components/loader/loader.component";
 import CategoryTitles from "./category-titles.component";
 
@@ -15,13 +17,18 @@ import { HelpDiv } from "../../styles/help-div/help-div.styles";
 
 const CategorySelection = () => {
   const productsMap = useSelector(selectProductsMap);
+  const currentUser = useSelector(selectCurrentUser);
   const isLoading = useSelector(selectProductsIsLoading);
 
   return (
     <Container>
       <HelpDiv>
         <h1>our menu</h1>
-        <p>tap on any category to view its products</p>
+        <p>
+          welcome {currentUser.displayName}!
+          <br />
+          Tap on any category to view its products.
+        </p>
       </HelpDiv>
 
       {isLoading && <Loader />}

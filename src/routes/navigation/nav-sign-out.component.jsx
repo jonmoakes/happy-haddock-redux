@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import { signOutStart } from "../../store/user/user.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selector";
 import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
-
-import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import {
   signOutConfirmMessage,
@@ -19,17 +19,15 @@ import { MenuLink } from "./navbar.styles";
 
 const NavSignOut = () => {
   const currentUser = useSelector(selectCurrentUser);
-
-  const navigate = useNavigate();
+  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
   const swal = withReactContent(Swal);
   const dispatch = useDispatch();
-
-  const signOutHandler = async () => {
-    await signOutUser();
-    navigate("/sign-in");
-  };
+  const navigate = useNavigate();
 
   function showSignOutConfirmSwal() {
+    if (showHamburgerMenu) {
+      dispatch(hideHamburgerMenu());
+    }
     swal
       .fire({
         title: `${signOutConfirmMessage}`,
@@ -47,8 +45,8 @@ const NavSignOut = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          dispatch(hideHamburgerMenu());
-          signOutHandler();
+          dispatch(signOutStart());
+          navigate("/");
         }
       });
   }

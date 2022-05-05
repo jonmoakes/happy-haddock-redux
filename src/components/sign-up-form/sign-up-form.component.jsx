@@ -1,15 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-// import { useDispatch, useSelector } from "react-redux";
 
+import { signUpStart, resetErrorMessage } from "../../store/user/user.action";
 import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
-
-// import { selectError } from "../../redux/user/user.selectors";
+  selectIsSignInLoading,
+  selectUserError,
+} from "../../store/user/user.selector";
 
 import Loader from "../loader/loader.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -23,6 +21,7 @@ import {
   displayNameTooLongMessage,
   passwordsDontMatchMessage,
   emailAlreadyInUse,
+  weakPassword,
 } from "../../strings/strings";
 
 const defaultFormFields = {
@@ -34,43 +33,63 @@ const defaultFormFields = {
 
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(selectIsSignInLoading);
+  const error = useSelector(selectUserError);
 
   const swal = withReactContent(Swal);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { displayName, email, password, confirmPassword } = formFields;
 
-  // const dispatch = useDispatch();
-  // const error = useSelector(selectError);
-
-  // useEffect(() => {
-  //   if (error) {
-  //     setIsLoading(false);
-  //     swal
-  //       .fire({
-  //         title: `${error}`,
-  //         background: "black",
-  //         backdrop: `
-  //   rgba(0,0,123,0.8)`,
-  //         icon: "error",
-  //         confirmButtonColor: "#3085d6",
-  //         confirmButtonText: `${okMessage}`,
-  //         customClass: "confirm",
-  //         allowOutsideClick: true,
-  //       })
-  //       .then(dispatch({ type: "RESET_ERROR_MESSAGE" }))
-  //       .then((result) => {
-  //         if (result.isConfirmed || result.isDismissed) {
-  //           setUserCredentials({
-  //             displayName: "",
-  //             email: "",
-  //             password: "",
-  //             confirmPassword: "",
-  //           });
-  //         }
-  //       });
-  //   }
-  // }, [error, swal, dispatch]);
+  useEffect(() => {
+    if (!error) return;
+    if (error.code.includes("auth/email-already-in-use")) {
+      swal
+        .fire({
+          title: emailAlreadyInUse,
+          background: "black",
+          backdrop: `
+  rgba(0,0,123,0.8)`,
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `${okMessage}`,
+          customClass: "confirm",
+          allowOutsideClick: false,
+        })
+        .then(dispatch(resetErrorMessage()))
+        .then(resetFormFields());
+      return;
+    } else if (error.code.includes("weak-password")) {
+      swal
+        .fire({
+          title: weakPassword,
+          background: "black",
+          backdrop: `
+  rgba(0,0,123,0.8)`,
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `${okMessage}`,
+          customClass: "confirm",
+          allowOutsideClick: false,
+        })
+        .then(dispatch(resetErrorMessage()));
+    } else {
+      swal
+        .fire({
+          title: `${error.code}`,
+          background: "black",
+          backdrop: `
+  rgba(0,0,123,0.8)`,
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `${okMessage}`,
+          customClass: "confirm",
+          allowOutsideClick: true,
+        })
+        .then(dispatch(resetErrorMessage()))
+        .then(resetFormFields());
+    }
+  }, [error, swal, dispatch]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -83,10 +102,8 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
 
     if (displayName.length > 8) {
-      setIsLoading(false);
       swal.fire({
         title: `${displayNameTooLongMessage}`,
         background: "black",
@@ -100,7 +117,6 @@ const SignUp = () => {
       });
       return;
     } else if (password !== confirmPassword) {
-      setIsLoading(false);
       swal.fire({
         title: `${passwordsDontMatchMessage}`,
         background: "black",
@@ -113,53 +129,9 @@ const SignUp = () => {
         allowOutsideClick: false,
       });
       return;
+    } else {
+      dispatch(signUpStart(email, password, displayName));
     }
-
-    try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserDocumentFromAuth(user, { displayName });
-      setIsLoading(false);
-      resetFormFields();
-      navigate("/menu");
-    } catch (error) {
-      setIsLoading(false);
-      console.log("user creation encountered an error ", error);
-      if (error.code === "auth/email-already-in-use") {
-        swal.fire({
-          title: emailAlreadyInUse,
-          background: "black",
-          backdrop: `
-  rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: false,
-        });
-        return;
-      } else {
-        swal.fire({
-          title: error.code,
-          background: "black",
-          backdrop: `
-  rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: false,
-        });
-        return;
-      }
-    }
-
-    // dispatch({
-    //   type: "SIGN_UP_START",
-    //   payload: { email, password, displayName },
-    // });
   };
 
   return (
