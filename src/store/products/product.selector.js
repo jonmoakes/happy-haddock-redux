@@ -14,3 +14,8 @@ export const selectProductsMap = createSelector([selectProducts], (products) =>
     return acc;
   }, {})
 );
+
+export const selectProductsIsLoading = createSelector(
+  [selectProductReducer],
+  (productsSlice) => productsSlice.isLoading
+);
