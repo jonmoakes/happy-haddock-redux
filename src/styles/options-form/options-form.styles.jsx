@@ -20,7 +20,7 @@ export const OptionsForm = styled.form`
     color: black;
     text-shadow: none;
 
-    @media screen and (max-width: 1377px) {
+    @media screen and (max-width: 1366px) {
       font-size: 16px;
       margin-top: 15px;
     }
@@ -36,6 +36,47 @@ export const OptionsForm = styled.form`
     height: 20px;
     display: block;
     margin: 0px auto;
+  }
+
+  input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: transparent;
+    /* Not removed via appearance */
+    margin: 10px auto 0px auto;
+    font: inherit;
+    background-color: lightgrey;
+    width: 1.5em;
+    height: 1.5em;
+    border: 2px solid black;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+  }
+
+  input[type="checkbox"]::before {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(black);
+    /* Windows High Contrast Mode */
+    background-color: black;
+  }
+
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+
+  input[type="checkbox"]:focus {
+    outline: max(2px, 0.15em) solid black;
   }
 
   textarea {
@@ -59,7 +100,7 @@ export const OptionsForm = styled.form`
     animation: 1s ${bounceInDownAnimation};
   }
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     width: 60%;
     padding: 10px 0px 20px 0px;
   }
@@ -85,7 +126,7 @@ export const RequiredDiv = styled.div`
     border-radius: 5px;
   }
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     margin: 10px auto 10px auto;
   }
 `;
@@ -100,7 +141,7 @@ export const Section = styled.div`
     margin-top: -20px;
     margin-bottom: -5px;
 
-    @media screen and (max-width: 1377px) {
+    @media screen and (max-width: 1366px) {
       margin-bottom: -25px;
     }
   }
@@ -111,7 +152,7 @@ export const Section = styled.div`
     color: whitesmoke;
   }
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     margin-top: -20px;
   }
 `;
@@ -125,31 +166,6 @@ export const RadioDiv = styled.div`
   .options-label {
     @media screen and (max-width: 450px) {
       font-size: 14px;
-    }
-  }
-
-  .checkbox {
-    margin-bottom: 10px;
-    position: relative;
-    top: 4px;
-    left: 10px;
-    padding: 0px 3px 0px 3px;
-    background-color: black;
-    border-radius: 5px;
-
-    @media screen and (max-width: 1377px) {
-      top: 3.5px;
-      padding: 3px 3px 1px 3px;
-    }
-
-    @media screen and (max-width: 600px) {
-      top: 4px;
-    }
-
-    @media screen and (max-width: 450px) {
-      margin-bottom: 20px;
-      top: 7.5px;
-      left: 5px;
     }
   }
 `;

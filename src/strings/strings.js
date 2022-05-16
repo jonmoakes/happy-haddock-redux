@@ -75,5 +75,19 @@ export const weakPassword =
   "for security reasons, please make sure your password is at least 6 characters long.";
 export const noNetworkDetected =
   "internet connection not detected. Please check your connection";
-
 export const networkRequestFailedError = "network-request-failed";
+
+//sizeOptions
+export const single = "single";
+export const double = "double";
+export const small = "small";
+export const medium = "medium";
+export const large = "large";
+export const sixNuggets = "6 nuggets";
+export const nineNuggets = "9 nuggets";
+export const twelveNuggets = "12 nuggets";
+export const twentyNuggets = "20 nuggets";
+export const onePiece = "1 piece";
+export const twoPieces = "2 pieces";
+export const threePieces = "3 pieces";
+export const fourPieces = "4 pieces";

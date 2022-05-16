@@ -3,6 +3,7 @@ export const PRODUCTS_INITIAL_STATE = {
   products: [],
   isLoading: false,
   error: null,
+  individualProduct: {},
 };
 
 export const productsReducer = (
@@ -18,6 +19,8 @@ export const productsReducer = (
       return { ...state, products: payload, isLoading: false };
     case PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_FAILED:
       return { ...state, error: payload, isLoading: false };
+    case PRODUCTS_ACTION_TYPES.ADD_INDIVIDUAL_PRODUCT:
+      return { ...state, individualProduct: payload };
     default:
       return state;
   }

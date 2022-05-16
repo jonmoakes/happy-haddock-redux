@@ -61,8 +61,12 @@ export const ProductItemDiv = styled.div`
   padding: 20px 20px 30px 20px;
   animation: 1s ${slideInLeftAnimation};
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     width: 90%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 80%;
   }
 
   @media screen and (max-width: 450px) {
@@ -81,7 +85,7 @@ export const Name = styled.span`
   text-decoration: underline;
 
   @media screen and (max-width: 450px) {
-    margin-top: -20px;
+    margin-top: -10px;
     font-size: 18px;
   }
 `;
@@ -120,7 +124,7 @@ export const ChooseOptionsButton = styled.button`
   text-transform: capitalize;
   outline: none;
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     width: 60%;
   }
   @media screen and (max-width: 850px) {

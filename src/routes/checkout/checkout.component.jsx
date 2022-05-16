@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { selectCartItems } from "../../store/cart/cart.selector";
+import { resetTotalPrice } from "../../store/cart/cart.action";
 
 import CheckoutPageQuantityInstructions from "./checkout-quantity-instructions.component";
 import CheckoutPageClearCart from "./checkout-clear-cart.component";
@@ -11,7 +12,6 @@ import CheckoutPageOptionsPriceInfo from "./checkout-options-price-info.componen
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import CheckoutPageTotalPriceInfo from "./checkout-total-price-info.component";
 // import PaymentForm from "../../components/payment-form/payment-form.component";
-import ConfirmPayment from "../../components/payment-form/confirm-payment.component";
 import CheckoutPageStripeInfo from "./checkout-stripe-info.component";
 
 import { HeadingContainerDiv, CheckoutPageDiv } from "./checkout.styles";
@@ -23,7 +23,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (!cartItems.length) {
-      // dispatch({ type: "RESET_TOTAL_PRICE" });
+      dispatch(resetTotalPrice());
       setRedirectToMenu(true);
     }
   }, [cartItems.length, dispatch]);
@@ -46,7 +46,6 @@ const Checkout = () => {
 
         <CheckoutPageTotalPriceInfo />
         {/* <PaymentForm /> */}
-        <ConfirmPayment />
         <CheckoutPageStripeInfo />
         {redirectToMenu && <Navigate to="/menu" replace />}
       </CheckoutPageDiv>

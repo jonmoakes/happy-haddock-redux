@@ -25,7 +25,7 @@ export const AddToOrderButtonContainer = styled.button`
   &:hover {
     background-color: whitesmoke;
 
-    @media screen and (max-width: 1377px) {
+    @media screen and (max-width: 1366px) {
       background-color: #00ff2a;
     }
   }
@@ -38,7 +38,7 @@ export const AddToOrderButtonContainer = styled.button`
     }
   }
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     background-color: #00ff2a;
     width: 60%;
   }

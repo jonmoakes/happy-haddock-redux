@@ -19,6 +19,9 @@ const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
+const IndividualProduct = lazy(() =>
+  import("./routes/individual-product/individual-product.component")
+);
 const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
 // const Contact = lazy(() => import("./routes/contact/contact.component"));
 
@@ -48,6 +51,7 @@ const App = () => {
                 element={!user ? <SignUp /> : <Navigate replace to="/menu" />}
               />
               <Route path="menu/*" element={user && <Menu />} />
+              <Route path="product/*" element={user && <IndividualProduct />} />
               {/* <Route path="contact" element={<Contact />} /> */}
               <Route path="checkout" element={user && <Checkout />} />
             </Route>

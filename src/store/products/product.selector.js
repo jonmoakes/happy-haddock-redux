@@ -19,3 +19,6 @@ export const selectProductsIsLoading = createSelector(
   [selectProductReducer],
   (productsSlice) => productsSlice.isLoading
 );
+
+export const selectIndividualProduct = (state) =>
+  state.products.individualProduct;

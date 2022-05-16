@@ -13,7 +13,6 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
 import { stripePromise } from "./utils/stripe/stripe.utils";
-console.log(stripePromise);
 
 // const container = document.getElementById("root");
 // const root = createRoot(container);

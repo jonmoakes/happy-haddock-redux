@@ -18,7 +18,7 @@ export const ContactDiv = styled.div`
     }
   }
 
-  @media screen and (max-width: 1377px) {
+  @media screen and (max-width: 1366px) {
     width: 90%;
   }
 

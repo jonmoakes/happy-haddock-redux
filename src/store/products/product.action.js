@@ -9,3 +9,6 @@ export const fetchProductsSuccess = (productsArray) =>
 
 export const fetchProductsFailed = (error) =>
   createAction(PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_FAILED, error);
+
+export const addIndividualProduct = (product) =>
+  createAction(PRODUCTS_ACTION_TYPES.ADD_INDIVIDUAL_PRODUCT, product);
