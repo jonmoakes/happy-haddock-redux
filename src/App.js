@@ -45,7 +45,6 @@ const App = () => {
         doc(db, "users", currentUser.id),
         (doc) => {
           const { cartItems } = doc.data();
-
           dispatch(updateCartItems(cartItems));
         }
       );

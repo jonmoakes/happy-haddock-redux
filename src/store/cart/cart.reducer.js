@@ -1,8 +1,4 @@
 import { CART_ACTION_TYPES } from "./cart.types";
-import {
-  increaseQuantityByOneToCart,
-  decreaseQuantityByOneFromCart,
-} from "./cart.action";
 
 export const CART_INITIAL_STATE = {
   cartItems: [],
@@ -17,15 +13,10 @@ export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
         ...state,
         cartItems: payload,
       };
-    case CART_ACTION_TYPES.INCREASE_QUANTITY_BY_ONE:
+    case CART_ACTION_TYPES.CHANGE_CART_ITEM_QUANTITY:
       return {
         ...state,
-        cartItems: increaseQuantityByOneToCart(state.cartItems, payload),
-      };
-    case CART_ACTION_TYPES.DECREASE_QUANTITY_BY_ONE:
-      return {
-        ...state,
-        cartItems: decreaseQuantityByOneFromCart(state.cartItems, payload),
+        cartItems: payload,
       };
     case CART_ACTION_TYPES.CLEAR_CART_ITEMS:
       return {
