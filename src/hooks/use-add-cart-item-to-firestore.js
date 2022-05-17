@@ -1,29 +1,15 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../utils/firebase/firebase.utils";
+import { db } from "../utils/firebase/firebase.utils";
 
-import { selectCurrentUser } from "../../store/user/user.selector";
-import { selectIndividualProduct } from "../../store/products/product.selector";
-import {
-  selectChosenSize,
-  selectSizeSelectedPrice,
-  selectSaltAndVinegar,
-  selectGratedCheesePrice,
-  selectDonerMeatPrice,
-  selectCheeseSliceSelected,
-  selectSaladSelected,
-  selectSaucesSelected,
-  selectSpecialInstructions,
-  selectQuantity,
-} from "../../store/final-item/final-item.selector";
-import { clearFinalItem } from "../../store/final-item/final-item.action";
-import { clearIndividualProduct } from "../../store/products/product.action";
-import AddToOrderButton from "../add-to-order-button/add-to-order-button.component";
+import useGetFinalItem from "./use-get-final-item";
+
+import { clearFinalItem } from "../store/final-item/final-item.action";
+import { clearIndividualProduct } from "../store/products/product.action";
+import { selectCurrentUser } from "../store/user/user.selector";
 
 import {
   confirmAddToCartMessage,
@@ -33,47 +19,16 @@ import {
   cancelledMessage,
   okMessage,
   goToCartWhenReadyMessage,
-} from "../../strings/strings";
+} from "../strings/strings";
 
-import "../../styles/confirm.css";
+import "../styles/confirm.css";
 
-const AddItemToOrder = () => {
+const useAddCartItemsInFirestore = () => {
+  const { finalItem } = useGetFinalItem();
   const [nav, setNav] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
-  const product = useSelector(selectIndividualProduct);
-  const chosenSize = useSelector(selectChosenSize);
-  const sizeSelectedPrice = useSelector(selectSizeSelectedPrice);
-  const saltAndVinegar = useSelector(selectSaltAndVinegar);
-  const gratedCheesePrice = useSelector(selectGratedCheesePrice);
-  const donerMeatPrice = useSelector(selectDonerMeatPrice);
-  const cheeseSliceSelected = useSelector(selectCheeseSliceSelected);
-  const saladSelected = useSelector(selectSaladSelected);
-  const saucesSelected = useSelector(selectSaucesSelected);
-  const specialInstructions = useSelector(selectSpecialInstructions);
-  const quantity = useSelector(selectQuantity);
-
-  const { name, description, price } = product;
   const dispatch = useDispatch();
   const swal = withReactContent(Swal);
-
-  const finalItem = {
-    id: uuidv4(),
-    name,
-    description,
-    price,
-    chosenSize,
-    sizeSelectedPrice,
-    saltAndVinegar,
-    gratedCheesePrice,
-    donerMeatPrice,
-    cheeseSliceSelected,
-    saladSelected,
-    saucesSelected,
-    specialInstructions,
-    quantity,
-    selectedOptionsCombinedPrice:
-      sizeSelectedPrice + gratedCheesePrice + donerMeatPrice,
-  };
 
   const addCartItemToFirestore = async () => {
     const userRef = doc(db, "users", currentUser.id);
@@ -91,7 +46,7 @@ const AddItemToOrder = () => {
     }
   };
 
-  function addItem() {
+  function confirmAddItem() {
     swal
       .fire({
         title: `${areYouSureMessage}`,
@@ -145,12 +100,7 @@ const AddItemToOrder = () => {
       });
   }
 
-  return (
-    <>
-      {nav && <Navigate replace to={"/menu"} />}
-      <AddToOrderButton onClick={addItem}>add to order</AddToOrderButton>
-    </>
-  );
+  return { nav, confirmAddItem };
 };
 
-export default AddItemToOrder;
+export default useAddCartItemsInFirestore;

@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../utils/firebase/firebase.utils";
 
+import useUpdateItemsInFirestore from "../../hooks/use-update-cart-items-in-firestore";
 import { decreaseItemQuantity } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
-import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { MinusArrow } from "./checkout-item.styles";
 
@@ -21,9 +18,8 @@ import {
 import "../../styles/confirm.css";
 
 const DecreaseQuantity = ({ cartItem }) => {
-  const currentUser = useSelector(selectCurrentUser);
+  const { updateCartItemInFirestore } = useUpdateItemsInFirestore();
   const cartItems = useSelector(selectCartItems);
-
   const swal = withReactContent(Swal);
   const dispatch = useDispatch();
 
@@ -31,21 +27,8 @@ const DecreaseQuantity = ({ cartItem }) => {
     dispatch(decreaseItemQuantity(cartItems, cartItem));
 
   useEffect(() => {
-    const updateCartItemInFirestore = async () => {
-      const userRef = await doc(db, "users", currentUser.id);
-      const userSnapshot = await getDoc(userRef);
-
-      try {
-        if (!userSnapshot.exists) return;
-        await updateDoc(userRef, {
-          cartItems: cartItems,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
     updateCartItemInFirestore();
-  }, [cartItems, currentUser]);
+  }, [updateCartItemInFirestore]);
 
   function confirmDecreaseQuantity() {
     swal

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
+import useAddCartItemsInFirestore from "../../hooks/use-add-cart-item-to-firestore";
+
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import RequiredInfoText from "./required-info-text/required-info-text.component";
@@ -15,7 +17,7 @@ import ChooseSauces from "../../components/options/choose-sauces/choose-sauces.c
 import ChooseSaltAndVinegar from "../../components/options/choose-salt-and-vinegar.component";
 import ChooseSpecialInstructions from "../../components/options/choose-special-instructions.component";
 import ChooseQuantity from "../../components/options/choose-quantity.component";
-import AddItemToOrder from "../../components/add-item-to-order/add-item-to-order.component";
+import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
 
 import {
   ProductItemDiv,
@@ -28,6 +30,7 @@ import { RequiredInfoDiv } from "../../styles/options-form/options-form.styles";
 
 const IndividualProductPage = () => {
   const [redirect, setRedirect] = useState(false);
+  const { nav, confirmAddItem } = useAddCartItemsInFirestore();
   const product = useSelector(selectIndividualProduct);
   const { name, description, price } = product;
 
@@ -38,36 +41,39 @@ const IndividualProductPage = () => {
   }, [product]);
 
   return (
-    <Container>
-      <RequiredInfoDiv>
-        <h1>choose your options</h1>
-        <RequiredInfoText />
-        <PriceInfo />
-      </RequiredInfoDiv>
+    <>
+      {(nav || redirect) && <Navigate replace to={"/menu"} />}
+      <Container>
+        <RequiredInfoDiv>
+          <h1>choose your options</h1>
+          <RequiredInfoText />
+          <PriceInfo />
+        </RequiredInfoDiv>
 
-      {name !== undefined &&
-      description !== undefined &&
-      price !== undefined ? (
-        <ProductItemDiv>
-          <p>you have selected:</p>
-          <Name>{name}</Name>
-          {description && <Description>{description}</Description>}
-          <Price>£{price.toFixed(2)}</Price>
-          <ChooseSize />
-          <ChooseSaltAndVinegar />
-          <ChooseGratedCheese />
-          <ChooseDonerMeat />
-          <ChooseCheeseSlice />
-          <ChooseSalad />
-          <ChooseSauces />
-          <ChooseSpecialInstructions />
-          <ChooseQuantity />
-          <AddItemToOrder />
-        </ProductItemDiv>
-      ) : (
-        redirect && <Navigate to="/menu" replace />
-      )}
-    </Container>
+        {name !== undefined &&
+          description !== undefined &&
+          price !== undefined && (
+            <ProductItemDiv>
+              <p>you have selected:</p>
+              <Name>{name}</Name>
+              {description && <Description>{description}</Description>}
+              <Price>£{price.toFixed(2)}</Price>
+              <ChooseSize />
+              <ChooseSaltAndVinegar />
+              <ChooseGratedCheese />
+              <ChooseDonerMeat />
+              <ChooseCheeseSlice />
+              <ChooseSalad />
+              <ChooseSauces />
+              <ChooseSpecialInstructions />
+              <ChooseQuantity />
+              <AddToOrderButton onClick={confirmAddItem}>
+                add to order
+              </AddToOrderButton>
+            </ProductItemDiv>
+          )}
+      </Container>
+    </>
   );
 };
 
