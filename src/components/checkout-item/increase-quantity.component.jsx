@@ -1,12 +1,9 @@
-// import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { addItemToCart } from "../../store/cart/cart.action";
-// import { selectCurrentUser } from "../../redux/user/user.selector";
+import { increaseQuantityByOneToCart } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
-// import { firestore } from "../../firebase/firebase.utils";
 
 import { AddArrow } from "./checkout-item.styles";
 
@@ -24,7 +21,8 @@ const IncreaseQuantity = ({ cartItem }) => {
   const cartItems = useSelector(selectCartItems);
   // const currentUser = useSelector(selectCurrentUser);
 
-  const addItemHandler = () => dispatch(addItemToCart(cartItems, cartItem));
+  const addItemHandler = () =>
+    dispatch(increaseQuantityByOneToCart(cartItems, cartItem));
 
   // useEffect(() => {
   //   async function updateCartItemsFirestore() {

@@ -1,12 +1,11 @@
-// import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { removeItemFromCart } from "../../store/cart/cart.action";
-// import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { decreaseQuantityByOneFromCart } from "../../store/cart/cart.action";
+
 import { selectCartItems } from "../../store/cart/cart.selector";
-// import { firestore } from "../../firebase/firebase.utils";
+
 import { MinusArrow } from "./checkout-item.styles";
 
 import {
@@ -22,7 +21,7 @@ const DecreaseQuantity = ({ cartItem }) => {
   const dispatch = useDispatch();
 
   const removeItemHandler = () =>
-    dispatch(removeItemFromCart(cartItems, cartItem));
+    dispatch(decreaseQuantityByOneFromCart(cartItems, cartItem));
   const cartItems = useSelector(selectCartItems);
   // const currentUser = useSelector(selectCurrentUser);
 

@@ -21,6 +21,8 @@ export const productsReducer = (
       return { ...state, error: payload, isLoading: false };
     case PRODUCTS_ACTION_TYPES.ADD_INDIVIDUAL_PRODUCT:
       return { ...state, individualProduct: payload };
+    case PRODUCTS_ACTION_TYPES.CLEAR_INDIVIDUAL_PRODUCT:
+      return { ...state, individualProduct: {} };
     default:
       return state;
   }

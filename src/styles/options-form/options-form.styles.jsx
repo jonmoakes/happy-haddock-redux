@@ -184,7 +184,7 @@ export const QuantityInput = styled.input`
   padding: 10px 10px 10px 5px;
   display: block;
   width: 80%;
-  height: 50px;
+  height: 20px;
   border-radius: 5px;
   border: 2px solid black;
   font-family: inherit;
@@ -213,4 +213,16 @@ export const RequiredInfoDiv = styled.div`
 export const InfoText = styled.p`
   font-size: 16px;
   color: whitesmoke;
+`;
+
+export const SaucesChoiceHeading = styled.p`
+  padding: 20px 0px;
+`;
+
+export const OptionsLabel = styled.p`
+  font-size: 16px;
+  color: black;
+  text-shadow: none;
+  text-decoration: none;
+  margin-top: 5px;
 `;

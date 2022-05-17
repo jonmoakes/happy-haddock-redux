@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { GlobalStyle } from "./global-styles";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "./utils/firebase/firebase.utils";
 
 import { checkUserSession } from "./store/user/user.action";
+import { updateCartItems } from "./store/cart/cart.action";
 import { selectCurrentUser } from "./store/user/user.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
@@ -27,11 +30,33 @@ const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     dispatch(checkUserSession());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    let unsubscribeFromSnapshot = null;
+
+    try {
+      unsubscribeFromSnapshot = onSnapshot(
+        doc(db, "users", currentUser.id),
+        (doc) => {
+          const { cartItems } = doc.data();
+
+          dispatch(updateCartItems(cartItems));
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    return () => {
+      unsubscribeFromSnapshot();
+    };
+  }, [currentUser, dispatch]);
 
   return (
     <div>
@@ -44,16 +69,23 @@ const App = () => {
               <Route index element={<Home />} />
               <Route
                 path="sign-in"
-                element={!user ? <SignIn /> : <Navigate replace to="/menu" />}
+                element={
+                  !currentUser ? <SignIn /> : <Navigate replace to="/menu" />
+                }
               />
               <Route
                 path="sign-up"
-                element={!user ? <SignUp /> : <Navigate replace to="/menu" />}
+                element={
+                  !currentUser ? <SignUp /> : <Navigate replace to="/menu" />
+                }
               />
-              <Route path="menu/*" element={user && <Menu />} />
-              <Route path="product/*" element={user && <IndividualProduct />} />
+              <Route path="menu/*" element={currentUser && <Menu />} />
+              <Route
+                path="product/*"
+                element={currentUser && <IndividualProduct />}
+              />
               {/* <Route path="contact" element={<Contact />} /> */}
-              <Route path="checkout" element={user && <Checkout />} />
+              <Route path="checkout" element={currentUser && <Checkout />} />
             </Route>
           </Routes>
         </Suspense>

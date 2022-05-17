@@ -10,6 +10,12 @@ import ChooseSize from "../../components/options/choose-size.component";
 import ChooseGratedCheese from "../../components/options/choose-grated-cheese.component";
 import ChooseDonerMeat from "../../components/options/choose-doner-meat.component";
 import ChooseCheeseSlice from "../../components/options/choose-cheese-slice.component";
+import ChooseSalad from "../../components/options/choose-salad.component";
+import ChooseSauces from "../../components/options/choose-sauces/choose-sauces.component";
+import ChooseSaltAndVinegar from "../../components/options/choose-salt-and-vinegar.component";
+import ChooseSpecialInstructions from "../../components/options/choose-special-instructions.component";
+import ChooseQuantity from "../../components/options/choose-quantity.component";
+import AddItemToOrder from "../../components/add-item-to-order/add-item-to-order.component";
 
 import {
   ProductItemDiv,
@@ -48,10 +54,15 @@ const IndividualProductPage = () => {
           {description && <Description>{description}</Description>}
           <Price>£{price.toFixed(2)}</Price>
           <ChooseSize />
+          <ChooseSaltAndVinegar />
           <ChooseGratedCheese />
           <ChooseDonerMeat />
           <ChooseCheeseSlice />
-          {/* <AddToOrderButton onClick={addToOrder}>add to order</AddToOrderButton> */}
+          <ChooseSalad />
+          <ChooseSauces />
+          <ChooseSpecialInstructions />
+          <ChooseQuantity />
+          <AddItemToOrder />
         </ProductItemDiv>
       ) : (
         redirect && <Navigate to="/menu" replace />

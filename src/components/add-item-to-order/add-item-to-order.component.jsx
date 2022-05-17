@@ -1,14 +1,28 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../utils/firebase/firebase.utils";
 
-import { selectCartItems } from "../../store/cart/cart.selector";
-import { addItemToCart } from "../../store/cart/cart.action";
-// import { selectFinalItem } from "../../redux/item/item.selectors";
-// import { selectCurrentUser } from "../../redux/user/user.selectors";
-
-// import { firestore } from "../../firebase/firebase.utils";
-
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectIndividualProduct } from "../../store/products/product.selector";
+import {
+  selectChosenSize,
+  selectSizeSelectedPrice,
+  selectSaltAndVinegar,
+  selectGratedCheesePrice,
+  selectDonerMeatPrice,
+  selectCheeseSliceSelected,
+  selectSaladSelected,
+  selectSaucesSelected,
+  selectSpecialInstructions,
+  selectQuantity,
+} from "../../store/final-item/final-item.selector";
+import { clearFinalItem } from "../../store/final-item/final-item.action";
+import { clearIndividualProduct } from "../../store/products/product.action";
 import AddToOrderButton from "../add-to-order-button/add-to-order-button.component";
 
 import {
@@ -23,34 +37,59 @@ import {
 
 import "../../styles/confirm.css";
 
-/* 
-This component gets the finalItem that was dispatched in the coresponding option component - ie beefBurgerOptions.
-It is passed to the cart reducer in the cartItems array for use in the checkout flow.
-*/
-const AddItemToOrder = ({ product }) => {
-  const cartItems = useSelector(selectCartItems);
-  const swal = withReactContent(Swal);
+const AddItemToOrder = () => {
+  const [nav, setNav] = useState(false);
+  const currentUser = useSelector(selectCurrentUser);
+  const product = useSelector(selectIndividualProduct);
+  const chosenSize = useSelector(selectChosenSize);
+  const sizeSelectedPrice = useSelector(selectSizeSelectedPrice);
+  const saltAndVinegar = useSelector(selectSaltAndVinegar);
+  const gratedCheesePrice = useSelector(selectGratedCheesePrice);
+  const donerMeatPrice = useSelector(selectDonerMeatPrice);
+  const cheeseSliceSelected = useSelector(selectCheeseSliceSelected);
+  const saladSelected = useSelector(selectSaladSelected);
+  const saucesSelected = useSelector(selectSaucesSelected);
+  const specialInstructions = useSelector(selectSpecialInstructions);
+  const quantity = useSelector(selectQuantity);
+
+  const { name, description, price } = product;
   const dispatch = useDispatch();
-  // const finalItem = useSelector(selectFinalItem);
-  // const currentUser = useSelector(selectCurrentUser);
+  const swal = withReactContent(Swal);
 
-  // async function addItemToFirestore() {
-  //   const userRef = await firestore.doc(`users/${currentUser.id}`);
-  //   try {
-  //     userRef.get().then((doc) => {
-  //       if (doc.exists) {
-  //         const { cartItems } = doc.data();
-  //         userRef.update({
-  //           cartItems: [...cartItems, finalItem],
-  //         });
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  const finalItem = {
+    id: uuidv4(),
+    name,
+    description,
+    price,
+    chosenSize,
+    sizeSelectedPrice,
+    saltAndVinegar,
+    gratedCheesePrice,
+    donerMeatPrice,
+    cheeseSliceSelected,
+    saladSelected,
+    saucesSelected,
+    specialInstructions,
+    quantity,
+    selectedOptionsCombinedPrice:
+      sizeSelectedPrice + gratedCheesePrice + donerMeatPrice,
+  };
 
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+  const addCartItemToFirestore = async () => {
+    const userRef = doc(db, "users", currentUser.id);
+    const userSnapshot = await getDoc(userRef);
+
+    try {
+      if (!userSnapshot.exists) return;
+      const data = userSnapshot.data();
+      const { cartItems } = data;
+      await updateDoc(userRef, {
+        cartItems: [...cartItems, finalItem],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function addItem() {
     swal
@@ -82,10 +121,10 @@ const AddItemToOrder = ({ product }) => {
               icon: "success",
               customClass: "confirm",
             })
-            .then(addProductToCart());
-          // .then(addItemToFirestore())
-          // .then(dispatch({ type: "CLEAR_ITEM" }))
-          // .then(dispatch({ type: "CLEAR_SELECTED_CHECKBOX" }));
+            .then(addCartItemToFirestore())
+            .then(dispatch(clearFinalItem()))
+            .then(dispatch(clearIndividualProduct()))
+            .then(setNav(true));
         } else if (
           result.dismiss === Swal.DismissReason.cancel ||
           Swal.DismissReason.backdrop ||
@@ -108,6 +147,7 @@ const AddItemToOrder = ({ product }) => {
 
   return (
     <>
+      {nav && <Navigate replace to={"/menu"} />}
       <AddToOrderButton onClick={addItem}>add to order</AddToOrderButton>
     </>
   );

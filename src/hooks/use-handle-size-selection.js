@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   addSizeSelectedPrice,
-  hasSizebeenChosen,
+  addChosenSize,
 } from "../store/final-item/final-item.action";
 import { selectIndividualProduct } from "../store/products/product.selector";
 
@@ -47,55 +47,55 @@ const useHandleSizeSelection = () => {
     switch (value) {
       case single:
         dispatch(addSizeSelectedPrice(0));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case double:
         dispatch(addSizeSelectedPrice(doublePrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case small:
         dispatch(addSizeSelectedPrice(smallPrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case medium:
         dispatch(addSizeSelectedPrice(mediumPrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case large:
         dispatch(addSizeSelectedPrice(largePrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case sixNuggets:
         dispatch(addSizeSelectedPrice(sixNuggetsPrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case nineNuggets:
         dispatch(addSizeSelectedPrice(nineNuggetsPrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case twelveNuggets:
         dispatch(addSizeSelectedPrice(twelveNuggetsPrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case twentyNuggets:
         dispatch(addSizeSelectedPrice(twentyNuggetsPrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case onePiece:
         dispatch(addSizeSelectedPrice(onePiecePrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case twoPieces:
         dispatch(addSizeSelectedPrice(twoPiecePrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case threePieces:
         dispatch(addSizeSelectedPrice(threePiecePrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       case fourPieces:
         dispatch(addSizeSelectedPrice(fourPiecePrice));
-        dispatch(hasSizebeenChosen(true));
+        dispatch(addChosenSize(value));
         break;
       default:
         return value;

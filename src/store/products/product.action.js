@@ -12,3 +12,6 @@ export const fetchProductsFailed = (error) =>
 
 export const addIndividualProduct = (product) =>
   createAction(PRODUCTS_ACTION_TYPES.ADD_INDIVIDUAL_PRODUCT, product);
+
+export const clearIndividualProduct = () =>
+  createAction(PRODUCTS_ACTION_TYPES.CLEAR_INDIVIDUAL_PRODUCT);
