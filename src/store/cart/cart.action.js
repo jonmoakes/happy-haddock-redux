@@ -58,7 +58,3 @@ export const updateCartItems = (cartItems) => {
 export const clearCartItems = () => {
   return createAction(CART_ACTION_TYPES.CLEAR_CART_ITEMS);
 };
-
-export const resetTotalPrice = () => {
-  return createAction(CART_ACTION_TYPES.RESET_TOTAL_PRICE, 0);
-};

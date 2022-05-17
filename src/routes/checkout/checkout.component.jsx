@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { selectCartItems } from "../../store/cart/cart.selector";
-import { resetTotalPrice } from "../../store/cart/cart.action";
 
 import CheckoutPageQuantityInstructions from "./checkout-quantity-instructions.component";
 import CheckoutPageClearCart from "./checkout-clear-cart.component";
@@ -23,7 +22,6 @@ const Checkout = () => {
 
   useEffect(() => {
     if (!cartItems.length) {
-      dispatch(resetTotalPrice());
       setRedirectToMenu(true);
     }
   }, [cartItems.length, dispatch]);

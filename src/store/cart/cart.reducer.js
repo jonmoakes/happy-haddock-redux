@@ -2,7 +2,6 @@ import { CART_ACTION_TYPES } from "./cart.types";
 
 export const CART_INITIAL_STATE = {
   cartItems: [],
-  totalPrice: 0,
 };
 
 export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
@@ -22,11 +21,6 @@ export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
       return {
         ...state,
         cartItems: [],
-      };
-    case CART_ACTION_TYPES.RESET_TOTAL_PRICE:
-      return {
-        ...state,
-        totalPrice: 0,
       };
     default:
       return state;
