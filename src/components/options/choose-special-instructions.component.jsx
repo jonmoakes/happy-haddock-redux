@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { addSpecialInstructions } from "../../store/final-item/final-item.action";
 import { selectSaucesSelected } from "../../store/final-item/final-item.selector";
+import { selectIndividualProduct } from "../../store/products/product.selector";
+import { addSpecialInstructions } from "../../store/final-item/final-item.action";
 
-import { numberOfSaucesChosen } from "../../reusable-functions/resuable-functions";
+import { numberOfSaucesChosenCheck } from "../../reusable-functions/resuable-functions";
 
 import {
   OptionsForm,
@@ -12,8 +13,11 @@ import {
 } from "../../styles/options-form/options-form.styles";
 
 const ChooseSpecialInstructions = () => {
+  const product = useSelector(selectIndividualProduct);
   const saucesSelected = useSelector(selectSaucesSelected);
   const dispatch = useDispatch();
+
+  const { hasSizeOption } = product;
 
   const handleInstructionsChange = (event) => {
     dispatch(addSpecialInstructions(event.target.value));
@@ -21,23 +25,23 @@ const ChooseSpecialInstructions = () => {
 
   return (
     <>
-      {numberOfSaucesChosen(saucesSelected) > 0 &&
-        numberOfSaucesChosen(saucesSelected) <= 3 && (
-          <OptionsForm>
-            <Section>
-              <p>special instructions</p>
-            </Section>
+      {((hasSizeOption && numberOfSaucesChosenCheck(saucesSelected)) ||
+        (!hasSizeOption && numberOfSaucesChosenCheck(saucesSelected))) && (
+        <OptionsForm>
+          <Section>
+            <p>special instructions</p>
+          </Section>
 
-            <TextAreaDiv>
-              <textarea
-                type="text"
-                name="specialInstructions"
-                placeholder="Anything We Need To Know?"
-                onChange={handleInstructionsChange}
-              />
-            </TextAreaDiv>
-          </OptionsForm>
-        )}
+          <TextAreaDiv>
+            <textarea
+              type="text"
+              name="specialInstructions"
+              placeholder="Anything We Need To Know?"
+              onChange={handleInstructionsChange}
+            />
+          </TextAreaDiv>
+        </OptionsForm>
+      )}
     </>
   );
 };

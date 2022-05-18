@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { addQuantity } from "../../store/final-item/final-item.action";
-import { selectSaucesSelected } from "../../store/final-item/final-item.selector";
+import {
+  selectQuantity,
+  selectSaucesSelected,
+} from "../../store/final-item/final-item.selector";
 
-import { numberOfSaucesChosen } from "../../reusable-functions/resuable-functions";
+import { numberOfSaucesChosenCheck } from "../../reusable-functions/resuable-functions";
 
 import {
   OptionsForm,
@@ -15,6 +18,7 @@ import {
 
 const ChooseQuantity = () => {
   const saucesSelected = useSelector(selectSaucesSelected);
+  const quantity = useSelector(selectQuantity);
   const dispatch = useDispatch();
 
   const handleQuantityChange = (event) => {
@@ -23,27 +27,27 @@ const ChooseQuantity = () => {
 
   return (
     <>
-      {numberOfSaucesChosen(saucesSelected) > 0 &&
-        numberOfSaucesChosen(saucesSelected) <= 3 && (
-          <OptionsForm className="quantity-div">
-            <RequiredDiv>
-              <span>required</span>
-            </RequiredDiv>
-            <Section>
-              <p>quantity:</p>
-            </Section>
+      {numberOfSaucesChosenCheck(saucesSelected) && (
+        <OptionsForm className="quantity-div">
+          <RequiredDiv>
+            <span>required</span>
+          </RequiredDiv>
+          <Section>
+            <p>quantity:</p>
+          </Section>
 
-            <RadioDiv>
-              <QuantityInput
-                type="number"
-                pattern="\d*"
-                name="quantity"
-                onChange={handleQuantityChange}
-                placeholder="Ie '2' Not 'Two' :)"
-              />
-            </RadioDiv>
-          </OptionsForm>
-        )}
+          <RadioDiv>
+            <QuantityInput
+              type="number"
+              pattern="\d*"
+              name="quantity"
+              onChange={handleQuantityChange}
+              placeholder="Ie '2' Not 'Two' :)"
+              defaultValue={quantity}
+            />
+          </RadioDiv>
+        </OptionsForm>
+      )}
     </>
   );
 };

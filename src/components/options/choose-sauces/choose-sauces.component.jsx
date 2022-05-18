@@ -2,11 +2,18 @@ import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSauces } from "../../../store/final-item/final-item.action";
-import { selectIndividualProduct } from "../../../store/products/product.selector";
 import {
-  selectSaltAndVinegar,
   selectChosenSize,
+  selectSaucesSelected,
 } from "../../../store/final-item/final-item.selector";
+import { selectIndividualProduct } from "../../../store/products/product.selector";
+
+import TooManySaucesSelected from "./too-many-sauces-selected.component";
+
+import {
+  showSaucesOptionCheck,
+  numberOfSaucesChosenCheck,
+} from "../../../reusable-functions/resuable-functions";
 
 import { defaultSauces } from "./default-sauces";
 import { saucesCheckboxes } from "./sauces-checkboxes";
@@ -23,11 +30,17 @@ import {
 const ChooseSauces = () => {
   const [chosenSauces, setChosenSauces] = useState(defaultSauces);
   const product = useSelector(selectIndividualProduct);
-  const saltAndVinegar = useSelector(selectSaltAndVinegar);
   const chosenSize = useSelector(selectChosenSize);
+  const saucesSelected = useSelector(selectSaucesSelected);
 
   const { saucesAvailable, hasSizeOption } = product;
   const dispatch = useDispatch();
+
+  const showSaucesOptionCheckPassed = showSaucesOptionCheck(
+    saucesAvailable,
+    hasSizeOption,
+    chosenSize
+  );
 
   const handleSaucesChange = (event) => {
     const { name } = event.target;
@@ -41,8 +54,7 @@ const ChooseSauces = () => {
 
   return (
     <>
-      {((!saucesAvailable && saltAndVinegar) ||
-        (saucesAvailable && hasSizeOption && chosenSize)) && (
+      {showSaucesOptionCheckPassed && (
         <OptionsForm onChange={handleSaucesChange}>
           <RequiredDiv>
             <span>required</span>
@@ -69,6 +81,8 @@ const ChooseSauces = () => {
           </RadioDiv>
         </OptionsForm>
       )}
+      {showSaucesOptionCheckPassed &&
+        !numberOfSaucesChosenCheck(saucesSelected) && <TooManySaucesSelected />}
     </>
   );
 };

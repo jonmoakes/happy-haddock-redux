@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-import useAddCartItemsInFirestore from "../../hooks/use-add-cart-item-to-firestore";
-
+import useAddCartItemsToFirestore from "../../hooks/use-add-cart-item-to-firestore";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import RequiredInfoText from "./required-info-text/required-info-text.component";
@@ -30,7 +29,8 @@ import { RequiredInfoDiv } from "../../styles/options-form/options-form.styles";
 
 const IndividualProductPage = () => {
   const [redirect, setRedirect] = useState(false);
-  const { nav, confirmAddItem } = useAddCartItemsInFirestore();
+  const { nav, confirmAddItem } = useAddCartItemsToFirestore();
+
   const product = useSelector(selectIndividualProduct);
   const { name, description, price } = product;
 

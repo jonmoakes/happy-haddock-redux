@@ -12,7 +12,9 @@ import {
 // This component renders the section of the checkout page that includes each items information.
 // It gets the cartItem from the checkout page.
 const CheckoutItem = ({ cartItem }) => {
-  const { quantity, price } = cartItem;
+  const { quantity, price, selectedOptionsCombinedPrice } = cartItem;
+
+  const itemSinglePrice = price + selectedOptionsCombinedPrice;
 
   return (
     <CheckoutItemContainer>
@@ -23,7 +25,7 @@ const CheckoutItem = ({ cartItem }) => {
         <IncreaseQuantity cartItem={cartItem} />
       </ArrowContainer>
 
-      <Text>£{((Number(price) * 100) / 100).toFixed(2)}</Text>
+      <Text>£{((Number(itemSinglePrice) * 100) / 100).toFixed(2)}</Text>
     </CheckoutItemContainer>
   );
 };

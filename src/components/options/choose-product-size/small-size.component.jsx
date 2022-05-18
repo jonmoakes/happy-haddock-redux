@@ -11,7 +11,7 @@ const SmallSize = () => {
 
   return (
     <>
-      {smallPrice !== 0 && (
+      {smallPrice && (
         <RadioDiv>
           <label>
             small

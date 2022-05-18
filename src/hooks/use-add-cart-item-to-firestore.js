@@ -23,7 +23,7 @@ import {
 
 import "../styles/confirm.css";
 
-const useAddCartItemsInFirestore = () => {
+const useAddCartItemsToFirestore = () => {
   const { finalItem } = useGetFinalItem();
   const [nav, setNav] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
@@ -103,4 +103,4 @@ const useAddCartItemsInFirestore = () => {
   return { nav, confirmAddItem };
 };
 
-export default useAddCartItemsInFirestore;
+export default useAddCartItemsToFirestore;

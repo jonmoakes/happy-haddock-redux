@@ -1,5 +1,7 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
+import { selectIndividualProduct } from "../../store/products/product.selector";
+import { selectChosenSize } from "../../store/final-item/final-item.selector";
 import { addCheeseSlice } from "../../store/final-item/final-item.action";
 
 import {
@@ -10,7 +12,10 @@ import {
 } from "../../styles/options-form/options-form.styles";
 
 const ChooseCheeseSlice = () => {
+  const product = useSelector(selectIndividualProduct);
+  const chosenSize = useSelector(selectChosenSize);
   const dispatch = useDispatch();
+  const { cheeseSliceAvailable, hasSizeOption } = product;
 
   const handleCheeseSliceChange = (event) => {
     const checked = event.target.checked;
@@ -23,21 +28,24 @@ const ChooseCheeseSlice = () => {
 
   return (
     <>
-      <OptionsForm onChange={handleCheeseSliceChange}>
-        <Section>
-          <p>add a cheese slice?</p>
-        </Section>
+      {((cheeseSliceAvailable && !hasSizeOption) ||
+        (cheeseSliceAvailable && hasSizeOption && chosenSize)) && (
+        <OptionsForm onChange={handleCheeseSliceChange}>
+          <Section>
+            <p>add a cheese slice?</p>
+          </Section>
 
-        <RadioDiv>
-          <OptionsLabel> ( free )</OptionsLabel>
-          <input
-            className="checkbox"
-            type="checkbox"
-            id="cheeseSlice"
-            name="cheeseSlice"
-          />
-        </RadioDiv>
-      </OptionsForm>
+          <RadioDiv>
+            <OptionsLabel> ( free )</OptionsLabel>
+            <input
+              className="checkbox"
+              type="checkbox"
+              id="cheeseSlice"
+              name="cheeseSlice"
+            />
+          </RadioDiv>
+        </OptionsForm>
+      )}
     </>
   );
 };

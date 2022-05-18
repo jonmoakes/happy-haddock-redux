@@ -11,7 +11,7 @@ const SixNuggetsSize = () => {
 
   return (
     <>
-      {sixNuggetsPrice !== 0 && (
+      {sixNuggetsPrice && (
         <RadioDiv>
           <label>
             6 nuggets

@@ -11,7 +11,7 @@ const OnePieceSize = () => {
 
   return (
     <>
-      {onePiecePrice !== 0 && (
+      {onePiecePrice && (
         <RadioDiv>
           <label>
             1 piece
