@@ -15,3 +15,7 @@ export const saucesAndQuantityRequiredCheck = (saucesSelected, quantity) => {
     ? true
     : false;
 };
+
+export const noOptionsAvailableCheck = (noOptionsAvailable, quantity) => {
+  return noOptionsAvailable && quantity > 0 ? true : false;
+};

@@ -17,7 +17,7 @@ const ChooseSpecialInstructions = () => {
   const saucesSelected = useSelector(selectSaucesSelected);
   const dispatch = useDispatch();
 
-  const { hasSizeOption } = product;
+  const { hasSizeOption, noOptionsAvailable } = product;
 
   const handleInstructionsChange = (event) => {
     dispatch(addSpecialInstructions(event.target.value));
@@ -26,7 +26,8 @@ const ChooseSpecialInstructions = () => {
   return (
     <>
       {((hasSizeOption && numberOfSaucesChosenCheck(saucesSelected)) ||
-        (!hasSizeOption && numberOfSaucesChosenCheck(saucesSelected))) && (
+        (!hasSizeOption && numberOfSaucesChosenCheck(saucesSelected)) ||
+        noOptionsAvailable) && (
         <OptionsForm>
           <Section>
             <p>special instructions</p>

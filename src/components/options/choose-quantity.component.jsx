@@ -5,6 +5,7 @@ import {
   selectQuantity,
   selectSaucesSelected,
 } from "../../store/final-item/final-item.selector";
+import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import { numberOfSaucesChosenCheck } from "../../reusable-functions/resuable-functions";
 
@@ -18,8 +19,11 @@ import {
 
 const ChooseQuantity = () => {
   const saucesSelected = useSelector(selectSaucesSelected);
+  const product = useSelector(selectIndividualProduct);
   const quantity = useSelector(selectQuantity);
   const dispatch = useDispatch();
+
+  const { noOptionsAvailable } = product;
 
   const handleQuantityChange = (event) => {
     dispatch(addQuantity(Number(event.target.value)));
@@ -27,7 +31,7 @@ const ChooseQuantity = () => {
 
   return (
     <>
-      {numberOfSaucesChosenCheck(saucesSelected) && (
+      {(numberOfSaucesChosenCheck(saucesSelected) || noOptionsAvailable) && (
         <OptionsForm className="quantity-div">
           <RequiredDiv>
             <span>required</span>
