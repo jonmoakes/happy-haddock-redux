@@ -2,18 +2,11 @@ import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSauces } from "../../../store/final-item/final-item.action";
-import {
-  selectChosenSize,
-  selectSaucesSelected,
-} from "../../../store/final-item/final-item.selector";
+import { selectSaucesSelected } from "../../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../../store/products/product.selector";
 
 import TooManySaucesSelected from "./too-many-sauces-selected.component";
-
-import {
-  showSaucesOptionCheck,
-  numberOfSaucesChosenCheck,
-} from "../../../reusable-functions/sauces-checks";
+import { numberOfSaucesChosenCheck } from "../../../reusable-functions/sauces-checks";
 
 import { defaultSauces } from "./default-sauces";
 import { saucesCheckboxes } from "./sauces-checkboxes";
@@ -23,24 +16,17 @@ import {
   RequiredDiv,
   Section,
   RadioDiv,
-  SaucesChoiceHeading,
+  ChoiceHeading,
   OptionsLabel,
 } from "../../../styles/options-form/options-form.styles";
 
 const ChooseSauces = () => {
   const [chosenSauces, setChosenSauces] = useState(defaultSauces);
   const product = useSelector(selectIndividualProduct);
-  const chosenSize = useSelector(selectChosenSize);
   const saucesSelected = useSelector(selectSaucesSelected);
 
-  const { saucesAvailable, hasSizeOption } = product;
+  const { saucesAvailable } = product;
   const dispatch = useDispatch();
-
-  const showSaucesOptionCheckPassed = showSaucesOptionCheck(
-    saucesAvailable,
-    hasSizeOption,
-    chosenSize
-  );
 
   const handleSaucesChange = (event) => {
     const { name } = event.target;
@@ -61,7 +47,7 @@ const ChooseSauces = () => {
           </RequiredDiv>
 
           <Section>
-            <SaucesChoiceHeading>choose up to 3 sauces:</SaucesChoiceHeading>
+            <ChoiceHeading>choose up to 3 sauces:</ChoiceHeading>
           </Section>
 
           <RadioDiv>
@@ -81,8 +67,9 @@ const ChooseSauces = () => {
           </RadioDiv>
         </OptionsForm>
       )}
-      {showSaucesOptionCheckPassed &&
-        !numberOfSaucesChosenCheck(saucesSelected) && <TooManySaucesSelected />}
+      {saucesAvailable && !numberOfSaucesChosenCheck(saucesSelected) && (
+        <TooManySaucesSelected />
+      )}
     </>
   );
 };

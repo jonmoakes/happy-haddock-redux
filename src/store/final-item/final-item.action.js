@@ -31,6 +31,9 @@ export const addCan = (payload) =>
 export const addSingleCondiment = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_SINGLE_CONDIMENT, payload);
 
+export const addTwoCondiments = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_TWO_CONDIMENTS, payload);
+
 export const addSpecialInstructions = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_SPECIAL_INSTRUCTIONS, payload);
 

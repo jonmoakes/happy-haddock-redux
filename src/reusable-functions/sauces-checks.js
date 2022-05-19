@@ -9,35 +9,3 @@ export const numberOfSaucesChosenCheck = (saucesSelected) => {
     return false;
   }
 };
-
-export const showSaucesOptionCheck = (
-  saucesAvailable,
-  hasSizeOption,
-  chosenSize
-) => {
-  if (
-    (saucesAvailable && !hasSizeOption) ||
-    (saucesAvailable && hasSizeOption && chosenSize)
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-export const sizeSaucesAndQuantityCheck = (
-  sizeSelected,
-  saucesSelected,
-  numberOfSaucesChosenCheck,
-  quantity
-) => {
-  if (
-    sizeSelected &&
-    numberOfSaucesChosenCheck(saucesSelected) &&
-    quantity > 0
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};

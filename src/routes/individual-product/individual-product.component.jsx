@@ -17,6 +17,7 @@ import ChooseSaltAndVinegar from "../../components/options/choose-salt-and-vineg
 import ChooseSpecialInstructionsAndQuantity from "../../components/options/choose-special-instructions-and-quantity.component";
 import ChooseCans from "../../components/options/choose-cans.component";
 import ChooseSingleCondiment from "../../components/options/choose-single-condiment.component";
+import ChooseTwoCondiments from "../../components/options/choose-two-condiments/choose-two-condiments.component";
 import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
 
 import {
@@ -68,6 +69,7 @@ const IndividualProductPage = () => {
               <ChooseSauces />
               <ChooseCans />
               <ChooseSingleCondiment />
+              <ChooseTwoCondiments />
               <ChooseSpecialInstructionsAndQuantity />
               <AddToOrderButton onClick={confirmAddItem}>
                 add to order

@@ -209,7 +209,7 @@ export const InfoText = styled.p`
   color: whitesmoke;
 `;
 
-export const SaucesChoiceHeading = styled.p`
+export const ChoiceHeading = styled.p`
   padding: 20px 0px;
 `;
 

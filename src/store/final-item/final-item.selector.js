@@ -21,6 +21,8 @@ export const selectCan = (state) => state.finalItem.can;
 
 export const selectSingleCondiment = (state) => state.finalItem.singleCondiment;
 
+export const selectTwoCondiments = (state) => state.finalItem.twoCondiments;
+
 export const selectSpecialInstructions = (state) =>
   state.finalItem.specialInstructions;
 
