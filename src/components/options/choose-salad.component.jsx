@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectIndividualProduct } from "../../store/products/product.selector";
-import { selectChosenSize } from "../../store/final-item/final-item.selector";
 import { addSalad } from "../../store/final-item/final-item.action";
 
 import {
@@ -13,9 +12,8 @@ import {
 
 const ChooseSalad = () => {
   const product = useSelector(selectIndividualProduct);
-  const chosenSize = useSelector(selectChosenSize);
   const dispatch = useDispatch();
-  const { saladAvailable, hasSizeOption } = product;
+  const { saladAvailable } = product;
 
   const handleSaladChange = (event) => {
     const checked = event.target.checked;
@@ -28,8 +26,7 @@ const ChooseSalad = () => {
 
   return (
     <>
-      {((saladAvailable && !hasSizeOption) ||
-        (saladAvailable && hasSizeOption && chosenSize)) && (
+      {saladAvailable && (
         <OptionsForm onChange={handleSaladChange}>
           <Section>
             <p>add Salad?</p>

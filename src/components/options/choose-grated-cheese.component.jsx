@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectIndividualProduct } from "../../store/products/product.selector";
-import { selectChosenSize } from "../../store/final-item/final-item.selector";
 import { addGratedCheesePrice } from "../../store/final-item/final-item.action";
 
 import {
@@ -12,9 +11,8 @@ import {
 
 const ChooseGratedCheese = () => {
   const product = useSelector(selectIndividualProduct);
-  const chosenSize = useSelector(selectChosenSize);
   const dispatch = useDispatch();
-  const { hasSizeOption, gratedCheeseAvailable } = product;
+  const { gratedCheeseAvailable } = product;
 
   const handleGratedCheeseChange = (event) => {
     const checked = event.target.checked;
@@ -27,8 +25,7 @@ const ChooseGratedCheese = () => {
 
   return (
     <>
-      {((gratedCheeseAvailable && !hasSizeOption) ||
-        (gratedCheeseAvailable && hasSizeOption && chosenSize)) && (
+      {gratedCheeseAvailable && (
         <OptionsForm onChange={handleGratedCheeseChange}>
           <Section>
             <p>add grated cheese?</p>

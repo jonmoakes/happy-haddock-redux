@@ -1,10 +1,5 @@
-import { numberOfSaucesChosenCheck } from "./resuable-functions";
+import { numberOfSaucesChosenCheck } from "./sauces-checks";
 
-// hasSizeOption,
-// saucesAvailable,
-// noOptionsAvailable,
-// saltAndVinegarAvailable,
-// size & sauces required
 export const sizeAndSaucesRequiredCheck = (
   product,
   chosenSize,
@@ -39,11 +34,13 @@ export const sizeAndSaltAndVinegarRequiredCheck = (
   chosenSize,
   saltAndVinegar
 ) => {
-  const { hasSizeOption, saltAndVinegarAvailable } = product;
+  const { hasSizeOption, saltAndVinegarAvailable, condimentsAvailable } =
+    product;
   return hasSizeOption &&
     chosenSize &&
     saltAndVinegarAvailable &&
-    saltAndVinegar
+    saltAndVinegar &&
+    condimentsAvailable === 0
     ? true
     : false;
 };
@@ -65,6 +62,7 @@ export const onlySizeRequiredCheck = (product, chosenSize) => {
     saltAndVinegarAvailable,
     saucesAvailable,
     noOptionsAvailable,
+    condimentsAvailable,
   } = product;
 
   return chosenSize &&
@@ -81,7 +79,8 @@ export const onlySizeRequiredCheck = (product, chosenSize) => {
     !saladAvailable &&
     !saltAndVinegarAvailable &&
     !saucesAvailable &&
-    !noOptionsAvailable
+    !noOptionsAvailable &&
+    condimentsAvailable === 0
     ? true
     : false;
 };
@@ -103,6 +102,7 @@ export const onlySaltAndVinegarRequiredCheck = (product, saltAndVinegar) => {
     saltAndVinegarAvailable,
     saucesAvailable,
     noOptionsAvailable,
+    condimentsAvailable,
   } = product;
   return (saltAndVinegarAvailable &&
     saltAndVinegar &&
@@ -132,23 +132,42 @@ export const onlySaltAndVinegarRequiredCheck = (product, saltAndVinegar) => {
       !gratedCheeseAvailable &&
       !mixedKebabTypeAvailable &&
       saladAvailable &&
-      !saucesAvailable)
+      !saucesAvailable &&
+      condimentsAvailable === 0)
     ? true
     : false;
 };
 
+// salt and vinegar and cans required
 export const saltAndVinegarAndCansRequiredCheck = (
   product,
   saltAndVinegar,
   chosenCan
 ) => {
   const { saltAndVinegarAvailable, drinkAvailable, saladAvailable } = product;
-  console.log(saltAndVinegarAvailable, drinkAvailable);
   return saltAndVinegarAvailable &&
     saltAndVinegar &&
     saladAvailable &&
     drinkAvailable &&
     chosenCan
+    ? true
+    : false;
+};
+
+export const sizeSaltAndVinegarAndSingleCondimentRequiredCheck = (
+  product,
+  chosenSize,
+  saltAndVinegar,
+  singleCondiment
+) => {
+  const { hasSizeOption, saltAndVinegarAvailable, condimentsAvailable } =
+    product;
+  return hasSizeOption &&
+    chosenSize &&
+    saltAndVinegarAvailable &&
+    saltAndVinegar &&
+    condimentsAvailable === 1 &&
+    singleCondiment
     ? true
     : false;
 };

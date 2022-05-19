@@ -2,9 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addCan } from "../../store/final-item/final-item.action";
 import { selectIndividualProduct } from "../../store/products/product.selector";
-import { selectSaltAndVinegar } from "../../store/final-item/final-item.selector";
-
-import { showCansCheckPassed } from "../../reusable-functions/show-cans-check";
 
 import {
   OptionsForm,
@@ -15,8 +12,8 @@ import {
 
 const ChooseFromCansSelection = () => {
   const product = useSelector(selectIndividualProduct);
-  const saltAndVinegar = useSelector(selectSaltAndVinegar);
   const dispatch = useDispatch();
+  const { drinkAvailable } = product;
 
   const handleCanChange = (event) => {
     dispatch(addCan(event.target.value));
@@ -24,7 +21,7 @@ const ChooseFromCansSelection = () => {
 
   return (
     <>
-      {showCansCheckPassed(product, saltAndVinegar) && (
+      {drinkAvailable && (
         <OptionsForm onChange={handleCanChange}>
           <RequiredDiv>
             <span>required</span>

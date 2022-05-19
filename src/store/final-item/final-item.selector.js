@@ -19,6 +19,8 @@ export const selectSaucesSelected = (state) => state.finalItem.saucesSelected;
 
 export const selectCan = (state) => state.finalItem.can;
 
+export const selectSingleCondiment = (state) => state.finalItem.singleCondiment;
+
 export const selectSpecialInstructions = (state) =>
   state.finalItem.specialInstructions;
 

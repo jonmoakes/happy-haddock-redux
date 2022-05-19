@@ -13,7 +13,7 @@ import TooManySaucesSelected from "./too-many-sauces-selected.component";
 import {
   showSaucesOptionCheck,
   numberOfSaucesChosenCheck,
-} from "../../../reusable-functions/resuable-functions";
+} from "../../../reusable-functions/sauces-checks";
 
 import { defaultSauces } from "./default-sauces";
 import { saucesCheckboxes } from "./sauces-checkboxes";
@@ -54,7 +54,7 @@ const ChooseSauces = () => {
 
   return (
     <>
-      {showSaucesOptionCheckPassed && (
+      {saucesAvailable && (
         <OptionsForm onChange={handleSaucesChange}>
           <RequiredDiv>
             <span>required</span>

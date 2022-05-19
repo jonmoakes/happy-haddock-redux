@@ -1,13 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSaltAndVinegar } from "../../store/final-item/final-item.action";
-import {
-  selectChosenSize,
-  selectSaltAndVinegar,
-} from "../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../store/products/product.selector";
-
-import { showSaltAndVinegarCheckPassed } from "../../reusable-functions/show-salt-and-vinegar-check";
 
 import {
   OptionsForm,
@@ -17,9 +11,9 @@ import {
 } from "../../styles/options-form/options-form.styles";
 
 const ChooseSaltAndVinegar = () => {
-  const chosenSize = useSelector(selectChosenSize);
-  const saltAndVinegar = useSelector(selectSaltAndVinegar);
   const product = useSelector(selectIndividualProduct);
+
+  const { saltAndVinegarAvailable } = product;
 
   const dispatch = useDispatch();
 
@@ -29,7 +23,7 @@ const ChooseSaltAndVinegar = () => {
 
   return (
     <>
-      {showSaltAndVinegarCheckPassed(product, chosenSize, saltAndVinegar) && (
+      {saltAndVinegarAvailable && (
         <OptionsForm onChange={handleSaltAndVinegarChange}>
           <RequiredDiv>
             <span>required</span>

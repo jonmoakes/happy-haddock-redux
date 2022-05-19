@@ -41,14 +41,3 @@ export const sizeSaucesAndQuantityCheck = (
     return false;
   }
 };
-
-// export const numberOfSaucesCheckPassed = (
-//   saucesSelected,
-//   numberOfSaucesChosen
-// ) => {
-//   if (numberOfSaucesChosen > 0 && numberOfSaucesChosen <= 3) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };

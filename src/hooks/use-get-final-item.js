@@ -11,6 +11,8 @@ import {
   selectCheeseSliceSelected,
   selectSaladSelected,
   selectSaucesSelected,
+  selectCan,
+  selectSingleCondiment,
   selectSpecialInstructions,
   selectQuantity,
 } from "../store/final-item/final-item.selector";
@@ -25,10 +27,13 @@ const useGetFinalItem = () => {
   const cheeseSliceSelected = useSelector(selectCheeseSliceSelected);
   const saladSelected = useSelector(selectSaladSelected);
   const saucesSelected = useSelector(selectSaucesSelected);
+  const can = useSelector(selectCan);
+  const singleCondiment = useSelector(selectSingleCondiment);
   const specialInstructions = useSelector(selectSpecialInstructions);
   const quantity = useSelector(selectQuantity);
 
   const { name, description, price } = product;
+
   const finalItem = {
     id: uuidv4(),
     name,
@@ -42,6 +47,8 @@ const useGetFinalItem = () => {
     cheeseSliceSelected,
     saladSelected,
     saucesSelected,
+    can,
+    singleCondiment,
     specialInstructions,
     quantity,
     selectedOptionsCombinedPrice:

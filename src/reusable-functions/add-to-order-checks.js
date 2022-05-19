@@ -1,4 +1,4 @@
-import { numberOfSaucesChosenCheck } from "./resuable-functions";
+import { numberOfSaucesChosenCheck } from "./sauces-checks";
 
 export const sizeSaucesAndQuantityRequiredCheck = (
   chosenSize,

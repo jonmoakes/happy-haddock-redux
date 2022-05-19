@@ -28,6 +28,9 @@ export const addSauces = (payload) =>
 export const addCan = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_CAN, payload);
 
+export const addSingleCondiment = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_SINGLE_CONDIMENT, payload);
+
 export const addSpecialInstructions = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_SPECIAL_INSTRUCTIONS, payload);
 
