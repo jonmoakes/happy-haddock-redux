@@ -4,6 +4,8 @@ import { addQuantity } from "../../store/final-item/final-item.action";
 import {
   selectQuantity,
   selectSaucesSelected,
+  selectChosenSize,
+  selectSaltAndVinegar,
 } from "../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
@@ -21,9 +23,12 @@ const ChooseQuantity = () => {
   const saucesSelected = useSelector(selectSaucesSelected);
   const product = useSelector(selectIndividualProduct);
   const quantity = useSelector(selectQuantity);
+  const chosenSize = useSelector(selectChosenSize);
+  const saltAndVinegar = useSelector(selectSaltAndVinegar);
   const dispatch = useDispatch();
 
-  const { noOptionsAvailable } = product;
+  const { noOptionsAvailable, hasSizeOption, saltAndVinegarAvailable } =
+    product;
 
   const handleQuantityChange = (event) => {
     dispatch(addQuantity(Number(event.target.value)));
@@ -31,7 +36,12 @@ const ChooseQuantity = () => {
 
   return (
     <>
-      {(numberOfSaucesChosenCheck(saucesSelected) || noOptionsAvailable) && (
+      {(numberOfSaucesChosenCheck(saucesSelected) ||
+        noOptionsAvailable ||
+        (hasSizeOption &&
+          chosenSize &&
+          saltAndVinegarAvailable &&
+          saltAndVinegar)) && (
         <OptionsForm className="quantity-div">
           <RequiredDiv>
             <span>required</span>

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSaltAndVinegar } from "../../store/final-item/final-item.action";
+import { selectChosenSize } from "../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import {
@@ -11,10 +12,13 @@ import {
 } from "../../styles/options-form/options-form.styles";
 
 const ChooseSaltAndVinegar = () => {
-  const dispatch = useDispatch();
+  const chosenSize = useSelector(selectChosenSize);
   const product = useSelector(selectIndividualProduct);
 
-  const { saltAndVinegarAvailable } = product;
+  console.log(chosenSize);
+
+  const dispatch = useDispatch();
+  const { hasSizeOption, saltAndVinegarAvailable } = product;
 
   const handleSaltAndVinegarChange = (event) => {
     dispatch(addSaltAndVinegar(event.target.value));
@@ -22,7 +26,7 @@ const ChooseSaltAndVinegar = () => {
 
   return (
     <>
-      {saltAndVinegarAvailable && (
+      {chosenSize && saltAndVinegarAvailable && (
         <OptionsForm onChange={handleSaltAndVinegarChange}>
           <RequiredDiv>
             <span>required</span>
@@ -33,31 +37,28 @@ const ChooseSaltAndVinegar = () => {
           </Section>
 
           <RadioDiv>
-            <label>
-              salt & vinegar
-              <input type="radio" value="both" name="saltAndVinegar" />
-            </label>
+            <hr />
+            <label>salt & vinegar</label>
+            <input type="radio" value="both" name="saltAndVinegar" />
+            <hr />
           </RadioDiv>
 
           <RadioDiv>
-            <label>
-              just salt
-              <input type="radio" value="just salt" name="saltAndVinegar" />
-            </label>
+            <label>just salt</label>
+            <input type="radio" value="just salt" name="saltAndVinegar" />
+            <hr />
           </RadioDiv>
 
           <RadioDiv>
-            <label>
-              just vinegar
-              <input type="radio" value="just vinegar" name="saltAndVinegar" />
-            </label>
+            <label>just vinegar</label>
+            <input type="radio" value="just vinegar" name="saltAndVinegar" />
+            <hr />
           </RadioDiv>
 
           <RadioDiv>
-            <label>
-              neither
-              <input type="radio" value="neither" name="saltAndVinegar" />
-            </label>
+            <label>neither</label>
+            <input type="radio" value="neither" name="saltAndVinegar" />
+            <hr />
           </RadioDiv>
         </OptionsForm>
       )}

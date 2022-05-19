@@ -13,10 +13,9 @@ const DoubleSize = () => {
     <>
       {doublePrice !== 0 && (
         <RadioDiv>
-          <label>
-            double
-            <input type="radio" value={double} name="size" />
-          </label>
+          <label>double</label>
+          <input type="radio" value={double} name="size" />
+          <hr />
         </RadioDiv>
       )}
     </>

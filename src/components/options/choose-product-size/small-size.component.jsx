@@ -13,10 +13,10 @@ const SmallSize = () => {
     <>
       {smallPrice && (
         <RadioDiv>
-          <label>
-            small
-            <input type="radio" value={small} name="size" />
-          </label>
+          <hr />
+          <label>small</label>
+          <input type="radio" value={small} name="size" />
+          <hr />
         </RadioDiv>
       )}
     </>

@@ -15,27 +15,27 @@ export const OptionsForm = styled.form`
   padding: 20px 0px 20px 0px;
   animation: 1s ${bounceInDownAnimation};
 
+  input {
+    accent-color: yellow;
+  }
+
   label {
     font-size: 20px;
     color: black;
     text-shadow: none;
+    margin-bottom: 10px;
 
     @media screen and (max-width: 1366px) {
       font-size: 16px;
-      margin-top: 15px;
-    }
-
-    @media screen and (max-width: 450px) {
-      margin-top: 10px;
     }
   }
 
-  input[radio] {
-    float: right;
+  input[type="radio"] {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
     width: 20px;
     height: 20px;
-    display: block;
-    margin: 0px auto;
   }
 
   input[type="checkbox"] {
@@ -116,7 +116,8 @@ export const OptionsForm = styled.form`
 `;
 
 export const RequiredDiv = styled.div`
-  margin: 0px auto 0px auto;
+  margin: 10px auto 0px auto;
+
   span {
     color: red;
     font-size: 16px;
@@ -127,15 +128,17 @@ export const RequiredDiv = styled.div`
   }
 
   @media screen and (max-width: 1366px) {
-    margin: 10px auto 10px auto;
+    margin: 30px auto 10px auto;
+  }
+
+  @media screen and (max-width: 850px) {
+    margin: 30px auto 0px auto;
   }
 `;
 
 export const Section = styled.div`
   height: auto;
   width: 100%;
-  margin-top: -10px;
-  margin-bottom: -20px;
 
   &.not-required {
     margin-top: -20px;
@@ -151,23 +154,14 @@ export const Section = styled.div`
     font-size: 22px;
     color: whitesmoke;
   }
-
-  @media screen and (max-width: 1366px) {
-    margin-top: -20px;
-  }
 `;
 
 export const RadioDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 5px auto 5px auto;
 
-  .options-label {
-    @media screen and (max-width: 450px) {
-      font-size: 14px;
-    }
-  }
+  margin: -15px auto 15px auto;
 `;
 
 export const TextAreaDiv = styled.div`

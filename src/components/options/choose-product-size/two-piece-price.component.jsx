@@ -13,10 +13,9 @@ const TwoPieceSize = () => {
     <>
       {twoPiecePrice !== 0 && (
         <RadioDiv>
-          <label>
-            2 pieces
-            <input type="radio" value={twoPieces} name="size" />
-          </label>
+          <label>2 pieces</label>
+          <input type="radio" value={twoPieces} name="size" />
+          <hr />
         </RadioDiv>
       )}
     </>

@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectSaucesSelected } from "../../store/final-item/final-item.selector";
+import {
+  selectSaucesSelected,
+  selectChosenSize,
+  selectSaltAndVinegar,
+} from "../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 import { addSpecialInstructions } from "../../store/final-item/final-item.action";
 
@@ -15,9 +19,12 @@ import {
 const ChooseSpecialInstructions = () => {
   const product = useSelector(selectIndividualProduct);
   const saucesSelected = useSelector(selectSaucesSelected);
+  const saltAndVinegar = useSelector(selectSaltAndVinegar);
+  const chosenSize = useSelector(selectChosenSize);
   const dispatch = useDispatch();
 
-  const { hasSizeOption, noOptionsAvailable } = product;
+  const { hasSizeOption, noOptionsAvailable, saltAndVinegarAvailable } =
+    product;
 
   const handleInstructionsChange = (event) => {
     dispatch(addSpecialInstructions(event.target.value));
@@ -27,7 +34,11 @@ const ChooseSpecialInstructions = () => {
     <>
       {((hasSizeOption && numberOfSaucesChosenCheck(saucesSelected)) ||
         (!hasSizeOption && numberOfSaucesChosenCheck(saucesSelected)) ||
-        noOptionsAvailable) && (
+        noOptionsAvailable ||
+        (hasSizeOption &&
+          chosenSize &&
+          saltAndVinegarAvailable &&
+          saltAndVinegar)) && (
         <OptionsForm>
           <Section>
             <p>special instructions</p>

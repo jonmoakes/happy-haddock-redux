@@ -13,10 +13,10 @@ const SixNuggetsSize = () => {
     <>
       {sixNuggetsPrice && (
         <RadioDiv>
-          <label>
-            6 nuggets
-            <input type="radio" value={sixNuggets} name="size" />
-          </label>
+          <hr />
+          <label>6 nuggets</label>
+          <input type="radio" value={sixNuggets} name="size" />
+          <hr />
         </RadioDiv>
       )}
     </>

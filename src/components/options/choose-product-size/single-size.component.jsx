@@ -15,10 +15,10 @@ const SingleSize = () => {
     <>
       {doublePrice !== 0 && (
         <RadioDiv>
-          <label>
-            single
-            <input type="radio" value={single} name="size" />
-          </label>
+          <hr />
+          <label>single</label>
+          <input type="radio" value={single} name="size" />
+          <hr />
         </RadioDiv>
       )}
     </>

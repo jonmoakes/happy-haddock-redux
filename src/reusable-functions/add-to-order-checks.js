@@ -19,3 +19,19 @@ export const saucesAndQuantityRequiredCheck = (saucesSelected, quantity) => {
 export const noOptionsAvailableCheck = (noOptionsAvailable, quantity) => {
   return noOptionsAvailable && quantity > 0 ? true : false;
 };
+
+export const sizeSaltAndVinegarAndQuantityRequiredCheck = (
+  hasSizeOption,
+  chosenSize,
+  saltAndVinegarAvailable,
+  saltAndVinegar,
+  quantity
+) => {
+  return hasSizeOption &&
+    chosenSize &&
+    saltAndVinegarAvailable &&
+    saltAndVinegar &&
+    quantity > 0
+    ? true
+    : false;
+};
