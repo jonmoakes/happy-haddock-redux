@@ -41,7 +41,6 @@ const useSauceQuantityCheck = () => {
       !saltAndVinegarAvailable &&
       !hasSizeOption &&
       saucesAvailable &&
-      saucesAvailable &&
       numberOfSaucesChosenCheck(saucesSelected) &&
       quantity > 0
       ? true
