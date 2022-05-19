@@ -13,6 +13,8 @@ import {
   saucesAndQuantityRequiredCheck,
   noOptionsAvailableCheck,
   sizeSaltAndVinegarAndQuantityRequiredCheck,
+  sizeAndQuantityRequiredCheck,
+  saltAndVinegarAndQuantityRequiredCheck,
 } from "../reusable-functions/add-to-order-checks";
 
 const useShowAddToOrderButtonChecksPassed = () => {
@@ -39,7 +41,9 @@ const useShowAddToOrderButtonChecksPassed = () => {
         saltAndVinegarAvailable,
         saltAndVinegar,
         quantity
-      )
+      ) ||
+      sizeAndQuantityRequiredCheck(chosenSize, quantity) ||
+      saltAndVinegarAndQuantityRequiredCheck(saltAndVinegar, quantity)
       ? true
       : false;
   };

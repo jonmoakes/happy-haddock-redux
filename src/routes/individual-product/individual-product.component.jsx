@@ -14,8 +14,7 @@ import ChooseCheeseSlice from "../../components/options/choose-cheese-slice.comp
 import ChooseSalad from "../../components/options/choose-salad.component";
 import ChooseSauces from "../../components/options/choose-sauces/choose-sauces.component";
 import ChooseSaltAndVinegar from "../../components/options/choose-salt-and-vinegar.component";
-import ChooseSpecialInstructions from "../../components/options/choose-special-instructions.component";
-import ChooseQuantity from "../../components/options/choose-quantity.component";
+import ChooseSpecialInstructionsAndQuantity from "../../components/options/choose-special-instructions-and-quantity.component";
 import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
 
 import {
@@ -65,8 +64,7 @@ const IndividualProductPage = () => {
               <ChooseCheeseSlice />
               <ChooseSalad />
               <ChooseSauces />
-              <ChooseSpecialInstructions />
-              <ChooseQuantity />
+              <ChooseSpecialInstructionsAndQuantity />
               <AddToOrderButton onClick={confirmAddItem}>
                 add to order
               </AddToOrderButton>

@@ -35,3 +35,14 @@ export const sizeSaltAndVinegarAndQuantityRequiredCheck = (
     ? true
     : false;
 };
+
+export const sizeAndQuantityRequiredCheck = (chosenSize, quantity) => {
+  return chosenSize && quantity > 0 ? true : false;
+};
+
+export const saltAndVinegarAndQuantityRequiredCheck = (
+  saltAndVinegar,
+  quantity
+) => {
+  return saltAndVinegar && quantity > 0 ? true : false;
+};
