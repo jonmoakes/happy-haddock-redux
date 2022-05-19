@@ -25,6 +25,9 @@ export const addSalad = (payload) =>
 export const addSauces = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_SAUCES, payload);
 
+export const addCan = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_CAN, payload);
+
 export const addSpecialInstructions = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_SPECIAL_INSTRUCTIONS, payload);
 

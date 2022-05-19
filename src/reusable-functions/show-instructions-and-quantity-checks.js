@@ -136,3 +136,19 @@ export const onlySaltAndVinegarRequiredCheck = (product, saltAndVinegar) => {
     ? true
     : false;
 };
+
+export const saltAndVinegarAndCansRequiredCheck = (
+  product,
+  saltAndVinegar,
+  chosenCan
+) => {
+  const { saltAndVinegarAvailable, drinkAvailable, saladAvailable } = product;
+  console.log(saltAndVinegarAvailable, drinkAvailable);
+  return saltAndVinegarAvailable &&
+    saltAndVinegar &&
+    saladAvailable &&
+    drinkAvailable &&
+    chosenCan
+    ? true
+    : false;
+};

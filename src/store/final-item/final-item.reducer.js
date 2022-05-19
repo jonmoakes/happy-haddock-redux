@@ -9,6 +9,7 @@ export const FINAL_ITEM_INITIAL_STATE = {
   cheeseSliceSelected: false,
   saladSelected: false,
   saucesSelected: {},
+  can: "",
   specialInstructions: "",
   quantity: 0,
 };
@@ -36,6 +37,8 @@ export const finalItemReducer = (
       return { ...state, saladSelected: payload };
     case FINAL_ITEM_ACTION_TYPES.ADD_SAUCES:
       return { ...state, saucesSelected: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_CAN:
+      return { ...state, can: payload };
     case FINAL_ITEM_ACTION_TYPES.ADD_SPECIAL_INSTRUCTIONS:
       return { ...state, specialInstructions: payload };
     case FINAL_ITEM_ACTION_TYPES.ADD_QUANTITY:

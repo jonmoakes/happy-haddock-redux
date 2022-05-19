@@ -17,6 +17,8 @@ export const selectSaladSelected = (state) => state.finalItem.saladSelected;
 
 export const selectSaucesSelected = (state) => state.finalItem.saucesSelected;
 
+export const selectCan = (state) => state.finalItem.can;
+
 export const selectSpecialInstructions = (state) =>
   state.finalItem.specialInstructions;
 

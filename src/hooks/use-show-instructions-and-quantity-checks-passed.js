@@ -4,6 +4,7 @@ import {
   selectSaucesSelected,
   selectChosenSize,
   selectSaltAndVinegar,
+  selectCan,
 } from "../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../store/products/product.selector";
 
@@ -14,6 +15,7 @@ import {
   sizeAndSaltAndVinegarRequiredCheck,
   onlySizeRequiredCheck,
   onlySaltAndVinegarRequiredCheck,
+  saltAndVinegarAndCansRequiredCheck,
 } from "../reusable-functions/show-instructions-and-quantity-checks";
 
 const useShowInstructionsAndQuantityChecksPassed = () => {
@@ -21,6 +23,7 @@ const useShowInstructionsAndQuantityChecksPassed = () => {
   const chosenSize = useSelector(selectChosenSize);
   const saucesSelected = useSelector(selectSaucesSelected);
   const saltAndVinegar = useSelector(selectSaltAndVinegar);
+  const chosenCan = useSelector(selectCan);
 
   const showInstructionsAndQuantityChecksPassed = () => {
     return sizeAndSaucesRequiredCheck(product, chosenSize, saucesSelected) ||
@@ -28,7 +31,8 @@ const useShowInstructionsAndQuantityChecksPassed = () => {
       noOptionsAvailableCheck(product) ||
       sizeAndSaltAndVinegarRequiredCheck(product, chosenSize, saltAndVinegar) ||
       onlySizeRequiredCheck(product, chosenSize) ||
-      onlySaltAndVinegarRequiredCheck(product, saltAndVinegar)
+      onlySaltAndVinegarRequiredCheck(product, saltAndVinegar) ||
+      saltAndVinegarAndCansRequiredCheck(product, saltAndVinegar, chosenCan)
       ? true
       : false;
   };
