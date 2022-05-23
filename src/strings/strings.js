@@ -91,3 +91,38 @@ export const onePiece = "1 piece";
 export const twoPieces = "2 pieces";
 export const threePieces = "3 pieces";
 export const fourPieces = "4 pieces";
+
+//type options
+export const donerBap = "doner bap";
+export const donerWrap = "doner wrap";
+export const smallDonerKebab = "small doner kebab";
+export const smallDonerMeatInTray = "small doner meat in tray";
+export const smallDonerMeatInTrayAndChips = "small doner meat in tray & chips";
+export const largeDonerKebab = "large doner kebab";
+export const largeDonerMeatInTray = "large doner meat in tray";
+export const largeDonerMeatInTrayAndChips = "large doner meat in tray & chips";
+export const donerNaan = "doner naan";
+export const chickenBap = "chicken bap";
+export const chickenWrap = "chicken wrap";
+export const smallChickenKebab = "small chicken kebab";
+export const smallChickenMeatInTray = "small chicken meat in tray";
+export const smallChickenMeatInTrayAndChips =
+  "small chicken meat in tray & chips";
+export const largeChickenKebab = "large chicken kebab";
+export const largeChickenMeatInTray = "large chicken meat in tray";
+export const largeChickenMeatInTrayAndChips =
+  "large chicken meat in tray & chips";
+export const chickenNaan = "chicken naan";
+export const mixedBap = "mixed bap";
+export const mixedWrap = "mixed wrap";
+export const smallMixedKebab = "small mixed kebab";
+export const smallMixedMeatInTray = "small mixed meat in tray";
+export const smallMixedMeatInTrayAndChips = "small mixed meat in tray & chips";
+export const largeMixedKebab = "large mixed kebab";
+export const largeMixedMeatInTray = "large mixed meat in tray";
+export const largeMixedMeatInTrayAndChips = "large mixed meat in tray & chips";
+export const mixedNaan = "mixed naan";
+export const mixedMeatsThreeMeatsKebab = "mixed meats ( 3 meats ) kebab";
+
+// product names
+export const tubOfSauce = "tub of sauce";

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { GlobalStyle } from "./global-styles";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -9,6 +9,7 @@ import { db } from "./utils/firebase/firebase.utils";
 import { checkUserSession } from "./store/user/user.action";
 import { updateCartItems } from "./store/cart/cart.action";
 import { selectCurrentUser } from "./store/user/user.selector";
+import { clearFinalItem } from "./store/final-item/final-item.action";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
@@ -29,8 +30,9 @@ const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
 // const Contact = lazy(() => import("./routes/contact/contact.component"));
 
 const App = () => {
-  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(checkUserSession());
@@ -56,6 +58,14 @@ const App = () => {
       unsubscribeFromSnapshot();
     };
   }, [currentUser, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      if (location.pathname.includes("product")) {
+        dispatch(clearFinalItem());
+      }
+    };
+  });
 
   return (
     <div>

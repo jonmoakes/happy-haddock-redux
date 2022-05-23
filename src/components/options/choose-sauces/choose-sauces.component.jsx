@@ -5,19 +5,17 @@ import { addSauces } from "../../../store/final-item/final-item.action";
 import { selectSaucesSelected } from "../../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../../store/products/product.selector";
 
-import TooManySaucesSelected from "./too-many-sauces-selected.component";
-import { numberOfSaucesChosenCheck } from "../../../reusable-functions/sauces-checks";
+import ChooseOneSauce from "./choose-one-sauce.component";
+import ChooseMultipleSauces from "./choose-multiple-sauces.component";
+import ChooseSaucesInfo from "./choose-sauces-info.component";
 
 import { defaultSauces } from "./default-sauces";
-import { saucesCheckboxes } from "./sauces-checkboxes";
+
+import { tubOfSauce } from "../../../strings/strings";
 
 import {
   OptionsForm,
   RequiredDiv,
-  Section,
-  RadioDiv,
-  ChoiceHeading,
-  OptionsLabel,
 } from "../../../styles/options-form/options-form.styles";
 
 const ChooseSauces = () => {
@@ -25,7 +23,7 @@ const ChooseSauces = () => {
   const product = useSelector(selectIndividualProduct);
   const saucesSelected = useSelector(selectSaucesSelected);
 
-  const { saucesAvailable } = product;
+  const { name, saucesAvailable } = product;
   const dispatch = useDispatch();
 
   const handleSaucesChange = (event) => {
@@ -46,30 +44,10 @@ const ChooseSauces = () => {
             <span>required</span>
           </RequiredDiv>
 
-          <Section>
-            <ChoiceHeading>choose up to 3 sauces:</ChoiceHeading>
-          </Section>
-
-          <RadioDiv>
-            {saucesCheckboxes.map((checkbox) => (
-              <Fragment key={checkbox.id}>
-                <OptionsLabel>{checkbox.label}</OptionsLabel>
-                <input
-                  className="checkbox"
-                  type="checkbox"
-                  id={checkbox.name}
-                  name={checkbox.name}
-                  checked={checkbox.checked}
-                />
-                <hr />
-              </Fragment>
-            ))}
-          </RadioDiv>
+          {name === tubOfSauce ? <ChooseOneSauce /> : <ChooseMultipleSauces />}
         </OptionsForm>
       )}
-      {saucesAvailable && !numberOfSaucesChosenCheck(saucesSelected) && (
-        <TooManySaucesSelected />
-      )}
+      <ChooseSaucesInfo {...{ saucesSelected }} />
     </>
   );
 };

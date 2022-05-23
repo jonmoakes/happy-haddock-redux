@@ -7,7 +7,7 @@ import {
   selectQuantity,
 } from "../../../store/final-item/final-item.selector";
 
-import { numberOfSaucesChosenCheck } from "../../../reusable-functions/sauces-checks";
+import { numberOfSaucesChosenCheck } from "../../../reusable-functions/multiple-checkboxes-selectable-checks";
 
 const useSizeSaucesAndQuantityCheck = () => {
   const product = useSelector(selectIndividualProduct);

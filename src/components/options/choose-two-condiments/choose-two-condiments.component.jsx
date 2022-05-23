@@ -6,7 +6,7 @@ import { selectTwoCondiments } from "../../../store/final-item/final-item.select
 import { selectIndividualProduct } from "../../../store/products/product.selector";
 
 import TooManyCondimentsSelected from "./too-many-condiments-selected.component";
-import { numberOfCondimentsChosenCheck } from "../../../reusable-functions/two-condiments-checks";
+import { numberOfCondimentsChosenCheck } from "../../../reusable-functions/multiple-checkboxes-selectable-checks";
 
 import { defaultCondiments } from "./default-condiments";
 import { twoCondimentsCheckboxes } from "./two-condiments-checkbox";

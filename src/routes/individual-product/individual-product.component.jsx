@@ -8,16 +8,22 @@ import { selectIndividualProduct } from "../../store/products/product.selector";
 import RequiredInfoText from "./required-info-text/required-info-text.component";
 import PriceInfo from "./price-info/price-info.component";
 import ChooseSize from "../../components/options/choose-size.component";
+import ChooseType from "../../components/options/choose-type.component";
 import ChooseGratedCheese from "../../components/options/choose-grated-cheese.component";
 import ChooseDonerMeat from "../../components/options/choose-doner-meat.component";
 import ChooseCheeseSlice from "../../components/options/choose-cheese-slice.component";
 import ChooseSalad from "../../components/options/choose-salad.component";
 import ChooseSauces from "../../components/options/choose-sauces/choose-sauces.component";
+import ChoosePie from "../../components/options/choose-pie.component";
 import ChooseSaltAndVinegar from "../../components/options/choose-salt-and-vinegar.component";
 import ChooseSpecialInstructionsAndQuantity from "../../components/options/choose-special-instructions-and-quantity.component";
 import ChooseCans from "../../components/options/choose-cans.component";
+import ChooseBottles from "../../components/options/choose-bottles.component";
 import ChooseSingleCondiment from "../../components/options/choose-single-condiment.component";
 import ChooseTwoCondiments from "../../components/options/choose-two-condiments/choose-two-condiments.component";
+import ChooseConeOfChipsSauce from "../../components/options/choose-cone-of-chips-sauce.component";
+import ChooseOneMeat from "../../components/options/choose-one-meat.component";
+import ChooseTwoMeats from "../../components/options/choose-two-meats/choose-two-meats.component";
 import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
 
 import {
@@ -61,6 +67,8 @@ const IndividualProductPage = () => {
               {description && <Description>{description}</Description>}
               <Price>£{price.toFixed(2)}</Price>
               <ChooseSize />
+              <ChooseType />
+              <ChoosePie />
               <ChooseSaltAndVinegar />
               <ChooseGratedCheese />
               <ChooseDonerMeat />
@@ -68,8 +76,12 @@ const IndividualProductPage = () => {
               <ChooseSalad />
               <ChooseSauces />
               <ChooseCans />
+              <ChooseBottles />
               <ChooseSingleCondiment />
               <ChooseTwoCondiments />
+              <ChooseConeOfChipsSauce />
+              <ChooseOneMeat />
+              <ChooseTwoMeats />
               <ChooseSpecialInstructionsAndQuantity />
               <AddToOrderButton onClick={confirmAddItem}>
                 add to order
