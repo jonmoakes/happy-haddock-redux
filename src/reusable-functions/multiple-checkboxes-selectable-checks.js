@@ -1,4 +1,4 @@
-// returns true if sauces selected === 3
+// returns true if sauces selected is between 1 and 3
 export const numberOfSaucesChosenCheck = (saucesSelected) => {
   const numberChosen = Object.values(saucesSelected).filter(
     (item) => item === true
