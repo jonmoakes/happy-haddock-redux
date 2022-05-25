@@ -7,11 +7,11 @@ import { onePiece } from "../../../strings/strings";
 
 const OnePieceSize = () => {
   const product = useSelector(selectIndividualProduct);
-  const { onePiecePrice } = product;
+  const { sizePrices } = product;
 
   return (
     <>
-      {onePiecePrice && (
+      {sizePrices[0].onePiecePrice && (
         <RadioDiv>
           <hr />
           <label>1 piece</label>

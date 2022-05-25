@@ -3,10 +3,21 @@ export const selectSizeSelectedPrice = (state) =>
 
 export const selectChosenSize = (state) => state.finalItem.chosenSize;
 
-export const selectTypeSelectedPrice = (state) =>
-  state.finalItem.typeSelectedPrice;
+export const selectDonerKebabType = (state) => state.finalItem.donerKebabType;
 
-export const selectChosenType = (state) => state.finalItem.chosenType;
+export const selectDonerKebabTypePrice = (state) =>
+  state.finalItem.donerKebabTypePrice;
+
+export const selectChickenKebabType = (state) =>
+  state.finalItem.chickenKebabType;
+
+export const selectChickenKebabTypePrice = (state) =>
+  state.finalItem.chickenKebabTypePrice;
+
+export const selectMixedKebabType = (state) => state.finalItem.mixedKebabType;
+
+export const selectMixedKebabTypePrice = (state) =>
+  state.finalItem.mixedKebabTypePrice;
 
 export const selectSaltAndVinegar = (state) => state.finalItem.saltAndVinegar;
 

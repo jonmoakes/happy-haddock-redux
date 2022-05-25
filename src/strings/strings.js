@@ -126,3 +126,6 @@ export const mixedMeatsThreeMeatsKebab = "mixed meats ( 3 meats ) kebab";
 
 // product names
 export const tubOfSauce = "tub of sauce";
+export const fiveHalloumiSticksAndSmallSauce =
+  "5 halloumi sticks & small sauce";
+export const megaSnackBox = "mega snack box";

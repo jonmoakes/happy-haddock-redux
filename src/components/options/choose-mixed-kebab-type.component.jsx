@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import {
-  addChosenType,
-  addTypeSelectedPrice,
+  addMixedKebabType,
+  addMixedKebabTypePrice,
 } from "../../store/final-item/final-item.action";
 
 import {
@@ -13,15 +13,15 @@ import {
   RadioDiv,
 } from "../../styles/options-form/options-form.styles";
 
-const ChooseType = () => {
+const ChooseMixedKebabType = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
 
-  const { hasTypeOption, types } = product;
+  const { hasMixedKebabType, mixedKebabTypes } = product;
 
   return (
     <>
-      {hasTypeOption && (
+      {hasMixedKebabType && (
         <OptionsForm>
           <RequiredDiv>
             <span>required</span>
@@ -31,7 +31,7 @@ const ChooseType = () => {
             <p>type:</p>
           </Section>
 
-          {types.map((type) => {
+          {mixedKebabTypes.map((type) => {
             const { label, price } = type;
             return (
               <RadioDiv key={label}>
@@ -42,9 +42,10 @@ const ChooseType = () => {
                   type="radio"
                   value={label}
                   onClick={() => {
-                    dispatch(addChosenType(label));
-                    dispatch(addTypeSelectedPrice(price));
+                    dispatch(addMixedKebabType(label));
+                    dispatch(addMixedKebabTypePrice(price));
                   }}
+                  name="type"
                 />
                 <hr />
               </RadioDiv>
@@ -56,4 +57,4 @@ const ChooseType = () => {
   );
 };
 
-export default ChooseType;
+export default ChooseMixedKebabType;

@@ -7,6 +7,24 @@ export const addSizeSelectedPrice = (payload) =>
 export const addChosenSize = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_CHOSEN_SIZE, payload);
 
+export const addDonerKebabType = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_DONER_KEBAB_TYPE, payload);
+
+export const addDonerKebabTypePrice = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_DONER_KEBAB_TYPE_PRICE, payload);
+
+export const addChickenKebabType = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_CHICKEN_KEBAB_TYPE, payload);
+
+export const addChickenKebabTypePrice = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_CHICKEN_KEBAB_TYPE_PRICE, payload);
+
+export const addMixedKebabType = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_MIXED_KEBAB_TYPE, payload);
+
+export const addMixedKebabTypePrice = (payload) =>
+  createAction(FINAL_ITEM_ACTION_TYPES.ADD_MIXED_KEBAB_TYPE_PRICE, payload);
+
 export const addTypeSelectedPrice = (payload) =>
   createAction(FINAL_ITEM_ACTION_TYPES.ADD_TYPE_SELECTED_PRICE, payload);
 

@@ -8,7 +8,9 @@ import { selectIndividualProduct } from "../../store/products/product.selector";
 import RequiredInfoText from "./required-info-text/required-info-text.component";
 import PriceInfo from "./price-info/price-info.component";
 import ChooseSize from "../../components/options/choose-size.component";
-import ChooseType from "../../components/options/choose-type.component";
+import ChooseDonerKebabType from "../../components/options/choose-doner-kebab-type.component";
+import ChooseChickenKebabType from "../../components/options/choose-chicken-kebab-type.component";
+import ChooseMixedKebabType from "../../components/options/choose-mixed-kebab-type.component";
 import ChooseGratedCheese from "../../components/options/choose-grated-cheese.component";
 import ChooseDonerMeat from "../../components/options/choose-doner-meat.component";
 import ChooseCheeseSlice from "../../components/options/choose-cheese-slice.component";
@@ -67,7 +69,9 @@ const IndividualProductPage = () => {
               {description && <Description>{description}</Description>}
               <Price>£{price.toFixed(2)}</Price>
               <ChooseSize />
-              <ChooseType />
+              <ChooseDonerKebabType />
+              <ChooseChickenKebabType />
+              <ChooseMixedKebabType />
               <ChoosePie />
               <ChooseSaltAndVinegar />
               <ChooseGratedCheese />

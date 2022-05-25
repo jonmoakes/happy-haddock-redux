@@ -26,11 +26,11 @@ const ChooseSize = () => {
   const { handleSizeChange } = useHandleSizeSelection();
   const product = useSelector(selectIndividualProduct);
 
-  const { hasSizeOption } = product;
+  const { optionsAvailable } = product;
 
   return (
     <>
-      {hasSizeOption && (
+      {optionsAvailable[0].sizeOptionAvailable && (
         <OptionsForm onChange={handleSizeChange}>
           <RequiredDiv>
             <span>required</span>

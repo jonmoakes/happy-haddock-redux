@@ -3,8 +3,12 @@ import { FINAL_ITEM_ACTION_TYPES } from "./final-item.types";
 export const FINAL_ITEM_INITIAL_STATE = {
   sizeSelectedPrice: null,
   chosenSize: "",
-  typeSelectedPrice: null,
-  chosenType: "",
+  donerKebabType: "",
+  donerKebabTypePrice: null,
+  chickenKebabType: "",
+  chickenKebabTypePrice: null,
+  mixedKebabType: "",
+  mixedKebabTypePrice: null,
   saltAndVinegar: "",
   pie: "",
   gratedCheesePrice: null,
@@ -34,10 +38,18 @@ export const finalItemReducer = (
       return { ...state, sizeSelectedPrice: payload };
     case FINAL_ITEM_ACTION_TYPES.ADD_CHOSEN_SIZE:
       return { ...state, chosenSize: payload };
-    case FINAL_ITEM_ACTION_TYPES.ADD_TYPE_SELECTED_PRICE:
-      return { ...state, typeSelectedPrice: payload };
-    case FINAL_ITEM_ACTION_TYPES.ADD_CHOSEN_TYPE:
-      return { ...state, chosenType: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_DONER_KEBAB_TYPE:
+      return { ...state, donerKebabType: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_DONER_KEBAB_TYPE_PRICE:
+      return { ...state, donerKebabTypePrice: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_CHICKEN_KEBAB_TYPE:
+      return { ...state, chickenKebabType: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_CHICKEN_KEBAB_TYPE_PRICE:
+      return { ...state, chickenKebabTypePrice: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_MIXED_KEBAB_TYPE:
+      return { ...state, mixedKebabType: payload };
+    case FINAL_ITEM_ACTION_TYPES.ADD_MIXED_KEBAB_TYPE_PRICE:
+      return { ...state, mixedKebabTypePrice: payload };
     case FINAL_ITEM_ACTION_TYPES.ADD_SALT_AND_VINEGAR:
       return { ...state, saltAndVinegar: payload };
     case FINAL_ITEM_ACTION_TYPES.ADD_PIE:
@@ -75,17 +87,25 @@ export const finalItemReducer = (
         ...state,
         sizeSelectedPrice: null,
         chosenSize: "",
-        typeSelectedPrice: null,
-        chosenType: "",
+        donerKebabType: "",
+        donerKebabTypePrice: null,
+        chickenKebabType: "",
+        chickenKebabTypePrice: null,
+        mixedKebabType: "",
+        mixedKebabTypePrice: null,
         saltAndVinegar: "",
+        pie: "",
         gratedCheesePrice: null,
         donerMeatPrice: null,
         cheeseSliceSelected: false,
         saladSelected: false,
         saucesSelected: {},
         can: "",
+        bottles: "",
         singleCondiment: "",
         twoCondiments: {},
+        coneOfChipsSauce: "",
+        oneMeat: "",
         twoMeats: {},
         specialInstructions: "",
         quantity: 0,

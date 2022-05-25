@@ -7,11 +7,11 @@ import { double } from "../../../strings/strings";
 
 const DoubleSize = () => {
   const product = useSelector(selectIndividualProduct);
-  const { doublePrice } = product;
+  const { sizePrices } = product;
 
   return (
     <>
-      {doublePrice !== 0 && (
+      {sizePrices[0].doublePrice !== 0 && (
         <RadioDiv>
           <label>double</label>
           <input type="radio" value={double} name="size" required />

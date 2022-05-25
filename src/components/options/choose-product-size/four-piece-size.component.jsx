@@ -7,11 +7,11 @@ import { fourPieces } from "../../../strings/strings";
 
 const FourPieceSize = () => {
   const product = useSelector(selectIndividualProduct);
-  const { fourPiecePrice } = product;
+  const { sizePrices } = product;
 
   return (
     <>
-      {fourPiecePrice !== 0 && (
+      {sizePrices[0].fourPiecePrice !== 0 && (
         <RadioDiv>
           <label>4 pieces</label>
           <input type="radio" value={fourPieces} name="size" />

@@ -9,11 +9,11 @@ import { single } from "../../../strings/strings";
 const SingleSize = () => {
   const product = useSelector(selectIndividualProduct);
 
-  const { doublePrice } = product;
+  const { sizePrices } = product;
 
   return (
     <>
-      {doublePrice !== 0 && (
+      {sizePrices[0].doublePrice !== 0 && (
         <RadioDiv>
           <hr />
           <label>single</label>

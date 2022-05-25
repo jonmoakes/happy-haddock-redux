@@ -5,8 +5,12 @@ import { selectIndividualProduct } from "../store/products/product.selector";
 import {
   selectChosenSize,
   selectSizeSelectedPrice,
-  selectChosenType,
-  selectTypeSelectedPrice,
+  selectDonerKebabType,
+  selectDonerKebabTypePrice,
+  selectChickenKebabType,
+  selectChickenKebabTypePrice,
+  selectMixedKebabType,
+  selectMixedKebabTypePrice,
   selectSaltAndVinegar,
   selectPie,
   selectGratedCheesePrice,
@@ -29,8 +33,12 @@ const useGetFinalItem = () => {
   const product = useSelector(selectIndividualProduct);
   const chosenSize = useSelector(selectChosenSize);
   const sizeSelectedPrice = useSelector(selectSizeSelectedPrice);
-  const chosenType = useSelector(selectChosenType);
-  const typeSelectedPrice = useSelector(selectTypeSelectedPrice);
+  const donerKebabType = useSelector(selectDonerKebabType);
+  const donerKebabTypePrice = useSelector(selectDonerKebabTypePrice);
+  const chickenKebabType = useSelector(selectChickenKebabType);
+  const chickenKebabTypePrice = useSelector(selectChickenKebabTypePrice);
+  const mixedKebabType = useSelector(selectMixedKebabType);
+  const mixedKebabTypePrice = useSelector(selectMixedKebabTypePrice);
   const saltAndVinegar = useSelector(selectSaltAndVinegar);
   const pie = useSelector(selectPie);
   const gratedCheesePrice = useSelector(selectGratedCheesePrice);
@@ -57,8 +65,12 @@ const useGetFinalItem = () => {
     price,
     chosenSize,
     sizeSelectedPrice,
-    chosenType,
-    typeSelectedPrice,
+    donerKebabType,
+    donerKebabTypePrice,
+    chickenKebabType,
+    chickenKebabTypePrice,
+    mixedKebabType,
+    mixedKebabTypePrice,
     saltAndVinegar,
     pie,
     gratedCheesePrice,
@@ -77,7 +89,9 @@ const useGetFinalItem = () => {
     quantity,
     selectedOptionsCombinedPrice:
       sizeSelectedPrice +
-      typeSelectedPrice +
+      donerKebabTypePrice +
+      chickenKebabTypePrice +
+      mixedKebabTypePrice +
       gratedCheesePrice +
       donerMeatPrice,
   };

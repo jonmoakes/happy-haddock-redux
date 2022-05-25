@@ -7,11 +7,11 @@ import { large } from "../../../strings/strings";
 
 const LargeSize = () => {
   const product = useSelector(selectIndividualProduct);
-  const { largePrice } = product;
+  const { sizePrices } = product;
 
   return (
     <>
-      {largePrice !== 0 && (
+      {sizePrices[0].largePrice !== 0 && (
         <RadioDiv>
           <label>large</label>
           <input type="radio" value={large} name="size" />

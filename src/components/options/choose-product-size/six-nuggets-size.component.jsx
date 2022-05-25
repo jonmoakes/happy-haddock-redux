@@ -7,11 +7,11 @@ import { sixNuggets } from "../../../strings/strings";
 
 const SixNuggetsSize = () => {
   const product = useSelector(selectIndividualProduct);
-  const { sixNuggetsPrice } = product;
+  const { sizePrices } = product;
 
   return (
     <>
-      {sixNuggetsPrice && (
+      {sizePrices[0].sixNuggetsPrice && (
         <RadioDiv>
           <hr />
           <label>6 nuggets</label>

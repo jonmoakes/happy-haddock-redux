@@ -26,20 +26,7 @@ const useHandleSizeSelection = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
 
-  const {
-    doublePrice,
-    smallPrice,
-    mediumPrice,
-    largePrice,
-    sixNuggetsPrice,
-    nineNuggetsPrice,
-    twelveNuggetsPrice,
-    twentyNuggetsPrice,
-    onePiecePrice,
-    twoPiecePrice,
-    threePiecePrice,
-    fourPiecePrice,
-  } = product;
+  const { sizePrices } = product;
 
   const handleSizeChange = (event) => {
     const value = event.target.value;
@@ -50,51 +37,51 @@ const useHandleSizeSelection = () => {
         dispatch(addChosenSize(value));
         break;
       case double:
-        dispatch(addSizeSelectedPrice(doublePrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].doublePrice));
         dispatch(addChosenSize(value));
         break;
       case small:
-        dispatch(addSizeSelectedPrice(smallPrice));
+        dispatch(addSizeSelectedPrice(0));
         dispatch(addChosenSize(value));
         break;
       case medium:
-        dispatch(addSizeSelectedPrice(mediumPrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].mediumPrice));
         dispatch(addChosenSize(value));
         break;
       case large:
-        dispatch(addSizeSelectedPrice(largePrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].largePrice));
         dispatch(addChosenSize(value));
         break;
       case sixNuggets:
-        dispatch(addSizeSelectedPrice(sixNuggetsPrice));
+        dispatch(addSizeSelectedPrice(0));
         dispatch(addChosenSize(value));
         break;
       case nineNuggets:
-        dispatch(addSizeSelectedPrice(nineNuggetsPrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].nineNuggetsPrice));
         dispatch(addChosenSize(value));
         break;
       case twelveNuggets:
-        dispatch(addSizeSelectedPrice(twelveNuggetsPrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].twelveNuggetsPrice));
         dispatch(addChosenSize(value));
         break;
       case twentyNuggets:
-        dispatch(addSizeSelectedPrice(twentyNuggetsPrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].twentyNuggetsPrice));
         dispatch(addChosenSize(value));
         break;
       case onePiece:
-        dispatch(addSizeSelectedPrice(onePiecePrice));
+        dispatch(addSizeSelectedPrice(0));
         dispatch(addChosenSize(value));
         break;
       case twoPieces:
-        dispatch(addSizeSelectedPrice(twoPiecePrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].twoPiecePrice));
         dispatch(addChosenSize(value));
         break;
       case threePieces:
-        dispatch(addSizeSelectedPrice(threePiecePrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].threePiecePrice));
         dispatch(addChosenSize(value));
         break;
       case fourPieces:
-        dispatch(addSizeSelectedPrice(fourPiecePrice));
+        dispatch(addSizeSelectedPrice(sizePrices[0].fourPiecePrice));
         dispatch(addChosenSize(value));
         break;
       default:
