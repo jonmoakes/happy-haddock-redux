@@ -11,6 +11,10 @@ export const numberOfSaucesChosenCheck = (saucesSelected) => {
   }
 };
 
+export const getNumberOfSaucesSelected = (saucesSelected) => {
+  return Object.values(saucesSelected).filter((item) => item === true).length;
+};
+
 // returns true if sauces selected === 1
 export const oneSauceChosenCheck = (saucesSelected) => {
   const numberChosen = Object.values(saucesSelected).filter(
