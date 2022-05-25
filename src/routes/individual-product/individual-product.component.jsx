@@ -72,20 +72,20 @@ const IndividualProductPage = () => {
               <ChooseDonerKebabType />
               <ChooseChickenKebabType />
               <ChooseMixedKebabType />
-              <ChoosePie />
-              <ChooseSaltAndVinegar />
+              <ChooseOneMeat />
+              <ChooseTwoMeats />
               <ChooseGratedCheese />
               <ChooseDonerMeat />
               <ChooseCheeseSlice />
               <ChooseSalad />
               <ChooseSauces />
+              <ChoosePie />
+              <ChooseSaltAndVinegar />
               <ChooseCans />
               <ChooseBottles />
               <ChooseSingleCondiment />
               <ChooseTwoCondiments />
               <ChooseConeOfChipsSauce />
-              <ChooseOneMeat />
-              <ChooseTwoMeats />
               <ChooseSpecialInstructionsAndQuantity />
               <AddToOrderButton onClick={confirmAddItem}>
                 add to order

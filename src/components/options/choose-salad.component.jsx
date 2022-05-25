@@ -6,14 +6,13 @@ import { addSalad } from "../../store/final-item/final-item.action";
 import {
   OptionsForm,
   Section,
-  OptionsLabel,
   RadioDiv,
 } from "../../styles/options-form/options-form.styles";
 
 const ChooseSalad = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { saladAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleSaladChange = (event) => {
     const checked = event.target.checked;
@@ -26,14 +25,14 @@ const ChooseSalad = () => {
 
   return (
     <>
-      {saladAvailable && (
+      {optionsAvailable[0].saladAvailable && (
         <OptionsForm onChange={handleSaladChange}>
           <Section>
             <p>add Salad?</p>
+            <p className="price">( free )</p>
           </Section>
 
           <RadioDiv>
-            <OptionsLabel>( free )</OptionsLabel>
             <input
               className="checkbox"
               type="checkbox"

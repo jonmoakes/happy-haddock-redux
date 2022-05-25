@@ -6,14 +6,13 @@ import { addCheeseSlice } from "../../store/final-item/final-item.action";
 import {
   OptionsForm,
   Section,
-  OptionsLabel,
   RadioDiv,
 } from "../../styles/options-form/options-form.styles";
 
 const ChooseCheeseSlice = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { cheeseSliceAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleCheeseSliceChange = (event) => {
     const checked = event.target.checked;
@@ -26,14 +25,14 @@ const ChooseCheeseSlice = () => {
 
   return (
     <>
-      {cheeseSliceAvailable && (
+      {optionsAvailable[0].cheeseSliceAvailable && (
         <OptionsForm onChange={handleCheeseSliceChange}>
           <Section>
             <p>add a cheese slice?</p>
+            <p className="price">( free )</p>
           </Section>
 
           <RadioDiv>
-            <OptionsLabel> ( free )</OptionsLabel>
             <input
               className="checkbox"
               type="checkbox"

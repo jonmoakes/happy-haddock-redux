@@ -1,10 +1,6 @@
-import styled, { keyframes } from "styled-components";
-import { bounceInDown } from "react-animations";
-
-const bounceInDownAnimation = keyframes`${bounceInDown}`;
+import styled from "styled-components";
 
 export const Div = styled.div`
-  animation: 1s ${bounceInDownAnimation};
   background-color: salmon;
   padding: 0px 5px;
   border-radius: 15px;
@@ -12,15 +8,6 @@ export const Div = styled.div`
   height: auto;
 
   p {
-    color: black;
-    text-shadow: none;
-
-    @media screen and (max-width: 600px) {
-      font-size: 16px;
-    }
-  }
-
-  li {
     color: black;
     text-shadow: none;
 

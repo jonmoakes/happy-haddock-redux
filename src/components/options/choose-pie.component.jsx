@@ -13,7 +13,7 @@ import {
 const ChoosePie = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { anyPieAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleCanChange = (event) => {
     dispatch(addPie(event.target.value));
@@ -21,7 +21,7 @@ const ChoosePie = () => {
 
   return (
     <>
-      {anyPieAvailable && (
+      {optionsAvailable[0].anyPieAvailable && (
         <OptionsForm onChange={handleCanChange}>
           <RequiredDiv>
             <span>required</span>

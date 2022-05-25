@@ -12,7 +12,7 @@ import {
 const ChooseGratedCheese = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { gratedCheeseAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleGratedCheeseChange = (event) => {
     const checked = event.target.checked;
@@ -25,21 +25,11 @@ const ChooseGratedCheese = () => {
 
   return (
     <>
-      {gratedCheeseAvailable && (
+      {optionsAvailable[0].gratedCheeseAvailable && (
         <OptionsForm onChange={handleGratedCheeseChange}>
           <Section>
             <p>add grated cheese?</p>
-            <p
-              style={{
-                fontSize: "16px",
-                color: "black",
-                textShadow: "none",
-                textDecoration: "none",
-                marginTop: "-10px",
-              }}
-            >
-              ( + £1.30 )
-            </p>
+            <p className="price">( + £1.30 )</p>
           </Section>
 
           <RadioDiv>

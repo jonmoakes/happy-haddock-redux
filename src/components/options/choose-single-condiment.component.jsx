@@ -14,7 +14,7 @@ const ChooseSingleCondiment = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
 
-  const { condimentsAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleSingleCondimentChange = (event) => {
     dispatch(addSingleCondiment(event.target.value));
@@ -22,7 +22,7 @@ const ChooseSingleCondiment = () => {
 
   return (
     <>
-      {condimentsAvailable === 1 && (
+      {optionsAvailable[0].condimentsAvailable === 1 && (
         <OptionsForm onChange={handleSingleCondimentChange}>
           <RequiredDiv>
             <span>required</span>

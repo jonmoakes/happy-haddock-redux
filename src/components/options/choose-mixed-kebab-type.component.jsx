@@ -17,17 +17,17 @@ const ChooseMixedKebabType = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
 
-  const { hasMixedKebabType, mixedKebabTypes } = product;
+  const { optionsAvailable, mixedKebabTypes } = product;
 
   return (
     <>
-      {hasMixedKebabType && (
+      {optionsAvailable[0].mixedKebabTypeAvailable && (
         <OptionsForm>
           <RequiredDiv>
             <span>required</span>
           </RequiredDiv>
 
-          <Section>
+          <Section className="type">
             <p>type:</p>
           </Section>
 
@@ -35,9 +35,8 @@ const ChooseMixedKebabType = () => {
             const { label, price } = type;
             return (
               <RadioDiv key={label}>
-                <label>
-                  {label} ( + £{price.toFixed(2)} )
-                </label>
+                <label>{label}</label>
+                <label className="price">( + £{price.toFixed(2)} )</label>
                 <input
                   type="radio"
                   value={label}

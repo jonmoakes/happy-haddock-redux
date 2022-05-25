@@ -17,27 +17,26 @@ const ChooseChickenKebabType = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
 
-  const { hasChickenKebabType, chickenKebabTypes } = product;
+  const { optionsAvailable, chickenKebabtypes } = product;
 
   return (
     <>
-      {hasChickenKebabType && (
+      {optionsAvailable[0].chickenKebabTypeAvailable && (
         <OptionsForm>
           <RequiredDiv>
             <span>required</span>
           </RequiredDiv>
 
-          <Section>
+          <Section className="type">
             <p>type:</p>
           </Section>
 
-          {chickenKebabTypes.map((type) => {
+          {chickenKebabtypes.map((type) => {
             const { label, price } = type;
             return (
               <RadioDiv key={label}>
-                <label>
-                  {label} ( + £{price.toFixed(2)} )
-                </label>
+                <label>{label}</label>
+                <label className="price">( + £{price.toFixed(2)} )</label>
                 <input
                   type="radio"
                   value={label}

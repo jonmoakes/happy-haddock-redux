@@ -13,7 +13,7 @@ import {
 const ChooseFromCansSelection = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { drinkAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleCanChange = (event) => {
     dispatch(addCan(event.target.value));
@@ -21,7 +21,7 @@ const ChooseFromCansSelection = () => {
 
   return (
     <>
-      {drinkAvailable && (
+      {optionsAvailable[0].drinkAvailable && (
         <OptionsForm onChange={handleCanChange}>
           <RequiredDiv>
             <span>required</span>

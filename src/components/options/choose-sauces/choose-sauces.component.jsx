@@ -23,7 +23,7 @@ const ChooseSauces = () => {
   const product = useSelector(selectIndividualProduct);
   const saucesSelected = useSelector(selectSaucesSelected);
 
-  const { name, saucesAvailable } = product;
+  const { name, optionsAvailable } = product;
   const dispatch = useDispatch();
 
   const handleSaucesChange = (event) => {
@@ -38,16 +38,22 @@ const ChooseSauces = () => {
 
   return (
     <>
-      {saucesAvailable && (
-        <OptionsForm onChange={handleSaucesChange}>
-          <RequiredDiv>
-            <span>required</span>
-          </RequiredDiv>
+      {optionsAvailable[0].saucesAvailable && (
+        <>
+          <OptionsForm onChange={handleSaucesChange}>
+            <RequiredDiv>
+              <span>required</span>
+            </RequiredDiv>
 
-          {name === tubOfSauce ? <ChooseOneSauce /> : <ChooseMultipleSauces />}
-        </OptionsForm>
+            {name === tubOfSauce ? (
+              <ChooseOneSauce />
+            ) : (
+              <ChooseMultipleSauces />
+            )}
+          </OptionsForm>
+          <ChooseSaucesInfo {...{ saucesSelected }} />
+        </>
       )}
-      <ChooseSaucesInfo {...{ saucesSelected }} />
     </>
   );
 };

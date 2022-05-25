@@ -5,7 +5,6 @@ import { addDonerMeatPrice } from "../../store/final-item/final-item.action";
 
 import {
   OptionsForm,
-  OptionsLabel,
   Section,
   RadioDiv,
 } from "../../styles/options-form/options-form.styles";
@@ -13,7 +12,7 @@ import {
 const ChooseDonerMeat = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { donerMeatAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleDonerMeatChange = (event) => {
     const checked = event.target.checked;
@@ -26,14 +25,14 @@ const ChooseDonerMeat = () => {
 
   return (
     <>
-      {donerMeatAvailable && (
+      {optionsAvailable[0].donerMeatAvailable && (
         <OptionsForm onChange={handleDonerMeatChange}>
           <Section>
             <p>add doner meat?</p>
+            <p className="price">( + £1.70 )</p>
           </Section>
 
           <RadioDiv>
-            <OptionsLabel> ( + £1.70 )</OptionsLabel>
             <input
               className="checkbox"
               type="checkbox"

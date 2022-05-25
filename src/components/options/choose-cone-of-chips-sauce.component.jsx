@@ -13,7 +13,7 @@ import {
 const ChooseConeOfChipsSauce = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { coneOfChipsSauce } = product;
+  const { optionsAvailable } = product;
 
   const handleCanChange = (event) => {
     dispatch(addConeOfChipsSauce(event.target.value));
@@ -21,7 +21,7 @@ const ChooseConeOfChipsSauce = () => {
 
   return (
     <>
-      {coneOfChipsSauce && (
+      {optionsAvailable[0].coneOfChipsSauceAvailable && (
         <OptionsForm onChange={handleCanChange}>
           <RequiredDiv>
             <span>required</span>

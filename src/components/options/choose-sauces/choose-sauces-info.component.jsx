@@ -17,21 +17,21 @@ import { Div } from "../../../styles/options-error/options-error.styles";
 
 const ChooseSaucesInfo = ({ saucesSelected }) => {
   const product = useSelector(selectIndividualProduct);
-  const { name, saucesAvailable } = product;
+  const { name } = product;
 
   return (
     <Div>
-      {((saucesAvailable && name === tubOfSauce) ||
-        (saucesAvailable && name === fiveHalloumiSticksAndSmallSauce) ||
-        (saucesAvailable && name === megaSnackBox)) &&
+      {(name === tubOfSauce ||
+        name === fiveHalloumiSticksAndSmallSauce ||
+        name === megaSnackBox) &&
       !oneSauceChosenCheck(saucesSelected) ? (
-        <p>choose one sauce :)</p>
+        <p> &uarr; choose one sauce :) &uarr;</p>
       ) : (
-        ((saucesAvailable && name !== tubOfSauce) ||
-          (saucesAvailable && name !== fiveHalloumiSticksAndSmallSauce) ||
-          (saucesAvailable && name !== megaSnackBox)) &&
+        (name !== tubOfSauce ||
+          name !== fiveHalloumiSticksAndSmallSauce ||
+          name !== megaSnackBox) &&
         !numberOfSaucesChosenCheck(saucesSelected) && (
-          <p>choose up to 3 sauces :)</p>
+          <p> &uarr; choose up to 3 sauces :) &uarr;</p>
         )
       )}
     </Div>

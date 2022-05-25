@@ -13,7 +13,7 @@ import {
 const ChooseOneMeat = () => {
   const product = useSelector(selectIndividualProduct);
   const dispatch = useDispatch();
-  const { meatsAvailable } = product;
+  const { optionsAvailable } = product;
 
   const handleCanChange = (event) => {
     dispatch(addOneMeat(event.target.value));
@@ -21,7 +21,7 @@ const ChooseOneMeat = () => {
 
   return (
     <>
-      {meatsAvailable === 1 && (
+      {optionsAvailable[0].meatsAvailable === 1 && (
         <OptionsForm onChange={handleCanChange}>
           <RequiredDiv>
             <span>required</span>

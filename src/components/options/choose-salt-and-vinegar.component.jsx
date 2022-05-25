@@ -13,7 +13,7 @@ import {
 const ChooseSaltAndVinegar = () => {
   const product = useSelector(selectIndividualProduct);
 
-  const { saltAndVinegarAvailable } = product;
+  const { optionsAvailable } = product;
 
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const ChooseSaltAndVinegar = () => {
 
   return (
     <>
-      {saltAndVinegarAvailable && (
+      {optionsAvailable[0].saltAndVinegarAvailable && (
         <OptionsForm onChange={handleSaltAndVinegarChange}>
           <RequiredDiv>
             <span>required</span>

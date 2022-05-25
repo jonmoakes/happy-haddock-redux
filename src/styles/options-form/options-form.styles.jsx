@@ -16,7 +16,7 @@ export const OptionsForm = styled.form`
   animation: 1s ${bounceInDownAnimation};
 
   input {
-    accent-color: yellow;
+    accent-color: #37ff00;
   }
 
   label {
@@ -24,6 +24,11 @@ export const OptionsForm = styled.form`
     color: black;
     text-shadow: none;
     margin-bottom: 10px;
+
+    &.price {
+      font-size: 16px;
+      padding-bottom: 5px;
+    }
 
     @media screen and (max-width: 1366px) {
       font-size: 16px;
@@ -112,6 +117,7 @@ export const OptionsForm = styled.form`
 
   @media screen and (max-width: 600px) {
     width: 90%;
+    padding: 5px 10px 10px 10px;
   }
 `;
 
@@ -140,6 +146,10 @@ export const Section = styled.div`
   height: auto;
   width: 100%;
 
+  &.type {
+    padding-bottom: 10px;
+  }
+
   &.not-required {
     margin-top: -20px;
     margin-bottom: -5px;
@@ -153,6 +163,15 @@ export const Section = styled.div`
     text-decoration: underline;
     font-size: 22px;
     color: whitesmoke;
+
+    &.price {
+      font-size: 16px;
+      color: black;
+      text-shadow: none;
+      text-decoration: none;
+      margin-top: -10px;
+      padding-bottom: 5px;
+    }
   }
 `;
 
@@ -160,8 +179,10 @@ export const RadioDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
   margin: -15px auto 15px auto;
+
+  @media screen and (max-width: 450px) {
+  }
 `;
 
 export const TextAreaDiv = styled.div`
@@ -214,9 +235,7 @@ export const ChoiceHeading = styled.p`
 `;
 
 export const OptionsLabel = styled.p`
-  font-size: 16px;
-  color: black;
-  text-shadow: none;
-  text-decoration: none;
+  font-size: 20px;
+  color: yellow;
   margin-top: 5px;
 `;
