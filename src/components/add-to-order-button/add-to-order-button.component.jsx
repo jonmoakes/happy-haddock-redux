@@ -4,6 +4,8 @@ import useSizeSaltAndVinegarAndQuantityCheck from "./checks/use-size-salt-and-vi
 import useSizeAndQuantityCheck from "./checks/use-size-and-quantity-check.component";
 import useSaltAndVinegarAndQuantityCheck from "./checks/use-salt-and-vinegar-and-quantity-check";
 import useSaltAndVinegarDrinkAndQuantityCheck from "./checks/use-salt-and-vinegar-drink-and-quantity-check";
+import useSaltAndVinegarConeOfChipsSauceAndQuantityCheck from "./checks/use-salt-and-vinegar-cone-of-chips-sauce-and-quantity-check";
+import useSizeSaltAndVinegarCondimentAndQuantityCheck from "./checks/use-size-salt-and-vinegar-condiment-and-quantity-check";
 
 import AddToOrderButtonError from "./add-to-order-button-error";
 
@@ -20,6 +22,10 @@ const AddToOrderButton = ({ children, ...props }) => {
     useSaltAndVinegarAndQuantityCheck();
   const { saltAndVinegarDrinkAndQuantityCheck } =
     useSaltAndVinegarDrinkAndQuantityCheck();
+  const { saltAndVinegarConeOfChipsSauceAndQuantityCheck } =
+    useSaltAndVinegarConeOfChipsSauceAndQuantityCheck();
+  const { sizeSaltAndVinegarCondimentAndQuantityCheck } =
+    useSizeSaltAndVinegarCondimentAndQuantityCheck();
 
   return (
     <>
@@ -28,7 +34,9 @@ const AddToOrderButton = ({ children, ...props }) => {
       sizeSaltAndVinegarAndQuantityCheck() ||
       sizeAndQuantityCheck() ||
       saltAndVinegarAndQuantityCheck() ||
-      saltAndVinegarDrinkAndQuantityCheck() ? (
+      saltAndVinegarDrinkAndQuantityCheck() ||
+      saltAndVinegarConeOfChipsSauceAndQuantityCheck() ||
+      sizeSaltAndVinegarCondimentAndQuantityCheck() ? (
         <AddToOrderButtonContainer {...props}>
           {children}
         </AddToOrderButtonContainer>
