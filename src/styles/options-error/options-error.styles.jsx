@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Div = styled.div`
-  background-color: salmon;
+  background-color: #d31010;
   padding: 0px 5px;
   border-radius: 15px;
   width: 50%;

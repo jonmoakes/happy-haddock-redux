@@ -11,7 +11,7 @@ import ChooseSaucesInfo from "./choose-sauces-info.component";
 
 import { defaultSauces } from "./default-sauces";
 
-import { tubOfSauce } from "../../../strings/strings";
+import { tubOfSauce, megaSnackBox } from "../../../strings/strings";
 
 import {
   OptionsForm,
@@ -45,7 +45,7 @@ const ChooseSauces = () => {
               <span>required</span>
             </RequiredDiv>
 
-            {name === tubOfSauce ? (
+            {name === tubOfSauce || name === megaSnackBox ? (
               <ChooseOneSauce />
             ) : (
               <ChooseMultipleSauces />
