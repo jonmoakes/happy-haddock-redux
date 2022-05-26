@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -12,15 +12,15 @@ import {
 import { setShowHelpText } from "../../store/products/product.action";
 
 import Loader from "../../components/loader/loader.component";
-import Titles from "./titles.component";
 import ToggleMenuHelp from "../../components/toggle-menu-help/toggle-menu-help.component";
-import NoSearchResult from "../../components/no-search-result/no-search-result.component";
-import ProductsItem from "../../components/products-item/products-item.component";
 
+import CategoryProductsToDisplay from "./category-products-to-display.component";
+
+import { displayCategoryTitle } from "../../reusable-functions/title-conditionals";
+
+import { TitleDiv } from "../../styles/product-item/product-item.styles";
 import { Container } from "../../styles/container/container.styles";
-import { Div } from "../../styles/div/div.styles";
 import { SearchBar } from "../../styles/searchbar/searchbar.styles";
-import { Button } from "../../styles/help-div/help-div.styles";
 
 const Category = () => {
   const { searchField, resetSearchField, handleSearchFieldChange } =
@@ -42,18 +42,12 @@ const Category = () => {
     };
   }, [category, productsMap, dispatch, showHelpText]);
 
-  const filteredProducts = useMemo(
-    () =>
-      products &&
-      products.filter((prod) =>
-        prod.name.toLowerCase().includes(searchField.toLowerCase())
-      ),
-    [products, searchField]
-  );
-
   return (
     <Container>
-      <Titles {...{ category }} />
+      <TitleDiv className="products">
+        <h1>{displayCategoryTitle(category)}</h1>
+      </TitleDiv>
+
       <ToggleMenuHelp />
 
       <SearchBar
@@ -65,25 +59,9 @@ const Category = () => {
 
       {isLoading && <Loader />}
 
-      <Div className="products-div">
-        {!searchField ? (
-          <>
-            {products &&
-              products.map((product) => (
-                <ProductsItem key={product.id} product={product} />
-              ))}
-          </>
-        ) : searchField && filteredProducts.length ? (
-          filteredProducts.map((product) => (
-            <ProductsItem key={product.id} product={product} />
-          ))
-        ) : (
-          <>
-            <NoSearchResult />
-            <Button onClick={resetSearchField}>clear search field</Button>
-          </>
-        )}
-      </Div>
+      <CategoryProductsToDisplay
+        {...{ searchField, products, resetSearchField }}
+      />
     </Container>
   );
 };

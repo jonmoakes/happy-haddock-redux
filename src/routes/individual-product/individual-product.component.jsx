@@ -3,30 +3,14 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { selectIndividualProduct } from "../../store/products/product.selector";
-import useGetFinalItem from "../../hooks/use-get-final-item";
 
 import RequiredInfoText from "./required-info-text/required-info-text.component";
+import ProductCombinedOptions from "./product-combined-options/product-combined-options.component";
 import PriceInfo from "./price-info/price-info.component";
-import ChooseSize from "../../components/options/choose-size.component";
-import ChooseDonerKebabType from "../../components/options/choose-doner-kebab-type.component";
-import ChooseChickenKebabType from "../../components/options/choose-chicken-kebab-type.component";
-import ChooseMixedKebabType from "../../components/options/choose-mixed-kebab-type.component";
-import ChooseGratedCheese from "../../components/options/choose-grated-cheese.component";
-import ChooseDonerMeat from "../../components/options/choose-doner-meat.component";
-import ChooseCheeseSlice from "../../components/options/choose-cheese-slice.component";
-import ChooseSalad from "../../components/options/choose-salad.component";
-import ChooseSauces from "../../components/options/choose-sauces/choose-sauces.component";
-import ChoosePie from "../../components/options/choose-pie.component";
-import ChooseSaltAndVinegar from "../../components/options/choose-salt-and-vinegar.component";
-import ChooseSpecialInstructionsAndQuantity from "../../components/options/choose-special-instructions-and-quantity.component";
-import ChooseCans from "../../components/options/choose-cans.component";
-import ChooseBottles from "../../components/options/choose-bottles.component";
-import ChooseSingleCondiment from "../../components/options/choose-single-condiment.component";
-import ChooseTwoCondiments from "../../components/options/choose-two-condiments/choose-two-condiments.component";
-import ChooseConeOfChipsSauce from "../../components/options/choose-cone-of-chips-sauce.component";
-import ChooseOneMeat from "../../components/options/choose-one-meat.component";
-import ChooseTwoMeats from "../../components/options/choose-two-meats/choose-two-meats.component";
+import ProductTotalInfo from "./product-total-info.component";
 import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
+
+import { productExistsCheck } from "../../reusable-functions/product-exists-check.js";
 
 import {
   ProductItemDiv,
@@ -34,26 +18,18 @@ import {
   Description,
   BasePrice,
   Price,
-  Hr,
-  TotalPriceInfo,
-  PriceWithOptions,
 } from "../../styles/product-item/product-item.styles";
 import { Container } from "../../styles/container/container.styles";
 import { RequiredInfoDiv } from "../../styles/options-form/options-form.styles";
 
 const IndividualProductPage = () => {
   const [redirect, setRedirect] = useState(false);
-  const { finalItem } = useGetFinalItem();
-
-  const { selectedOptionsCombinedPrice, quantity } = finalItem;
-
   const product = useSelector(selectIndividualProduct);
+
   const { name, description, price } = product;
 
-  const updatedPrice = (price + selectedOptionsCombinedPrice) * quantity;
-
   useEffect(() => {
-    if (Object.keys(product).length === 0) {
+    if (!Object.keys(product).length) {
       setRedirect(true);
     }
   }, [product]);
@@ -68,41 +44,18 @@ const IndividualProductPage = () => {
           <PriceInfo />
         </RequiredInfoDiv>
 
-        {name !== undefined &&
-          description !== undefined &&
-          price !== undefined && (
-            <ProductItemDiv>
-              <p>you have selected:</p>
-              <Name>{name}</Name>
-              {description && <Description>{description}</Description>}
-              <BasePrice>base price:</BasePrice>
-              <Price>£{price.toFixed(2)}</Price>
-              <ChooseSize />
-              <ChooseDonerKebabType />
-              <ChooseChickenKebabType />
-              <ChooseMixedKebabType />
-              <ChooseOneMeat />
-              <ChooseTwoMeats />
-              <ChooseGratedCheese />
-              <ChooseDonerMeat />
-              <ChooseCheeseSlice />
-              <ChooseSalad />
-              <ChooseSauces />
-              <ChoosePie />
-              <ChooseSaltAndVinegar />
-              <ChooseCans />
-              <ChooseBottles />
-              <ChooseSingleCondiment />
-              <ChooseTwoCondiments />
-              <ChooseConeOfChipsSauce />
-              <ChooseSpecialInstructionsAndQuantity />
-              <Hr />
-              <TotalPriceInfo>total price with chosen options:</TotalPriceInfo>
-              <PriceWithOptions>£{updatedPrice.toFixed(2)}</PriceWithOptions>
-              <Hr />
-              <AddToOrderButton />
-            </ProductItemDiv>
-          )}
+        {productExistsCheck(name, description, price) && (
+          <ProductItemDiv>
+            <p>you have selected:</p>
+            <Name>{name}</Name>
+            {description && <Description>{description}</Description>}
+            <BasePrice>base price:</BasePrice>
+            <Price>£{price.toFixed(2)}</Price>
+            <ProductCombinedOptions />
+            <ProductTotalInfo />
+            <AddToOrderButton />
+          </ProductItemDiv>
+        )}
       </Container>
     </>
   );
