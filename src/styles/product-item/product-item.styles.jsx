@@ -98,8 +98,12 @@ export const Description = styled.span`
   font-size: 18px;
 `;
 
-export const Price = styled.span`
+export const BasePrice = styled.span`
   margin-top: 15px;
+  color: whitesmoke;
+`;
+
+export const Price = styled.span`
   color: #00ff2a;
   font-weight: bold;
   font-size: 25px;
@@ -107,6 +111,19 @@ export const Price = styled.span`
   @media screen and (max-width: 450px) {
     width: unset;
   }
+`;
+
+export const Hr = styled.hr`
+  border-color: whitesmoke;
+`;
+
+export const TotalPriceInfo = styled.p`
+  color: whitesmoke;
+  margin-bottom: -10px;
+`;
+
+export const PriceWithOptions = styled.h2`
+  color: yellow;
 `;
 
 export const ChooseOptionsButton = styled.button`

@@ -9,7 +9,7 @@ const MenuWelcome = () => {
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
+
   return (
     <HelpDiv>
       {location.pathname === "/menu" ? (

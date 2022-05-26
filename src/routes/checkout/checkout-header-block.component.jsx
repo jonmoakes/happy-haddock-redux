@@ -2,7 +2,6 @@ import {
   CheckoutPageHeader,
   HeaderBlock,
   HeadingText,
-  MinorText,
 } from "./checkout.styles";
 
 const CheckoutHeaderBlock = () => (
@@ -16,9 +15,7 @@ const CheckoutHeaderBlock = () => (
     </HeaderBlock>
 
     <HeaderBlock>
-      <HeadingText>
-        Price <MinorText>( Each )</MinorText>
-      </HeadingText>
+      <HeadingText>Price</HeadingText>
     </HeaderBlock>
   </CheckoutPageHeader>
 );

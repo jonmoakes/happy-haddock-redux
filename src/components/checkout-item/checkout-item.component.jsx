@@ -14,7 +14,7 @@ import {
 const CheckoutItem = ({ cartItem }) => {
   const { quantity, price, selectedOptionsCombinedPrice } = cartItem;
 
-  const itemSinglePrice = price + selectedOptionsCombinedPrice;
+  const itemSinglePrice = (price + selectedOptionsCombinedPrice) * quantity;
 
   return (
     <CheckoutItemContainer>

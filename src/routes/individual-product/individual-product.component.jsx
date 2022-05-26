@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { selectIndividualProduct } from "../../store/products/product.selector";
+import useGetFinalItem from "../../hooks/use-get-final-item";
 
 import RequiredInfoText from "./required-info-text/required-info-text.component";
 import PriceInfo from "./price-info/price-info.component";
@@ -31,16 +32,25 @@ import {
   ProductItemDiv,
   Name,
   Description,
+  BasePrice,
   Price,
+  Hr,
+  TotalPriceInfo,
+  PriceWithOptions,
 } from "../../styles/product-item/product-item.styles";
 import { Container } from "../../styles/container/container.styles";
 import { RequiredInfoDiv } from "../../styles/options-form/options-form.styles";
 
 const IndividualProductPage = () => {
   const [redirect, setRedirect] = useState(false);
+  const { finalItem } = useGetFinalItem();
+
+  const { selectedOptionsCombinedPrice, quantity } = finalItem;
 
   const product = useSelector(selectIndividualProduct);
   const { name, description, price } = product;
+
+  const updatedPrice = (price + selectedOptionsCombinedPrice) * quantity;
 
   useEffect(() => {
     if (Object.keys(product).length === 0) {
@@ -65,6 +75,7 @@ const IndividualProductPage = () => {
               <p>you have selected:</p>
               <Name>{name}</Name>
               {description && <Description>{description}</Description>}
+              <BasePrice>base price:</BasePrice>
               <Price>£{price.toFixed(2)}</Price>
               <ChooseSize />
               <ChooseDonerKebabType />
@@ -85,6 +96,10 @@ const IndividualProductPage = () => {
               <ChooseTwoCondiments />
               <ChooseConeOfChipsSauce />
               <ChooseSpecialInstructionsAndQuantity />
+              <Hr />
+              <TotalPriceInfo>total price with chosen options:</TotalPriceInfo>
+              <PriceWithOptions>£{updatedPrice.toFixed(2)}</PriceWithOptions>
+              <Hr />
               <AddToOrderButton />
             </ProductItemDiv>
           )}

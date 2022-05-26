@@ -17,7 +17,6 @@ export const PaddedDiv = styled.div`
 
   .price-info {
     color: yellow;
-    text-decoration: underline;
   }
 
   @media screen and (max-width: 450px) {
