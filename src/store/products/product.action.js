@@ -15,3 +15,6 @@ export const addIndividualProduct = (product) =>
 
 export const clearIndividualProduct = () =>
   createAction(PRODUCTS_ACTION_TYPES.CLEAR_INDIVIDUAL_PRODUCT);
+
+export const setShowHelpText = (payload) =>
+  createAction(PRODUCTS_ACTION_TYPES.SET_SHOW_HELP_TEXT, payload);

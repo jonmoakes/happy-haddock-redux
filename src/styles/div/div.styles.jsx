@@ -57,7 +57,7 @@ export const Div = styled.div`
     }
   }
 
-  &.products-overview-div {
+  &.products-div {
     margin: 20px auto;
     border-radius: 15px;
 

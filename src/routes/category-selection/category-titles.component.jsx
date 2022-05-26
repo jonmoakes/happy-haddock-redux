@@ -1,5 +1,4 @@
 import { useNavigate, useLocation } from "react-router-dom";
-
 import { TitleDiv } from "../../styles/product-item/product-item.styles";
 
 const CategoryTitles = ({ title }) => {
@@ -12,7 +11,7 @@ const CategoryTitles = ({ title }) => {
       onClick={() => navigate(`${location.pathname}/${title}`)}
     >
       <h1>
-        show{" "}
+        view{" "}
         {title === "chickencurry" ? (
           <span>chicken curry</span>
         ) : title === "jacketpotato" ? (

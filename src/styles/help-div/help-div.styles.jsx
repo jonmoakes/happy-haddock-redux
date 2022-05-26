@@ -7,8 +7,8 @@ export const HelpDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0px auto -20px auto;
-  width: 90%;
+  margin: 0px auto;
+  width: 70%;
 
   h1 {
     margin-bottom: 0px;
@@ -18,12 +18,37 @@ export const HelpDiv = styled.div`
     font-size: 16px;
   }
 
-  @media screen and (max-width: 600px) {
-    margin: 0px auto -10px auto;
+  @media screen and (max-width: 1366px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 70%;
   }
 `;
 
-export const ClearButtonDiv = styled.div`
+export const HelpTextDiv = styled.div`
+  background-color: lightgrey;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin: 20px auto 20px auto;
+  width: 50%;
+  animation: 1s ${bounceInDownAnimation};
+
+  h2 {
+    color: #d62424;
+    text-shadow: 0.5px 0.5px 0.5px black;
+    font-weight: 900;
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 80%;
+  }
+`;
+
+export const NoSearchResultDiv = styled.div`
   width: 70%;
   height: auto;
   margin: 70px auto 0px auto;
@@ -82,6 +107,8 @@ export const Button = styled.button`
   font-weight: bold;
   fon-family: inherit;
   font-size: 16px;
+  margin-top: 20px;
+  animation: 1s ${bounceInDownAnimation};
 
   &.dashboard {
     margin-bottom: -5px;

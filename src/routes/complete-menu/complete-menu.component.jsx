@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 
 import useSetSearchField from "../../hooks/use-set-search-field";
 
@@ -12,48 +11,53 @@ import {
 import { setShowHelpText } from "../../store/products/product.action";
 
 import Loader from "../../components/loader/loader.component";
-import Titles from "./titles.component";
+import MenuWelcome from "../../components/menu-welcome/menu-welcome.component";
 import ToggleMenuHelp from "../../components/toggle-menu-help/toggle-menu-help.component";
-import NoSearchResult from "../../components/no-search-result/no-search-result.component";
 import ProductsItem from "../../components/products-item/products-item.component";
+import NoSearchResult from "../../components/no-search-result/no-search-result.component";
+
+import { filteredProductsEmptyCheck } from "../../reusable-functions/is-filtered-products-empty-check";
 
 import { Container } from "../../styles/container/container.styles";
 import { Div } from "../../styles/div/div.styles";
 import { SearchBar } from "../../styles/searchbar/searchbar.styles";
 import { Button } from "../../styles/help-div/help-div.styles";
 
-const Category = () => {
+const CompleteMenu = () => {
   const { searchField, resetSearchField, handleSearchFieldChange } =
     useSetSearchField();
+
   const productsMap = useSelector(selectProductsMap);
-  const { category } = useParams();
-  const [products, setProducts] = useState(productsMap[category]);
+  const [products, setProducts] = useState(productsMap);
   const isLoading = useSelector(selectProductsIsLoading);
   const showHelpText = useSelector(selectShowHelpText);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setProducts(productsMap[category]);
+    setProducts(productsMap);
 
     return () => {
       if (showHelpText) {
         dispatch(setShowHelpText(false));
       }
     };
-  }, [category, productsMap, dispatch, showHelpText]);
+  }, [productsMap, dispatch, showHelpText]);
 
   const filteredProducts = useMemo(
     () =>
       products &&
-      products.filter((prod) =>
-        prod.name.toLowerCase().includes(searchField.toLowerCase())
+      Object.values(products).map((items) =>
+        items.filter((item) =>
+          item.name.toLowerCase().includes(searchField.toLowerCase())
+        )
       ),
     [products, searchField]
   );
 
   return (
     <Container>
-      <Titles {...{ category }} />
+      {isLoading && <Loader />}
+      <MenuWelcome />
       <ToggleMenuHelp />
 
       <SearchBar
@@ -63,29 +67,36 @@ const Category = () => {
         value={"" || searchField}
       />
 
-      {isLoading && <Loader />}
-
       <Div className="products-div">
         {!searchField ? (
           <>
-            {products &&
-              products.map((product) => (
-                <ProductsItem key={product.id} product={product} />
-              ))}
+            {Object.values(products).map((items) => {
+              return items.map((product) => (
+                <ProductsItem key={product.id} {...{ product }} />
+              ));
+            })}
           </>
-        ) : searchField && filteredProducts.length ? (
-          filteredProducts.map((product) => (
-            <ProductsItem key={product.id} product={product} />
-          ))
-        ) : (
+        ) : searchField && !filteredProductsEmptyCheck(filteredProducts) ? (
           <>
-            <NoSearchResult />
-            <Button onClick={resetSearchField}>clear search field</Button>
+            {filteredProducts &&
+              Object.values(filteredProducts).map((items) => {
+                return items.map((product) => (
+                  <ProductsItem key={product.id} {...{ product }} />
+                ));
+              })}
           </>
+        ) : (
+          searchField &&
+          filteredProductsEmptyCheck(filteredProducts) && (
+            <>
+              <NoSearchResult />
+              <Button onClick={resetSearchField}>clear search field</Button>
+            </>
+          )
         )}
       </Div>
     </Container>
   );
 };
 
-export default Category;
+export default CompleteMenu;

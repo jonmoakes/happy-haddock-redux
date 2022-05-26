@@ -22,3 +22,5 @@ export const selectProductsIsLoading = createSelector(
 
 export const selectIndividualProduct = (state) =>
   state.products.individualProduct;
+
+export const selectShowHelpText = (state) => state.products.showHelpText;

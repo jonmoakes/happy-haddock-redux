@@ -23,6 +23,7 @@ const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
+const FullMenu = lazy(() => import("./routes/full-menu/full-menu.component"));
 const IndividualProduct = lazy(() =>
   import("./routes/individual-product/individual-product.component")
 );
@@ -89,6 +90,7 @@ const App = () => {
                 }
               />
               <Route path="menu/*" element={currentUser && <Menu />} />
+              <Route path="full-menu" element={currentUser && <FullMenu />} />
               <Route
                 path="product/*"
                 element={currentUser && <IndividualProduct />}

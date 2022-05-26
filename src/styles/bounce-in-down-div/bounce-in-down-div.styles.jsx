@@ -72,7 +72,7 @@ export const BounceInDownDiv = styled.div`
   }
 
   @media screen and (max-width: 450px) {
-    width: 100%;
+    width: 95%;
   }
 `;
 

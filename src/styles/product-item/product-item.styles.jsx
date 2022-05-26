@@ -31,7 +31,7 @@ export const TitleDiv = styled.div`
   }
 
   &.products {
-    margin: 150px auto 50px auto;
+    margin: 0px auto 20px auto;
   }
 
   @media screen and (max-width: 850px) {
