@@ -27,6 +27,7 @@ const ChooseTwoCondiments = () => {
   const twoCondimentsSelected = useSelector(selectTwoCondiments);
 
   const { optionsAvailable } = product;
+  const condimentsAvailable = optionsAvailable[0].condimentsAvailable;
   const dispatch = useDispatch();
 
   const handleCondimentsChange = (event) => {
@@ -44,7 +45,7 @@ const ChooseTwoCondiments = () => {
 
   return (
     <>
-      {optionsAvailable[0].condimentsAvailable === 2 && (
+      {condimentsAvailable === 2 && (
         <OptionsForm onChange={handleCondimentsChange}>
           <RequiredDiv>
             <span>required</span>
@@ -71,7 +72,7 @@ const ChooseTwoCondiments = () => {
           </RadioDiv>
         </OptionsForm>
       )}
-      {optionsAvailable[0].condimentsAvailable === 2 &&
+      {condimentsAvailable === 2 &&
         !numberOfCondimentsChosenCheck(twoCondimentsSelected) && (
           <TooManyCondimentsSelected />
         )}

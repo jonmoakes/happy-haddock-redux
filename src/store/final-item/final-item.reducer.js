@@ -24,7 +24,7 @@ export const FINAL_ITEM_INITIAL_STATE = {
   oneMeat: "",
   twoMeats: {},
   specialInstructions: "",
-  quantity: 0,
+  quantity: 1,
 };
 
 export const finalItemReducer = (
@@ -108,7 +108,7 @@ export const finalItemReducer = (
         oneMeat: "",
         twoMeats: {},
         specialInstructions: "",
-        quantity: 0,
+        quantity: 1,
       };
     default:
       return state;

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-import useAddCartItemsToFirestore from "../../hooks/use-add-cart-item-to-firestore";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import RequiredInfoText from "./required-info-text/required-info-text.component";
@@ -39,7 +38,6 @@ import { RequiredInfoDiv } from "../../styles/options-form/options-form.styles";
 
 const IndividualProductPage = () => {
   const [redirect, setRedirect] = useState(false);
-  const { nav, confirmAddItem } = useAddCartItemsToFirestore();
 
   const product = useSelector(selectIndividualProduct);
   const { name, description, price } = product;
@@ -52,7 +50,7 @@ const IndividualProductPage = () => {
 
   return (
     <>
-      {(nav || redirect) && <Navigate replace to={"/menu"} />}
+      {redirect && <Navigate replace to={"/menu"} />}
       <Container>
         <RequiredInfoDiv>
           <h1>choose your options</h1>
@@ -87,9 +85,7 @@ const IndividualProductPage = () => {
               <ChooseTwoCondiments />
               <ChooseConeOfChipsSauce />
               <ChooseSpecialInstructionsAndQuantity />
-              <AddToOrderButton onClick={confirmAddItem}>
-                add to order
-              </AddToOrderButton>
+              <AddToOrderButton />
             </ProductItemDiv>
           )}
       </Container>

@@ -2,12 +2,11 @@ import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSauces } from "../../../store/final-item/final-item.action";
-import { selectSaucesSelected } from "../../../store/final-item/final-item.selector";
 import { selectIndividualProduct } from "../../../store/products/product.selector";
 
 import ChooseOneSauce from "./choose-one-sauce.component";
 import ChooseMultipleSauces from "./choose-multiple-sauces.component";
-import ChooseSaucesInfo from "./choose-sauces-info.component";
+import ChooseSaucesErrors from "./choose-sauces-errors.component";
 
 import { defaultSauces } from "./default-sauces";
 
@@ -21,7 +20,6 @@ import {
 const ChooseSauces = () => {
   const [chosenSauces, setChosenSauces] = useState(defaultSauces);
   const product = useSelector(selectIndividualProduct);
-  const saucesSelected = useSelector(selectSaucesSelected);
 
   const { name, optionsAvailable } = product;
   const dispatch = useDispatch();
@@ -51,7 +49,7 @@ const ChooseSauces = () => {
               <ChooseMultipleSauces />
             )}
           </OptionsForm>
-          <ChooseSaucesInfo {...{ saucesSelected }} />
+          <ChooseSaucesErrors />
         </>
       )}
     </>

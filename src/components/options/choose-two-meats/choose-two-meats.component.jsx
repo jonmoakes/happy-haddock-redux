@@ -26,6 +26,7 @@ const ChooseTwoMeats = () => {
   const twoMeatsSelected = useSelector(selectTwoMeats);
 
   const { optionsAvailable } = product;
+  const meatsAvailable = optionsAvailable[0].meatsAvailable;
   const dispatch = useDispatch();
 
   const handleMeatsChange = (event) => {
@@ -43,7 +44,7 @@ const ChooseTwoMeats = () => {
 
   return (
     <>
-      {optionsAvailable[0].meatsAvailable === 2 && (
+      {meatsAvailable === 2 && (
         <OptionsForm onChange={handleMeatsChange}>
           <RequiredDiv>
             <span>required</span>
@@ -70,8 +71,9 @@ const ChooseTwoMeats = () => {
           </RadioDiv>
         </OptionsForm>
       )}
-      {optionsAvailable[0].meatsAvailable === 2 &&
-        !numberOfMeatsChosenCheck(twoMeatsSelected) && <TooManyMeatsSelected />}
+      {meatsAvailable === 2 && !numberOfMeatsChosenCheck(twoMeatsSelected) && (
+        <TooManyMeatsSelected />
+      )}
     </>
   );
 };
