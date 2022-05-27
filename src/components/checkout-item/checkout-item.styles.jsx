@@ -31,6 +31,10 @@ export const Text = styled.span`
   color: yellow;
   font-size: 20px;
 
+  @media screen and (max-width: 450px) {
+    padding-left: 5px;
+  }
+
   p {
     font-size: 16px;
     color: whitesmoke;
