@@ -1,29 +1,22 @@
-import { useState, useEffect } from "react";
-
-const Sauces = ({ sauces }) => {
-  const [chosenSauces, setChosenSauces] = useState(undefined);
-
-  useEffect(() => {
-    if (sauces) {
-      const saucesChosen = Object.keys(sauces).filter(
-        (sauce) => sauces[sauce] === true
-      );
-      setChosenSauces(saucesChosen);
-    }
-  }, [sauces]);
+const Sauces = ({ saucesSelected }) => {
+  const sauces = Object.keys(saucesSelected).filter(
+    (key) => saucesSelected[key]
+  );
 
   return (
     <>
-      {chosenSauces && (
+      {sauces.length ? (
         <>
-          <span>
-            sauce(<span style={{ textTransform: "lowercase" }}>s</span>) chosen:
-          </span>
-          {chosenSauces.map((chosenSauce) => (
-            <p key={chosenSauce}>{chosenSauce}</p>
+          <span>sauces selected:</span>
+          {sauces.map((sauce) => (
+            <p key={sauce}>
+              {sauce === "bbq"
+                ? sauce.replace(/\B([A-Z])\B/g, " $1").toUpperCase()
+                : sauce.replace(/\B([A-Z])\B/g, " $1")}
+            </p>
           ))}
         </>
-      )}
+      ) : null}
     </>
   );
 };

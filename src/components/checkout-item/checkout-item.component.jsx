@@ -9,8 +9,6 @@ import {
   Value,
 } from "./checkout-item.styles";
 
-// This component renders the section of the checkout page that includes each items information.
-// It gets the cartItem from the checkout page.
 const CheckoutItem = ({ cartItem }) => {
   const { quantity, price, selectedOptionsCombinedPrice } = cartItem;
 
@@ -18,13 +16,12 @@ const CheckoutItem = ({ cartItem }) => {
 
   return (
     <CheckoutItemContainer>
-      <CheckoutItemProductInfo cartItem={cartItem} />
+      <CheckoutItemProductInfo {...{ cartItem }} />
       <ArrowContainer>
-        <DecreaseQuantity cartItem={cartItem} />
+        <DecreaseQuantity {...{ cartItem }} />
         <Value>{quantity}</Value>
-        <IncreaseQuantity cartItem={cartItem} />
+        <IncreaseQuantity {...{ cartItem }} />
       </ArrowContainer>
-
       <Text>£{((Number(itemSinglePrice) * 100) / 100).toFixed(2)}</Text>
     </CheckoutItemContainer>
   );

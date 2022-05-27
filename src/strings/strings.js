@@ -129,3 +129,11 @@ export const tubOfSauce = "tub of sauce";
 export const fiveHalloumiSticksAndSmallSauce =
   "5 halloumi sticks & small sauce";
 export const megaSnackBox = "mega snack box";
+export const mixedThreeMeatKebabMeal = "mixed 3 meat kebab meal";
+export const goldenFilletSandwichMeal = "golden fillet sandwich meal";
+export const miniFeastMeal = "mini feast meal";
+export const bargainBox = "bargain box";
+export const fishcake = "fishcake";
+export const miniFishAndChips = "mini fish & chips";
+export const smallFishcakeAndChips = "small fishcake & chips";
+export const smallSausageChipsAndFishcake = "small sausage, chips & fishcake";

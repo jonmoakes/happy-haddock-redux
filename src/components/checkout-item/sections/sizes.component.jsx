@@ -1,9 +1,9 @@
-const Sizes = ({ size }) => (
+const Sizes = ({ chosenSize }) => (
   <>
-    {size && (
+    {chosenSize && (
       <>
         <span>size:</span>
-        <p>{size}</p>
+        <p>{chosenSize}</p>
       </>
     )}
   </>

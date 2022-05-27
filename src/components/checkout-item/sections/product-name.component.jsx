@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { NameDiv } from "../checkout-item.styles";
 
+import {
+  fishcake,
+  miniFishAndChips,
+  smallFishcakeAndChips,
+  smallSausageChipsAndFishcake,
+} from "../../../strings/strings";
+
 const ProductName = ({ name }) => {
   const [drinksName, setDrinksName] = useState("");
   const [fishName, setFishName] = useState("");
@@ -9,10 +16,10 @@ const ProductName = ({ name }) => {
     if (name.includes("( drinks )")) {
       setDrinksName(name.replace("( drinks )", ""));
     } else if (
-      name !== "fishcake" &&
-      name !== "mini fish & chips" &&
-      name !== "small fishcake & chips" &&
-      name !== "small sausage, chips & fishcake"
+      name !== fishcake &&
+      name !== miniFishAndChips &&
+      name !== smallFishcakeAndChips &&
+      name !== smallSausageChipsAndFishcake
     ) {
       setFishName(name.replace("fish", ""));
     }

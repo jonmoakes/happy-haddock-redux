@@ -1,19 +1,22 @@
-const Meat = ({ name, meat }) => (
+import {
+  mixedMeatsThreeMeatsKebab,
+  mixedThreeMeatKebabMeal,
+} from "../../../strings/strings";
+
+const Meat = ({ name, oneMeat }) => (
   <>
-    {(name === "mixed meats ( 3 meats ) kebab" ||
-      name === "mixed 3 meat kebab meal") && (
+    {(name === mixedMeatsThreeMeatsKebab ||
+      name === mixedThreeMeatKebabMeal) && (
       <>
-        <p></p>
         <span>meat:</span>
         <p>doner, tikka & mediterranean</p>
       </>
     )}
 
-    {meat && (
+    {oneMeat && (
       <>
-        <p></p>
         <span>meat chosen:</span>
-        <p>{meat}</p>
+        <p>{oneMeat}</p>
       </>
     )}
   </>

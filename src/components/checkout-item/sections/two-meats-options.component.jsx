@@ -1,26 +1,12 @@
-import { useState, useEffect } from "react";
-
 const TwoMeatsOptions = ({ twoMeats }) => {
-  const [meats, setMeats] = useState(undefined);
+  const { doner, tikka, mediterranean } = twoMeats;
 
-  useEffect(() => {
-    if (twoMeats) {
-      const chosenTwoMeats = Object.keys(twoMeats).filter(
-        (meats) => twoMeats[meats] === true
-      );
-      setMeats(chosenTwoMeats);
-    }
-  }, [twoMeats]);
   return (
     <>
-      {meats && (
-        <>
-          <span>meats chosen:</span>
-          {meats.map((meat) => (
-            <p key={meat}>{meat}</p>
-          ))}
-        </>
-      )}
+      {(doner || tikka || mediterranean) && <span>meats chosen:</span>}
+      {doner && <p>doner</p>}
+      {tikka && <p>tikka</p>}
+      {mediterranean && <p>mediterranean</p>}
     </>
   );
 };
