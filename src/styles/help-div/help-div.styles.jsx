@@ -114,6 +114,18 @@ export const Button = styled.button`
     margin-bottom: -5px;
   }
 
+  &.menu-switcher {
+    background-color: yellow;
+
+    &:hover {
+      background-color: yellow;
+    }
+
+    @media screen and (max-width: 600px) {
+      margin-top: -5px;
+    }
+  }
+
   &:hover {
     background-color: yellow;
 

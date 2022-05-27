@@ -8,7 +8,6 @@ import { Button } from "../../styles/help-div/help-div.styles";
 const CategoryProductsToDisplay = ({
   searchField,
   products,
-
   resetSearchField,
 }) => {
   const filteredProducts = useMemo(
