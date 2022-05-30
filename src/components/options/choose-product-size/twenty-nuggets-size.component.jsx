@@ -8,12 +8,13 @@ import { twentyNuggets } from "../../../strings/strings";
 const TwentyNuggetsSize = () => {
   const product = useSelector(selectIndividualProduct);
   const { sizePrices } = product;
+  const twentyNuggetsPrice = sizePrices[0].twentyNuggetsPrice;
 
   return (
     <>
-      {sizePrices[0].twentyNuggetsPrice !== 0 && (
+      {twentyNuggetsPrice !== 0 && (
         <RadioDiv>
-          <label>20 nuggets</label>
+          <label>20 nuggets ( +£{twentyNuggetsPrice.toFixed(2)} )</label>
           <input type="radio" value={twentyNuggets} name="size" />
           <hr />
         </RadioDiv>

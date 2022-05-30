@@ -8,12 +8,13 @@ import { medium } from "../../../strings/strings";
 const MediumSize = () => {
   const product = useSelector(selectIndividualProduct);
   const { sizePrices } = product;
+  const mediumPrice = sizePrices[0].mediumPrice;
 
   return (
     <>
-      {sizePrices[0].mediumPrice !== 0 && (
+      {mediumPrice !== 0 && (
         <RadioDiv>
-          <label>medium</label>
+          <label>medium ( + £{mediumPrice.toFixed(2)} )</label>
           <input type="radio" value={medium} name="size" />
           <hr />
         </RadioDiv>
