@@ -11,6 +11,7 @@ const persistConfig = {
   storage,
   whitelist: ["cart"],
 };
+//  need cart?
 
 const sagaMiddleware = createSagaMiddleware();
 
