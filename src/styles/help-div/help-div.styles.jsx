@@ -51,9 +51,9 @@ export const HelpTextDiv = styled.div`
 export const NoSearchResultDiv = styled.div`
   width: 70%;
   height: auto;
-  margin: 70px auto 0px auto;
+  margin: 0 auto;
   background-color: lightgrey;
-  padding: 0px 20px 30px 20px;
+  padding: 0px 20px;
   border: 2px solid black;
   border-radius: 15px;
   animation: 1s ${bounceInDownAnimation};
@@ -90,7 +90,6 @@ export const NoSearchResultDiv = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    margin: 30px auto 0px auto;
     width: 80%;
   }
 `;
@@ -107,22 +106,18 @@ export const Button = styled.button`
   font-weight: bold;
   fon-family: inherit;
   font-size: 16px;
-  margin-top: 20px;
+  margin: 20px auto 0px auto;
   animation: 1s ${bounceInDownAnimation};
 
   &.dashboard {
     margin-bottom: -5px;
   }
 
-  &.menu-switcher {
+  &.clear-search {
     background-color: yellow;
 
     &:hover {
       background-color: yellow;
-    }
-
-    @media screen and (max-width: 600px) {
-      margin-top: -5px;
     }
   }
 

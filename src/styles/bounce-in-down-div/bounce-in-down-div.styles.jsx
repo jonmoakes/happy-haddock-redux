@@ -112,6 +112,12 @@ export const Span = styled.span`
     border: 1px solid black;
   }
 
+  &.clear-button-text {
+    background-color: yellow;
+    color: black;
+    border: 1px solid black;
+  }
+
   &.choose-options {
     background-color: salmon;
     color: black;

@@ -12,7 +12,8 @@ import {
 import { setShowHelpText } from "../../store/products/product.action";
 
 import Loader from "../../components/loader/loader.component";
-import ToggleMenuHelp from "../../components/toggle-menu-help/toggle-menu-help.component";
+import MenuHelp from "../../components/menu-help/menu-help.component";
+import SearchBar from "../../components/search-bar/search-bar.component";
 
 import CategoryProductsToDisplay from "./category-products-to-display.component";
 
@@ -20,7 +21,6 @@ import { displayCategoryTitle } from "../../reusable-functions/title-conditional
 
 import { TitleDiv } from "../../styles/product-item/product-item.styles";
 import { Container } from "../../styles/container/container.styles";
-import { SearchBar } from "../../styles/searchbar/searchbar.styles";
 
 const Category = () => {
   const { searchField, resetSearchField, handleSearchFieldChange } =
@@ -44,24 +44,24 @@ const Category = () => {
 
   return (
     <Container>
+      {isLoading && <Loader />}
+
       <TitleDiv className="products">
         <h1>{displayCategoryTitle(category)}</h1>
       </TitleDiv>
 
-      <ToggleMenuHelp />
+      <MenuHelp {...{ searchField }} />
 
-      <SearchBar
-        type="search"
-        placeholder="Search Products"
-        onChange={handleSearchFieldChange}
-        value={"" || searchField}
-      />
-
-      {isLoading && <Loader />}
-
-      <CategoryProductsToDisplay
-        {...{ searchField, products, resetSearchField }}
-      />
+      {!showHelpText && (
+        <>
+          <SearchBar
+            {...{ handleSearchFieldChange, resetSearchField, searchField }}
+          />
+          <CategoryProductsToDisplay
+            {...{ searchField, products, resetSearchField }}
+          />
+        </>
+      )}
     </Container>
   );
 };

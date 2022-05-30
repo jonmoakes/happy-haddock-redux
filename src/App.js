@@ -10,6 +10,7 @@ import { checkUserSession } from "./store/user/user.action";
 import { updateCartItems } from "./store/cart/cart.action";
 import { selectCurrentUser } from "./store/user/user.selector";
 import { clearFinalItem } from "./store/final-item/final-item.action";
+import { selectShowHelpText } from "./store/products/product.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
@@ -23,7 +24,6 @@ const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
-const FullMenu = lazy(() => import("./routes/full-menu/full-menu.component"));
 const IndividualProduct = lazy(() =>
   import("./routes/individual-product/individual-product.component")
 );
@@ -32,6 +32,7 @@ const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
 
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const showHelpText = useSelector(selectShowHelpText);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -66,7 +67,7 @@ const App = () => {
         dispatch(clearFinalItem());
       }
     };
-  });
+  }, [dispatch, location, showHelpText]);
 
   return (
     <div>
@@ -90,7 +91,6 @@ const App = () => {
                 }
               />
               <Route path="menu/*" element={currentUser && <Menu />} />
-              <Route path="full-menu" element={currentUser && <FullMenu />} />
               <Route
                 path="product/*"
                 element={currentUser && <IndividualProduct />}

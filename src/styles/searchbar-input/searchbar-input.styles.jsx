@@ -3,7 +3,19 @@ import { slideInLeft } from "react-animations";
 
 const slideInLeftAnimation = keyframes`${slideInLeft}`;
 
-export const SearchBar = styled.input`
+export const SearchDiv = styled.div`
+  margin: 20px auto 0px auto;
+  display: flex;
+  flex-direction: column;
+  animation: 1s ${slideInLeftAnimation};
+
+  span {
+    color: whitesmoke;
+    font-size: 18px;
+  }
+`;
+
+export const SearchBarInput = styled.input`
   width: 50%;
   height: 50px;
   border: 2px solid black;
@@ -11,9 +23,8 @@ export const SearchBar = styled.input`
   outline: none;
   padding-left: 20px;
   font-family: inherit;
-  margin: 0px auto 20px auto;
+  margin: 0px auto 0px auto;
   font-size: 20px;
-  animation: 1s ${slideInLeftAnimation};
 
   ::-webkit-input-placeholder {
     font-size: 16px;
@@ -63,7 +74,6 @@ export const SearchBar = styled.input`
   }
 
   @media screen and (max-width: 600px) {
-    margin: 20px auto 20px auto;
     width: 70%;
   }
 
