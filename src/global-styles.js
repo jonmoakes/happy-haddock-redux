@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
         text-align:center;
         text-transform:capitalize;
         text-shadow:1px 1px 1px black;
-        position: relative;
+        /* position: relative;
         &:before {
             content: "";
             display: block;
@@ -35,7 +35,7 @@ export const GlobalStyle = createGlobalStyle`
               -moz-background-size: center;
               -o-background-size: center;
               background-size: cover;
-        }
+        } */
         
         h1, h2 {
             color:yellow;
