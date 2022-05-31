@@ -76,7 +76,9 @@ export const weakPassword =
 export const noNetworkDetected =
   "internet connection not detected. Please check your connection";
 export const networkRequestFailedError = "network-request-failed";
-export const errorSendingMessage = "error sending message, please try again.";
+export const errorSendingMessage = "error sending message.";
+export const missingEmailFieldsErrorMessage =
+  "please make sure that the name, email and message fields have all been entered.";
 
 //sizeOptions
 export const single = "single";

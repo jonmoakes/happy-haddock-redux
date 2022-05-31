@@ -1,24 +1,21 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import {
-  successMessage,
-  emailResponseTimeMessage,
-  okMessage,
-} from "../../strings/strings";
+import { errorSendingMessage, okMessage } from "../../strings/strings";
 
 import "../../styles/confirm.css";
 
-const useContactEmailSuccess = () => {
+const useInvalidEmailError = () => {
   const swal = withReactContent(Swal);
-  const contactEmailSuccess = () => {
+
+  const invalidEmailError = () => {
     swal.fire({
-      title: successMessage,
-      text: emailResponseTimeMessage,
+      title: errorSendingMessage,
+      text: "you entered and invalid email address. please try again.",
       background: "black",
       backdrop: `
-            rgba(0,0,123,0.8)`,
-      icon: "success",
+rgba(0,0,123,0.8)`,
+      icon: "error",
       confirmButtonColor: "#3085d6",
       confirmButtonText: `${okMessage}`,
       customClass: "confirm",
@@ -26,7 +23,7 @@ const useContactEmailSuccess = () => {
     });
   };
 
-  return { contactEmailSuccess };
+  return { invalidEmailError };
 };
 
-export default useContactEmailSuccess;
+export default useInvalidEmailError;

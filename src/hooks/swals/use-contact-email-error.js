@@ -3,6 +3,8 @@ import withReactContent from "sweetalert2-react-content";
 
 import { okMessage, errorSendingMessage } from "../../strings/strings";
 
+import "../../styles/confirm.css";
+
 const useContactEmailError = () => {
   const swal = withReactContent(Swal);
 

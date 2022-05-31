@@ -1,6 +1,8 @@
 import axios from "axios";
 
 import useHandleIsProcessing from "../../hooks/use-handle-is-processing";
+import useMissingEmailFieldsError from "../../hooks/swals/use-missing-email-fields-error";
+import useInvalidEmailError from "../../hooks/swals/use-invalid-email-error";
 import useContactEmailSuccess from "../../hooks/swals/use-contact-email-success";
 import useContactEmailError from "../../hooks/swals/use-contact-email-error";
 
@@ -11,15 +13,22 @@ import {
   DisabledContactButton,
 } from "../../styles/form/form.styles";
 
-import { emailToSend } from "../../reusable-functions/email-to-send";
+import {
+  emailToSend,
+  validateEmail,
+} from "../../reusable-functions/email-to-send";
 
 const SendMessage = ({ formDetails, setFormDetails }) => {
   const { isProcessing, startIsProcessing, startIsNotProcessing } =
     useHandleIsProcessing();
+  const { missingEmailFieldsError } = useMissingEmailFieldsError();
+  const { invalidEmailError } = useInvalidEmailError();
   const { contactEmailSuccess } = useContactEmailSuccess();
   const { contactEmailError } = useContactEmailError();
 
   const { name, email, message } = formDetails;
+
+  console.log(validateEmail(email));
 
   const handleEmailSendSuccess = () => {
     return [
@@ -30,6 +39,13 @@ const SendMessage = ({ formDetails, setFormDetails }) => {
   };
 
   const sendEmail = async () => {
+    if (!name || !email || !message) {
+      missingEmailFieldsError();
+      return;
+    } else if (!validateEmail(email)) {
+      invalidEmailError();
+      return;
+    }
     startIsProcessing();
     await axios
       .post("/.netlify/functions/send-contact-form-message", {
@@ -53,7 +69,9 @@ const SendMessage = ({ formDetails, setFormDetails }) => {
   return (
     <div>
       {!isProcessing ? (
-        <ContactFormButton onClick={sendEmail}>Send Message</ContactFormButton>
+        <ContactFormButton type="submit" onClick={sendEmail}>
+          Send Message
+        </ContactFormButton>
       ) : (
         <>
           <Loader />

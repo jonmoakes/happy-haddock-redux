@@ -3,7 +3,6 @@ import { useState } from "react";
 import SendMessage from "./send-message.component";
 
 import { Form } from "../../styles/form/form.styles";
-import "../../styles/confirm.css";
 
 const ContactForm = () => {
   const [formDetails, setFormDetails] = useState({
