@@ -1,11 +1,11 @@
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 
-import { fadeInRight } from "react-animations";
+import { fadeInLeft } from "react-animations";
 
 import { IosButton } from "../../components/footer/footer.styles";
 
-const fadeRightAnimation = keyframes`${fadeInRight}`;
+const fadeLeftAnimation = keyframes`${fadeInLeft}`;
 
 export const ShowInfoButton = styled(IosButton)`
   background-color: salmon;
@@ -18,7 +18,7 @@ export const InfoContainer = styled.div`
   border: 2px solid black;
   border-radius: 10px;
   margin-bottom: 15px;
-  animation: 1s ${fadeRightAnimation};
+  animation: 1s ${fadeLeftAnimation};
 
   p {
     color: black;

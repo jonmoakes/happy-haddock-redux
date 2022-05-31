@@ -96,7 +96,7 @@ export const OptionsForm = styled.form`
 
     &:focus {
       box-shadow: 4px 4px 4px black;
-      border-color: red;
+      border-color: salmon;
       outline: none;
     }
   }
@@ -207,7 +207,7 @@ export const QuantityInput = styled.input`
 
   &:focus {
     box-shadow: 4px 4px 4px black;
-    border-color: red;
+    border-color: salmon;
   }
 
   @media screen and (max-width: 450px) {

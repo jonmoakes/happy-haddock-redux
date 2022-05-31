@@ -41,7 +41,7 @@ export const SearchBarInput = styled.input`
 
   &:focus {
     box-shadow: 6px 6px 6px black;
-    border-color: red;
+    border-color: salmon;
   }
 
   /* clears the ‘X’ from Internet Explorer */

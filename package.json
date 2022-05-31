@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@stripe/react-stripe-js": "1.8.1",
     "@stripe/stripe-js": "^1.29.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.0",
     "firebase": "^9.6.11",
     "react": "^18.1.0",

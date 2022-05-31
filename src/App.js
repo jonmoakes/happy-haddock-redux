@@ -28,7 +28,13 @@ const IndividualProduct = lazy(() =>
   import("./routes/individual-product/individual-product.component")
 );
 const Checkout = lazy(() => import("./routes/checkout/checkout.component"));
-// const Contact = lazy(() => import("./routes/contact/contact.component"));
+const Contact = lazy(() => import("./routes/contact/contact.component"));
+const PrivacyPolicy = lazy(() =>
+  import("./routes/privacy-policy/privacy-policy.component")
+);
+const CookiePolicy = lazy(() =>
+  import("./routes/cookie-policy/cookie-policy.component")
+);
 
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -95,8 +101,16 @@ const App = () => {
                 path="product/*"
                 element={currentUser && <IndividualProduct />}
               />
-              {/* <Route path="contact" element={<Contact />} /> */}
+              <Route path="contact" element={<Contact />} />
               <Route path="checkout" element={currentUser && <Checkout />} />
+              <Route
+                path="privacy-policy"
+                element={currentUser && <PrivacyPolicy />}
+              />
+              <Route
+                path="cookie-policy"
+                element={currentUser && <CookiePolicy />}
+              />
             </Route>
           </Routes>
           <Footer />

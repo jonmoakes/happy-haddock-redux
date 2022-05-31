@@ -17,7 +17,7 @@ const Intro = () => {
     <Div>
       <h1>welcome to the happy haddock!</h1>
       <hr />
-      <h2>please note that this is a demonstration app! :)</h2>
+      <h2 className="demo">please note that this is a demonstration app! :)</h2>
 
       {!showInfo && (
         <>

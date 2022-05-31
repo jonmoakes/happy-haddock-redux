@@ -95,8 +95,12 @@ export const Form = styled.form`
       }
     }
 
+    &.capitalize {
+      text-transform: capitalize;
+    }
+
     :focus {
-      border: 2px solid red;
+      border: 2px solid salmon;
     }
 
     @media screen and (max-width: 450px) {
@@ -131,7 +135,7 @@ export const Form = styled.form`
 
     &:focus {
       box-shadow: 4px 4px 4px black;
-      border-color: red;
+      border-color: salmon;
     }
 
     @media screen and (max-width: 600px) {
@@ -162,9 +166,13 @@ export const Form = styled.form`
     font-family: "Russo One";
     outline: none;
 
+    &.capitalize {
+      text-transform: capitalize;
+    }
+
     &:focus {
       box-shadow: 4px 4px 4px black;
-      border-color: red;
+      border-color: salmon;
     }
 
     @media screen and (max-width: 450px) {

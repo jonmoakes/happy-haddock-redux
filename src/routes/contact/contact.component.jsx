@@ -13,11 +13,10 @@ const ContactPage = () => (
     <ContactDiv>
       <ContactInfo />
     </ContactDiv>
-    <hr />
+
     <ContactDiv>
       <ContactForm />
     </ContactDiv>
-    <hr />
   </Container>
 );
 

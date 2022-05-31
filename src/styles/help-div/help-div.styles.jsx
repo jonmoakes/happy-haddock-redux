@@ -1,7 +1,8 @@
 import styled, { keyframes } from "styled-components";
-import { bounceInDown } from "react-animations";
+import { bounceInDown, fadeInLeft } from "react-animations";
 
 const bounceInDownAnimation = keyframes`${bounceInDown}`;
+const fadeInLeftAnimation = keyframes`${fadeInLeft}`;
 
 export const HelpDiv = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ export const HelpTextDiv = styled.div`
     text-decoration: underline;
   }
 
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 1366px) {
     width: 80%;
   }
 `;
@@ -107,7 +108,7 @@ export const Button = styled.button`
   fon-family: inherit;
   font-size: 16px;
   margin: 20px auto 0px auto;
-  animation: 1s ${bounceInDownAnimation};
+  animation: 1s ${fadeInLeftAnimation};
 
   &.dashboard {
     margin-bottom: -5px;
