@@ -28,8 +28,6 @@ const SendMessage = ({ formDetails, setFormDetails }) => {
 
   const { name, email, message } = formDetails;
 
-  console.log(validateEmail(email));
-
   const handleEmailSendSuccess = () => {
     return [
       contactEmailSuccess(),
