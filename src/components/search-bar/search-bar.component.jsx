@@ -24,7 +24,7 @@ const SearchBar = ({
       <hr />
       <SearchBarInput
         type="search"
-        placeholder="Ie kebab..."
+        placeholder="Search Products..."
         onChange={handleSearchFieldChange}
         value={"" || searchField}
       />
