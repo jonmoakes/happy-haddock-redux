@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import BackgroundImage from "./assets/bg.jpeg";
 
 export const GlobalStyle = createGlobalStyle`
     html {
@@ -15,27 +14,6 @@ export const GlobalStyle = createGlobalStyle`
         text-align:center;
         text-transform:capitalize;
         text-shadow:1px 1px 1px black;
-        /* position: relative;
-        &:before {
-            content: "";
-            display: block;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            z-index: -10;
-            background: linear-gradient(
-                rgba(32, 153, 240, 0.8),
-                rgba(32, 153, 240, 0.8)
-              ),
-              url(${BackgroundImage}) no-repeat center center;
-              -webkit-background-size: center;
-              -moz-background-size: center;
-              -o-background-size: center;
-              background-size: cover;
-        } */
         
         h1, h2 {
             color:yellow;
