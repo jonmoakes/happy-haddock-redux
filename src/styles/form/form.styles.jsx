@@ -230,19 +230,33 @@ export const PageLink = styled(Link)`
 `;
 
 export const ContactFormButton = styled(CustomButton)`
-  margin-top: 50px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  width: 500px;
+
+  @media screen and (max-width: 1366px) {
+    width: 400px;
+  }
 
   @media screen and (max-width: 850px) {
-    margin-top: 25px;
-    margin-bottom: 20px;
+    margin-top: 0px;
   }
 
   @media screen and (max-width: 600px) {
+    width: 300px;
     font-size: 18px;
   }
 
   @media screen and (max-width: 450px) {
     height: 75px;
+  }
+
+  @media screen and (max-width: 320px) {
+    width: 250px;
+  }
+
+  @media screen and (max-width: 280px) {
+    width: 200px;
   }
 `;
 

@@ -19,8 +19,9 @@ const ChooseSaucesErrors = () => {
       ) : (
         showNoSauceAndOtherSauceSelectedError() && (
           <p>
-            &uarr; you can't choose "no sauce" & along with any other sauce.
-            &uarr;
+            &uarr; &uarr;
+            <br />
+            you can't choose "no sauce" & along with any other sauce.
             <br />
             please either select "no sauce" on its own, or up to 3 other sauces.
           </p>
