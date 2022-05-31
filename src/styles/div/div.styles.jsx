@@ -5,6 +5,10 @@ export const Div = styled.div`
   width: 90%;
   height: auto;
 
+  h2 {
+    color: whitesmoke;
+  }
+
   hr {
     &.top {
       margin-bottom: 45px;
@@ -61,7 +65,7 @@ export const Div = styled.div`
     margin: 20px auto;
     border-radius: 15px;
 
-    h1 h2 {
+    h1 {
       color: whitesmoke;
     }
   }

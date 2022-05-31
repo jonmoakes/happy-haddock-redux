@@ -34,12 +34,6 @@ const Category = () => {
 
   useEffect(() => {
     setProducts(productsMap[category]);
-
-    return () => {
-      if (showHelpText) {
-        dispatch(setShowHelpText(false));
-      }
-    };
   }, [category, productsMap, dispatch, showHelpText]);
 
   return (

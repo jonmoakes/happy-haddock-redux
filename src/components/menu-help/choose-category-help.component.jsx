@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Text } from "../../styles/bounce-in-down-div/bounce-in-down-div.styles.jsx";
+import { Text } from "../../styles/bounce-in-down-div/bounce-in-down-div.styles";
 
 const ChooseCategoryHelp = () => {
   const location = useLocation();

@@ -99,9 +99,9 @@ const App = () => {
               <Route path="checkout" element={currentUser && <Checkout />} />
             </Route>
           </Routes>
+          <Footer />
         </Suspense>
       </ErrorBoundary>
-      <Footer />
     </div>
   );
 };

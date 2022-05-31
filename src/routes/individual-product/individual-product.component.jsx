@@ -10,7 +10,7 @@ import PriceInfo from "./price-info/price-info.component";
 import ProductTotalInfo from "./product-total-info.component";
 import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
 
-import { productExistsCheck } from "../../reusable-functions/product-exists-check.js";
+import { productExistsCheck } from "../../reusable-functions/product-exists-check";
 
 import {
   ProductItemDiv,

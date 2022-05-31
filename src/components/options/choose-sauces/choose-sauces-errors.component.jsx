@@ -1,4 +1,4 @@
-import useShowOneSauceOptionCheck from "../../../hooks/sauces-logic/use-show-one-sauce-option-check.js";
+import useShowOneSauceOptionCheck from "../../../hooks/sauces-logic/use-show-one-sauce-option-check";
 import useShowMultipleSaucesOptionCheck from "../../../hooks/sauces-logic/use-show-multiple-sauces-option-check";
 import useShowNoSauceAndOtherSauceSelectedError from "../../../hooks/sauces-logic/use-show-no-sauce-and-other-sauce-selected-error";
 
