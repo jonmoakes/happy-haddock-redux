@@ -51,6 +51,7 @@ const SendMessage = ({ formDetails, setFormDetails }) => {
       })
       .then(
         (response) => {
+          console.log(response);
           startIsNotProcessing();
           if (response.status === 202) {
             handleEmailSendSuccess();
