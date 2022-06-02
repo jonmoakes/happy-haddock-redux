@@ -9,7 +9,6 @@ import {
   selectProductsIsLoading,
   selectShowHelpText,
 } from "../../store/products/product.selector";
-import { setShowHelpText } from "../../store/products/product.action";
 
 import Loader from "../../components/loader/loader.component";
 import MenuHelp from "../../components/menu-help/menu-help.component";

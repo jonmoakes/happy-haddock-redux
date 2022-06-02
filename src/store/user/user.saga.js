@@ -1,4 +1,5 @@
 import { takeLatest, put, all, call } from "redux-saga/effects";
+import axios from "axios";
 
 import { USER_ACTION_TYPES } from "./user.types";
 
@@ -72,7 +73,22 @@ export function* signUp({ payload: { email, password, displayName } }) {
       email,
       password
     );
+    const emailToSend = `Congratulations - You Have Just Had A New User Sign Up To The Happy Haddock App! Their Name Is ${displayName} And Their Email Is: ${email}`;
     yield put(signUpSuccess(user, { displayName }));
+    yield axios
+      .post("/.netlify/functions/send-user-signed-up-message", {
+        message: emailToSend,
+      })
+      .then(
+        (response) => {
+          if (response.status !== 202) {
+            console.log(response);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   } catch (error) {
     yield put(signUpFailed(error));
   }
