@@ -66,3 +66,7 @@ export const chooseContactMethod = (payload) => {
 export const handleShowCardInput = (payload) => {
   return createAction(CART_ACTION_TYPES.HANDLE_SHOW_CARD_INPUT, payload);
 };
+
+export const setCustomerDetails = (payload) => {
+  return createAction(CART_ACTION_TYPES.SET_CUSTOMER_DETAILS, payload);
+};

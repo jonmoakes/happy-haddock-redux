@@ -1,7 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-
-import { selectShowCardInput } from "../../store/cart/cart.selector";
 
 import CustomButton from "../custom-button/custom-button.component";
 import ContactQuestion from "./contact-question.component";
@@ -13,7 +10,6 @@ import { PaymentFormDiv } from "./payment-form.styles";
 
 const PaymentForm = () => {
   const [okButtonClicked, setOkButtonClicked] = useState(false);
-  const showCardInput = useSelector(selectShowCardInput);
   return (
     <>
       {!okButtonClicked ? (
@@ -28,7 +24,6 @@ const PaymentForm = () => {
           <ContactQuestion />
           <PaymentFormInstructions />
           <NameEmailPhoneForm />
-          {showCardInput && <p>card input has been shown</p>}
         </>
       )}
     </>

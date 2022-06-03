@@ -1,4 +1,5 @@
 import { PaymentFormInstructionsText } from "./payment-form.styles";
+
 const PaymentFormPayNowInstructions = () => (
   <>
     <PaymentFormInstructionsText>thank you!</PaymentFormInstructionsText>

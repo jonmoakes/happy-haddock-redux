@@ -1,14 +1,19 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import useHandleCustomerDetailsChange from "../../hooks/handle-customer-details-form-change/use-handle-customer-details-form-change";
+import useHandleCustomerDetailsChange from "../../hooks/use-handle-customer-details-form-change";
 import useShowCardInputCheck from "../../hooks/use-show-card-input-check";
 
-import { selectContactMethod } from "../../store/cart/cart.selector";
+import {
+  selectContactMethod,
+  selectShowCardInput,
+} from "../../store/cart/cart.selector";
 
 import EmailLabel from "./email-label.component";
 import EmailError from "./email-error.component";
 import PhoneNumberError from "./phone-number-error.component";
+import PaymentFormPayNowInstructions from "./payment-form-pay-now-instructions.component";
+import ConfirmPayment from "./confirm-payment.component";
 
 import { validateEmail } from "../../reusable-functions/email-to-send";
 import { phoneNumberError } from "../../reusable-functions/phone-number-error-check";
@@ -20,6 +25,7 @@ const NameEmailPhoneForm = () => {
   const { handleCustomerDetailsFormChange, customerDetails } =
     useHandleCustomerDetailsChange();
   const { showCardInputCheck } = useShowCardInputCheck();
+  const showCardInput = useSelector(selectShowCardInput);
 
   const contactMethod = useSelector(selectContactMethod);
   const { name, email, phoneNumber } = customerDetails;
@@ -67,6 +73,12 @@ const NameEmailPhoneForm = () => {
               )}
 
               {phoneNumberError(phoneNumber) && <PhoneNumberError />}
+              {showCardInput && (
+                <>
+                  <PaymentFormPayNowInstructions />
+                  <ConfirmPayment {...{ customerDetails }} />
+                </>
+              )}
             </Form>
           </PaymentFormDiv>
         </>

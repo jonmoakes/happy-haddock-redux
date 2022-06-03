@@ -46,6 +46,7 @@ const Checkout = () => {
         <CheckoutPageTotalPriceInfo />
 
         <PaymentForm />
+
         <CheckoutPageStripeInfo />
         {redirectToMenu && <Navigate to="/menu" replace />}
       </CheckoutPageDiv>

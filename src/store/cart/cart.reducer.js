@@ -4,6 +4,11 @@ export const CART_INITIAL_STATE = {
   cartItems: [],
   contactMethod: "",
   showCardInput: false,
+  customerDetails: {
+    name: "",
+    email: "",
+    phoneNumber: "",
+  },
 };
 
 export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
@@ -33,6 +38,11 @@ export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
       return {
         ...state,
         showCardInput: payload,
+      };
+    case CART_ACTION_TYPES.SET_CUSTOMER_DETAILS:
+      return {
+        ...state,
+        customerDetails: payload,
       };
     default:
       return state;

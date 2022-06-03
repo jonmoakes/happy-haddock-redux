@@ -1,26 +1,76 @@
 import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../utils/firebase/firebase.utils";
+import { v4 as uuidv4 } from "uuid";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { clearIndividualProduct } from "../../store/products/product.action";
+import { clearFinalItem } from "../../store/final-item/final-item.action";
+import { clearCartItems } from "../../store/cart/cart.action";
 
 import Loader from "../loader/loader.component";
 
+import { getDate, getTime } from "../../reusable-functions/get-date-time";
+
 import { PayButton, DisabledButton, CardInputDiv } from "./payment-form.styles";
 
-const ConfirmPayment = () => {
+import {
+  areYouSureMessage,
+  confirmAddToCartMessage,
+  itemAddedMessage,
+  goToCartWhenReadyMessage,
+  okMessage,
+  cancelledMessage,
+  itemNotAddedToCartMessage,
+} from "../../strings/strings";
+
+const ConfirmPayment = ({ customerDetails }) => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch();
+  const swal = withReactContent(Swal);
 
-  const paymentHandler = async (e) => {
-    e.preventDefault();
+  const { name, email, phoneNumber } = customerDetails;
+  const totalPrice = useSelector(selectCartTotal);
+  const priceCut = totalPrice * 0.1;
+  const cutToTwoDecimalPoints = priceCut.toFixed(2);
 
+  const firestoreOrderDetails = {
+    id: uuidv4(),
+    name: name,
+    email: email,
+    phoneNumber: phoneNumber,
+    // order: finalItem,
+    orderDate: getDate(),
+    orderTime: getTime(),
+    totalPrice: totalPrice.toFixed(2),
+    solarisAppsCut: cutToTwoDecimalPoints,
+  };
+
+  const clearCartItemsFromFirestore = async () => {
+    const userRef = doc(db, "users", currentUser.id);
+    const userSnapshot = await getDoc(userRef);
+
+    try {
+      if (!userSnapshot.exists) return;
+      await updateDoc(userRef, {
+        cartItems: [],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const paymentHandler = async () => {
     if (!stripe || !elements) return;
-
     setIsProcessingPayment(true);
 
     const response = await fetch("/.netlify/functions/create-payment-intent", {
@@ -50,10 +100,76 @@ const ConfirmPayment = () => {
       alert(paymentResult.error.message);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
-        alert("payment successful!");
+        const ordersRef = doc(db, "users", process.env.REACT_APP_APP_OWNER_ID);
+        const userSnapshot = await getDoc(ordersRef);
+        try {
+          if (!userSnapshot.exists) return;
+          const data = await userSnapshot.data();
+          const { orders } = data;
+          await updateDoc(ordersRef, {
+            orders: [...orders, firestoreOrderDetails],
+          });
+          swal
+            .fire({
+              title: `${itemAddedMessage}`,
+              text: `${goToCartWhenReadyMessage}`,
+              confirmButtonText: `${okMessage}`,
+              confirmButtonColor: "#3085d6",
+              background: "black",
+              backdrop: `
+          rgba(0,0,123,0.8)`,
+              icon: "success",
+              customClass: "confirm",
+            })
+            .then(clearCartItemsFromFirestore())
+            // .then(dispatch(clearCartItems()))
+            .then(dispatch(clearFinalItem()))
+            .then(dispatch(clearIndividualProduct()));
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   };
+
+  function confirmAddItem() {
+    swal
+      .fire({
+        title: `${areYouSureMessage}`,
+        background: "black",
+        backdrop: `
+        rgba(0,0,123,0.8)`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "red",
+        confirmButtonText: `${confirmAddToCartMessage}`,
+        customClass: "confirm",
+        allowOutsideClick: false,
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          paymentHandler();
+        } else if (
+          result.dismiss === Swal.DismissReason.cancel ||
+          Swal.DismissReason.backdrop ||
+          Swal.DismissReason.backdrop.esc
+        ) {
+          swal.fire({
+            title: `${cancelledMessage}`,
+            text: `${itemNotAddedToCartMessage}`,
+            timer: 2000,
+            showConfirmButton: false,
+            background: "black",
+            backdrop: `
+      rgba(0,0,123,0.8)`,
+            icon: "info",
+            customClass: "confirm",
+          });
+        }
+      });
+  }
 
   return (
     <>
@@ -76,8 +192,8 @@ const ConfirmPayment = () => {
       {!isProcessingPayment ? (
         <PayButton
           // onChange={handleErrorChange}
-          type="submit"
-          onClick={paymentHandler}
+          type="button"
+          onClick={confirmAddItem}
         >
           Pay Now
         </PayButton>

@@ -79,7 +79,6 @@ const App = () => {
       } else if (location.pathname === "/checkout" && contactMethod) {
         dispatch(dispatch(chooseContactMethod("")));
       } else if (showHamburgerMenu) {
-        console.log("leavoing");
         dispatch(hideHamburgerMenu());
       }
     };

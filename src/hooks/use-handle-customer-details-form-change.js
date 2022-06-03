@@ -4,7 +4,7 @@ const useHandleCustomerDetailsFormChange = () => {
   const [customerDetails, setCustomerDetails] = useState({
     name: "",
     email: "",
-    phoneNumber: null,
+    phoneNumber: "",
   });
 
   const handleCustomerDetailsFormChange = (event) => {

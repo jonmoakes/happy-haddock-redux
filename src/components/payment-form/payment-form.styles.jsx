@@ -91,12 +91,16 @@ export const CardInputDiv = styled.div`
   width: 50%;
   margin: 30px auto 50px auto;
   padding: 30px 20px 0px 20px;
-  border: 2px solid black;
+  border: 2px solid red;
   border-radius: 15px;
 
-  @media screen and (max-width: 800px) {
-    width: 100%;
+  @media screen and (max-width: 1366px) {
+    width: 80%;
     padding: 25px 0px 0px 0px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
   }
 `;
 
