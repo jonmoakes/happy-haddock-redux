@@ -6,7 +6,6 @@ import withReactContent from "sweetalert2-react-content";
 import { signOutStart } from "../../store/user/user.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selector";
-import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
 
 import {
   signOutConfirmMessage,
@@ -19,15 +18,11 @@ import { MenuLink } from "./navbar.styles";
 
 const NavSignOut = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
   const swal = withReactContent(Swal);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function showSignOutConfirmSwal() {
-    if (showHamburgerMenu) {
-      dispatch(hideHamburgerMenu());
-    }
     swal
       .fire({
         title: `${signOutConfirmMessage}`,

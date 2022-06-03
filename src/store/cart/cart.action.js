@@ -58,3 +58,11 @@ export const updateCartItems = (cartItems) => {
 export const clearCartItems = () => {
   return createAction(CART_ACTION_TYPES.CLEAR_CART_ITEMS);
 };
+
+export const chooseContactMethod = (payload) => {
+  return createAction(CART_ACTION_TYPES.CHOOSE_CONTACT_METHOD, payload);
+};
+
+export const handleShowCardInput = (payload) => {
+  return createAction(CART_ACTION_TYPES.HANDLE_SHOW_CARD_INPUT, payload);
+};

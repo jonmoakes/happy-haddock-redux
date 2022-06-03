@@ -1,90 +1,77 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { selectChoosePhone } from "../../redux/payment-form/payment-form.selectors";
+import useHandleCustomerDetailsChange from "../../hooks/handle-customer-details-form-change/use-handle-customer-details-form-change";
+import useShowCardInputCheck from "../../hooks/use-show-card-input-check";
+
+import { selectContactMethod } from "../../store/cart/cart.selector";
 
 import EmailLabel from "./email-label.component";
-import EmailError from "../email-error/email-error.component";
-import PhoneNumberErrorMessage from "./phone-number-error-message.component";
-import PaymentFormPayNowInstructions from "./payment-form-pay-now-instructions.component";
-import ConfirmPayment from "./confirm-payment.component";
+import EmailError from "./email-error.component";
+import PhoneNumberError from "./phone-number-error.component";
 
-import useCustomerDetailsChange from "../../custom-hooks/use-customer-details-change";
+import { validateEmail } from "../../reusable-functions/email-to-send";
+import { phoneNumberError } from "../../reusable-functions/phone-number-error-check";
 
-import { Form } from "../styles/form/form.styles";
-
-import {
-  name,
-  text,
-  email,
-  phoneNumber,
-  number,
-} from "../../strings/options-strings";
+import { PaymentFormDiv } from "./payment-form.styles";
+import { Form } from "../../styles/form/form.styles";
 
 const NameEmailPhoneForm = () => {
-  const {
-    orderDetails,
-    emailError,
-    showPhoneErrorMessage,
-    showPayInput,
-    handleChange,
-  } = useCustomerDetailsChange();
+  const { handleCustomerDetailsFormChange, customerDetails } =
+    useHandleCustomerDetailsChange();
+  const { showCardInputCheck } = useShowCardInputCheck();
 
-  const choosePhone = useSelector(selectChoosePhone);
-
-  const scrollToForm = () => {
-    document.body.scrollTop = 600;
-    document.documentElement.scrollTop = 600;
-  };
+  const contactMethod = useSelector(selectContactMethod);
+  const { name, email, phoneNumber } = customerDetails;
 
   useEffect(() => {
-    scrollToForm();
-  }, []);
+    showCardInputCheck(name, email, phoneNumber);
+  }, [showCardInputCheck, name, email, phoneNumber]);
 
   return (
-    <div>
-      <Form className="name-email-phone" autoComplete="off">
-        <label>Name:</label>
-        <input name={name} type={text} required onChange={handleChange} />
-        <EmailLabel />
+    <>
+      {contactMethod && (
+        <>
+          <PaymentFormDiv>
+            <Form className="name-email-phone" autoComplete="off">
+              <label>Name:</label>
+              <input
+                name="name"
+                type="text"
+                required
+                onChange={handleCustomerDetailsFormChange}
+              />
 
-        <input
-          name={email}
-          type={email}
-          required
-          onChange={handleChange}
-          className={email}
-        />
+              <EmailLabel {...{ contactMethod }} />
+              <input
+                name="email"
+                type="email"
+                required
+                onChange={handleCustomerDetailsFormChange}
+                className="email"
+              />
 
-        {emailError && <EmailError />}
+              {!validateEmail(email) && <EmailError {...{ email }} />}
 
-        {choosePhone && (
-          <>
-            <label>Phone Number:</label>
-            <input
-              name={phoneNumber}
-              type={number}
-              pattern="\d*"
-              required
-              onChange={handleChange}
-            />
-          </>
-        )}
+              {contactMethod === "phone" && (
+                <>
+                  <label>Phone Number:</label>
+                  <input
+                    name="phoneNumber"
+                    type="number"
+                    pattern="\d*"
+                    required
+                    onChange={handleCustomerDetailsFormChange}
+                  />
+                </>
+              )}
 
-        {showPhoneErrorMessage && (
-          <PhoneNumberErrorMessage
-            showPhoneErrorMessage={showPhoneErrorMessage}
-          />
-        )}
-
-        {showPayInput && (
-          <>
-            <PaymentFormPayNowInstructions />
-            <ConfirmPayment orderDetails={orderDetails} />
-          </>
-        )}
-      </Form>
-    </div>
+              {phoneNumberError(phoneNumber) && <PhoneNumberError />}
+            </Form>
+          </PaymentFormDiv>
+        </>
+      )}
+    </>
   );
 };
 

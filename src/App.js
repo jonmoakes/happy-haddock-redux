@@ -7,10 +7,13 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "./utils/firebase/firebase.utils";
 
 import { checkUserSession } from "./store/user/user.action";
-import { updateCartItems } from "./store/cart/cart.action";
+import { updateCartItems, chooseContactMethod } from "./store/cart/cart.action";
 import { selectCurrentUser } from "./store/user/user.selector";
 import { clearFinalItem } from "./store/final-item/final-item.action";
 import { selectShowHelpText } from "./store/products/product.selector";
+import { selectContactMethod } from "./store/cart/cart.selector";
+import { hideHamburgerMenu } from "./store/hamburger-menu/hamburger-menu.action";
+import { selectShowHamburgerMenu } from "./store/hamburger-menu/hamburger-menu.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
@@ -39,6 +42,8 @@ const CookiePolicy = lazy(() =>
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
   const showHelpText = useSelector(selectShowHelpText);
+  const contactMethod = useSelector(selectContactMethod);
+  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -71,9 +76,14 @@ const App = () => {
     return () => {
       if (location.pathname.includes("product")) {
         dispatch(clearFinalItem());
+      } else if (location.pathname === "/checkout" && contactMethod) {
+        dispatch(dispatch(chooseContactMethod("")));
+      } else if (showHamburgerMenu) {
+        console.log("leavoing");
+        dispatch(hideHamburgerMenu());
       }
     };
-  }, [dispatch, location, showHelpText]);
+  }, [dispatch, location, showHelpText, contactMethod, showHamburgerMenu]);
 
   return (
     <div>

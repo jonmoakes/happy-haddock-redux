@@ -18,18 +18,12 @@ const CartIcon = () => {
       (currentUser && location.pathname === "/checkout") ||
       (currentUser &&
         cartItems.length === 0) ? null : location.pathname.includes(
-          "/products"
+          "product"
         ) ? (
         <ProductsPageCartIcon />
       ) : (
         <OtherPagesCartIcon />
       )}
-
-      {/* {!currentUser ? null : location.pathname.includes("/products") ? (
-        <ProductsPageCartIcon />
-      ) : (
-        <OtherPagesCartIcon />
-      )} */}
     </>
   );
 };

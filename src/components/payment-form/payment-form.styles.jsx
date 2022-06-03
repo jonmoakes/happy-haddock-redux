@@ -6,7 +6,7 @@ export const PaymentFormDiv = styled.div`
   background-color: black;
   width: 50%;
   margin: 50px auto 0px auto;
-  padding: 20px;
+  padding: 20px 10px;
   border-radius: 15px;
   border: 2px solid whitesmoke;
 
@@ -15,7 +15,7 @@ export const PaymentFormDiv = styled.div`
   }
 
   @media screen and (max-width: 1366px) {
-    width: 100%;
+    width: 90%;
   }
 `;
 
@@ -79,6 +79,10 @@ export const PaymentFormInstructionsText = styled.p`
   &.card-number {
     color: yellow;
   }
+`;
+
+export const ErrorDiv = styled.div`
+  margin-bottom: 30px;
 `;
 
 export const CardInputDiv = styled.div`

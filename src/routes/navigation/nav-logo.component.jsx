@@ -43,15 +43,13 @@ const NavLogo = () => {
         if (result.isConfirmed) {
           dispatch(hideHamburgerMenu());
           navigate("/");
-        } else if (!result.isConfirmed || result.isDismissed) {
-          dispatch(hideHamburgerMenu());
         }
       });
   }
 
   return (
     <>
-      {location.pathname.includes("/products") ||
+      {location.pathname.includes("product") ||
       location.pathname === "/checkout" ? (
         <LogoContainer onClick={showHomePageSwal}>
           <LogoImage src={Logo} alt="logo" />
@@ -60,7 +58,6 @@ const NavLogo = () => {
         <LogoContainer
           onClick={() => {
             navigate("/");
-            dispatch(hideHamburgerMenu());
           }}
         >
           <LogoImage src={Logo} alt="logo" />

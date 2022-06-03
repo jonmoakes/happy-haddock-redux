@@ -16,3 +16,7 @@ export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
     0
   )
 );
+
+export const selectContactMethod = (state) => state.cart.contactMethod;
+
+export const selectShowCardInput = (state) => state.cart.showCardInput;

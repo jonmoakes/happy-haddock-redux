@@ -42,22 +42,19 @@ const NavContact = () => {
         if (result.isConfirmed) {
           dispatch(hideHamburgerMenu());
           navigate("/contact");
-        } else if (!result.isConfirmed || result.isDismissed) {
-          dispatch(hideHamburgerMenu());
         }
       });
   }
 
   return (
     <>
-      {location.pathname.includes("/products") ||
+      {location.pathname.includes("product") ||
       location.pathname === "/checkout" ? (
         <MenuLink onClick={showContactSwal}>contact</MenuLink>
       ) : (
         location.pathname !== "/contact" && (
           <MenuLink
             onClick={() => {
-              dispatch(hideHamburgerMenu());
               navigate("/contact");
             }}
           >

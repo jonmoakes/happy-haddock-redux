@@ -46,8 +46,6 @@ const ProductsPageCartIcon = () => {
         if (result.isConfirmed) {
           dispatch(hideHamburgerMenu());
           navigate("/checkout");
-        } else if (!result.isConfirmed || result.isDismissed) {
-          dispatch(hideHamburgerMenu());
         }
       });
   }

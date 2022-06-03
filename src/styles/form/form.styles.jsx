@@ -8,7 +8,7 @@ export const Form = styled.form`
   padding: 50px 30px;
 
   &.name-email-phone {
-    padding: 20px 30px
+    padding: 20px 0px;
   }
 
   &.sign-in-up {
@@ -180,13 +180,7 @@ export const Form = styled.form`
     }
   }
 
-  .error-message {
-    color: red;
-
-    @media screen and (max-width: 600px) {
-      font-size: 16px;
-    }
-  }
+  
 
   span {
     font-size: 16px;
@@ -194,6 +188,10 @@ export const Form = styled.form`
     &.up-arrow {
       color: whitesmoke;
       font-size: 25px;
+    }
+
+    &.error-message {
+      color:red
     }
 
     &.heading {

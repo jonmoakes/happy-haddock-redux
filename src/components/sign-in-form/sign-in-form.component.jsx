@@ -10,9 +10,6 @@ import {
   resetErrorMessage,
 } from "../../store/user/user.action";
 
-import { selectShowHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.selector";
-import { hideHamburgerMenu } from "../../store/hamburger-menu/hamburger-menu.action";
-
 import {
   selectIsSignInLoading,
   selectUserError,
@@ -56,7 +53,6 @@ const SignInForm = () => {
 
   const isLoading = useSelector(selectIsSignInLoading);
   const error = useSelector(selectUserError);
-  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
 
   const dispatch = useDispatch();
   const swal = withReactContent(Swal);
@@ -107,18 +103,12 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    if (showHamburgerMenu) {
-      dispatch(hideHamburgerMenu());
-    }
     await dispatch(googleSignInStart());
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      if (showHamburgerMenu) {
-        dispatch(hideHamburgerMenu());
-      }
       await dispatch(emailSignInStart(email, password));
     } catch (error) {
       swal.fire({

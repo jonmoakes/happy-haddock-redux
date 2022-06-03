@@ -1,20 +1,15 @@
-import { useSelector } from "react-redux";
-
-import { selectChoosePhone } from "../../redux/payment-form/payment-form.selectors";
-
-const EmailLabel = () => {
-  const choosePhone = useSelector(selectChoosePhone);
-  return (
-    <>
-      {!choosePhone ? (
-        <label>Email:</label>
-      ) : (
+const EmailLabel = ({ contactMethod }) => (
+  <>
+    {contactMethod === "email" ? (
+      <label>Email:</label>
+    ) : (
+      contactMethod === "phone" && (
         <label>
           Email: <span>( For your receipt )</span>
         </label>
-      )}
-    </>
-  );
-};
+      )
+    )}
+  </>
+);
 
 export default EmailLabel;

@@ -10,8 +10,8 @@ import CheckoutPageHeaderBlock from "./checkout-header-block.component";
 import CheckoutPageOptionsPriceInfo from "./checkout-options-price-info.component";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import CheckoutPageTotalPriceInfo from "./checkout-total-price-info.component";
-// import PaymentForm from "../../components/payment-form/payment-form.component";
-import ConfirmPayment from "../../components/payment-form/confirm-payment.component";
+import PaymentForm from "../../components/payment-form/payment-form.component";
+
 import CheckoutPageStripeInfo from "./checkout-stripe-info.component";
 
 import { HeadingContainerDiv, CheckoutPageDiv } from "./checkout.styles";
@@ -44,8 +44,8 @@ const Checkout = () => {
           ))}
 
         <CheckoutPageTotalPriceInfo />
-        <ConfirmPayment />
-        {/* <PaymentForm /> */}
+
+        <PaymentForm />
         <CheckoutPageStripeInfo />
         {redirectToMenu && <Navigate to="/menu" replace />}
       </CheckoutPageDiv>

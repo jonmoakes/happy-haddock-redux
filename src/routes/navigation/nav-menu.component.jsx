@@ -44,8 +44,6 @@ const NavMenu = () => {
         if (result.isConfirmed) {
           dispatch(hideHamburgerMenu());
           navigate("/menu");
-        } else if (!result.isConfirmed || result.isDismissed) {
-          dispatch(hideHamburgerMenu());
         }
       });
   }
@@ -53,7 +51,7 @@ const NavMenu = () => {
   return (
     <>
       {currentUser &&
-      (location.pathname.includes("/products") ||
+      (location.pathname.includes("product") ||
         location.pathname === "/checkout") ? (
         <MenuLink onClick={showMenuPageSwal}>menu</MenuLink>
       ) : (
@@ -61,7 +59,6 @@ const NavMenu = () => {
         location.pathname !== "/menu" && (
           <MenuLink
             onClick={() => {
-              dispatch(hideHamburgerMenu());
               navigate("/menu");
             }}
           >
