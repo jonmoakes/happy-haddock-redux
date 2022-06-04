@@ -7,11 +7,12 @@ import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
+
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { clearIndividualProduct } from "../../store/products/product.action";
 import { clearFinalItem } from "../../store/final-item/final-item.action";
-import { clearCartItems } from "../../store/cart/cart.action";
 
 import Loader from "../loader/loader.component";
 
@@ -31,8 +32,11 @@ import {
 
 const ConfirmPayment = ({ customerDetails }) => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const { clearCartInFirestore } = useClearCartInFirestore();
+
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
+
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
@@ -53,20 +57,6 @@ const ConfirmPayment = ({ customerDetails }) => {
     orderTime: getTime(),
     totalPrice: totalPrice.toFixed(2),
     solarisAppsCut: cutToTwoDecimalPoints,
-  };
-
-  const clearCartItemsFromFirestore = async () => {
-    const userRef = doc(db, "users", currentUser.id);
-    const userSnapshot = await getDoc(userRef);
-
-    try {
-      if (!userSnapshot.exists) return;
-      await updateDoc(userRef, {
-        cartItems: [],
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const paymentHandler = async () => {
@@ -121,8 +111,7 @@ const ConfirmPayment = ({ customerDetails }) => {
               icon: "success",
               customClass: "confirm",
             })
-            .then(clearCartItemsFromFirestore())
-            // .then(dispatch(clearCartItems()))
+            .then(clearCartInFirestore())
             .then(dispatch(clearFinalItem()))
             .then(dispatch(clearIndividualProduct()));
         } catch (error) {

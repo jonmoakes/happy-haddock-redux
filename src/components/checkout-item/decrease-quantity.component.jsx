@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import useUpdateItemsInFirestore from "../../hooks/use-update-cart-items-in-firestore";
+
 import { decreaseItemQuantity } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
 
@@ -19,9 +20,12 @@ import "../../styles/confirm.css";
 
 const DecreaseQuantity = ({ cartItem }) => {
   const { updateCartItemInFirestore } = useUpdateItemsInFirestore();
+
   const cartItems = useSelector(selectCartItems);
   const swal = withReactContent(Swal);
   const dispatch = useDispatch();
+
+  console.log(cartItems.length);
 
   const removeItemHandler = () =>
     dispatch(decreaseItemQuantity(cartItems, cartItem));

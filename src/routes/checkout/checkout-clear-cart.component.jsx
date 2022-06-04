@@ -1,11 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../utils/firebase/firebase.utils";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { clearCartItems } from "../../store/cart/cart.action";
-import { selectCurrentUser } from "../../store/user/user.selector";
+import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
 
 import {
   clearCartQuestion,
@@ -19,23 +15,8 @@ import { ClearCartDiv, ClearCartButton } from "./checkout.styles";
 import "../../styles/confirm.css";
 
 const CheckoutClearCart = () => {
-  const currentUser = useSelector(selectCurrentUser);
-  const dispatch = useDispatch();
+  const { clearCartInFirestore } = useClearCartInFirestore();
   const swal = withReactContent(Swal);
-
-  const clearCartItemsFromFirestore = async () => {
-    const userRef = doc(db, "users", currentUser.id);
-    const userSnapshot = await getDoc(userRef);
-
-    try {
-      if (!userSnapshot.exists) return;
-      await updateDoc(userRef, {
-        cartItems: [],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   function confirmClearCart() {
     swal
@@ -67,8 +48,7 @@ const CheckoutClearCart = () => {
               icon: "success",
               customClass: "confirm",
             })
-            .then(clearCartItemsFromFirestore())
-            .then(dispatch(clearCartItems()));
+            .then(clearCartInFirestore());
         } else if (
           result.dismiss === Swal.DismissReason.cancel ||
           Swal.DismissReason.backdrop ||
