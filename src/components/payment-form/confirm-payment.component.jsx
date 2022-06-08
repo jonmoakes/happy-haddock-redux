@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector, useDispatch } from "react-redux";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
+import useReceipt from "../../hooks/receipts/use-receipt";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
@@ -33,26 +34,37 @@ import {
 const ConfirmPayment = ({ customerDetails }) => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const { clearCartInFirestore } = useClearCartInFirestore();
+  const { receipt } = useReceipt();
 
-  const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
+  const totalPrice = useSelector(selectCartTotal);
 
+  const priceCut = totalPrice * 0.1;
+  const cutToTwoDecimalPoints = priceCut.toFixed(2);
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
   const swal = withReactContent(Swal);
 
   const { name, email, phoneNumber } = customerDetails;
-  const totalPrice = useSelector(selectCartTotal);
-  const priceCut = totalPrice * 0.1;
-  const cutToTwoDecimalPoints = priceCut.toFixed(2);
+
+  const receiptData = useMemo(
+    () => receipt.map(({ formattedFinalReceipt }) => formattedFinalReceipt),
+    [receipt]
+  );
+
+  const fullReceipt = `${receiptData}\n\nGrand Total:\n${totalPrice.toFixed(
+    2
+  )}\n\n___________________`;
+
+  console.log(fullReceipt);
 
   const firestoreOrderDetails = {
     id: uuidv4(),
     name: name,
     email: email,
     phoneNumber: phoneNumber,
-    // order: finalItem,
+    order: fullReceipt,
     orderDate: getDate(),
     orderTime: getTime(),
     totalPrice: totalPrice.toFixed(2),
@@ -68,7 +80,7 @@ const ConfirmPayment = ({ customerDetails }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount: amount * 100 }),
+      body: JSON.stringify({ amount: Math.round(totalPrice * 100) }),
     }).then((res) => res.json());
 
     const {

@@ -25,8 +25,6 @@ const DecreaseQuantity = ({ cartItem }) => {
   const swal = withReactContent(Swal);
   const dispatch = useDispatch();
 
-  console.log(cartItems.length);
-
   const removeItemHandler = () =>
     dispatch(decreaseItemQuantity(cartItems, cartItem));
 
