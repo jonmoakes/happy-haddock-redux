@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import useUpdateItemsInFirestore from "../../hooks/use-update-cart-items-in-firestore";
+import useUpdateItemsInFirestore from "../../hooks/firestore/use-update-cart-items-in-firestore";
+
 import { increaseItemQuantity } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
 

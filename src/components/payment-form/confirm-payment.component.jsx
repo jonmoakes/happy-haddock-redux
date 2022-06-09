@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
-import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
-import useAddOrderTofirestore from "../../hooks/use-add-order-to-firestore";
-import useSendCustomerOrderEmail from "../../hooks/use-send-customer-order-email";
-import useSendOwnerOrderEmail from "../../hooks/use-send-owner-order-email";
+import useClearCartInFirestore from "../../hooks/firestore/use-clear-cart-in-firestore";
+import useAddOrderTofirestore from "../../hooks/firestore/use-add-order-to-firestore";
+import useSendCustomerOrderEmail from "../../hooks/emails-and-receipt/use-send-customer-order-email";
+import useSendOwnerOrderEmail from "../../hooks/emails-and-receipt/use-send-owner-order-email";
+import useOrderConfirmedSwal from "../../hooks/swals/use-order-confirmed-swal";
+import usePaymentResultErrorSwal from "../../hooks/swals/use-payment-result-error-swal";
+import useConfirmPaymentSwal from "../../hooks/swals/use-confirm-payment-swal";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { clearCustomerDetails } from "../../store/cart/cart.action";
@@ -19,33 +20,27 @@ import Loader from "../loader/loader.component";
 
 import { PayButton, DisabledButton, CardInputDiv } from "./payment-form.styles";
 
-import {
-  areYouSureMessage,
-  confirmAddToCartMessage,
-  itemAddedMessage,
-  goToCartWhenReadyMessage,
-  okMessage,
-  cancelledMessage,
-  itemNotAddedToCartMessage,
-} from "../../strings/strings";
-
 const ConfirmPayment = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const { clearCartInFirestore } = useClearCartInFirestore();
   const { sendCustomerOrderEmail } = useSendCustomerOrderEmail();
   const { sendOwnerOrderEmail } = useSendOwnerOrderEmail();
   const { addOrderToFirestore } = useAddOrderTofirestore();
+  const { orderConfirmedSwal } = useOrderConfirmedSwal();
+  const { paymentResultErrorSwal } = usePaymentResultErrorSwal();
+  const { confirmPaymentSwal } = useConfirmPaymentSwal();
 
   const currentUser = useSelector(selectCurrentUser);
   const totalPrice = useSelector(selectCartTotal);
+
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
-  const swal = withReactContent(Swal);
 
   const paymentHandler = async () => {
     if (!stripe || !elements) return;
     setIsProcessingPayment(true);
+    const cardElement = elements.getElement("card");
 
     const response = await fetch("/.netlify/functions/create-payment-intent", {
       method: "post",
@@ -71,72 +66,29 @@ const ConfirmPayment = () => {
     setIsProcessingPayment(false);
 
     if (paymentResult.error) {
-      alert(paymentResult.error.message);
+      paymentResultErrorSwal(paymentResult);
+      cardElement.clear();
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
-        await clearCartInFirestore();
-        swal.fire({
-          title: `${itemAddedMessage}`,
-          text: `${goToCartWhenReadyMessage}`,
-          confirmButtonText: `${okMessage}`,
-          confirmButtonColor: "#3085d6",
-          background: "black",
-          backdrop: `
-        rgba(0,0,123,0.8)`,
-          icon: "success",
-          customClass: "confirm",
-        });
         try {
+          await clearCartInFirestore();
           await addOrderToFirestore();
           await sendCustomerOrderEmail();
           await sendOwnerOrderEmail();
+          orderConfirmedSwal();
           dispatch(clearCustomerDetails());
           dispatch(clearFinalItem());
           dispatch(clearIndividualProduct());
         } catch (error) {
+          alert(`${error.message}`);
           console.log(error);
         }
       }
     }
   };
 
-  function confirmAddItem() {
-    swal
-      .fire({
-        title: `${areYouSureMessage}`,
-        background: "black",
-        backdrop: `
-        rgba(0,0,123,0.8)`,
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "red",
-        confirmButtonText: `${confirmAddToCartMessage}`,
-        customClass: "confirm",
-        allowOutsideClick: false,
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          paymentHandler();
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel ||
-          Swal.DismissReason.backdrop ||
-          Swal.DismissReason.backdrop.esc
-        ) {
-          swal.fire({
-            title: `${cancelledMessage}`,
-            text: `${itemNotAddedToCartMessage}`,
-            timer: 2000,
-            showConfirmButton: false,
-            background: "black",
-            backdrop: `
-      rgba(0,0,123,0.8)`,
-            icon: "info",
-            customClass: "confirm",
-          });
-        }
-      });
+  function confirmPayment() {
+    confirmPaymentSwal(paymentHandler);
   }
 
   return (
@@ -162,7 +114,7 @@ const ConfirmPayment = () => {
           <PayButton
             // onChange={handleErrorChange}
             type="button"
-            onClick={confirmAddItem}
+            onClick={confirmPayment}
           >
             Pay Now
           </PayButton>

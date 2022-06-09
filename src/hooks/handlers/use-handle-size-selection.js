@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addSizeSelectedPrice,
   addChosenSize,
-} from "../store/final-item/final-item.action";
-import { selectIndividualProduct } from "../store/products/product.selector";
+} from "../../store/final-item/final-item.action";
+import { selectIndividualProduct } from "../../store/products/product.selector";
 
 import {
   single,
@@ -20,7 +20,7 @@ import {
   twoPieces,
   threePieces,
   fourPieces,
-} from "../strings/strings";
+} from "../../strings/strings";
 
 const useHandleSizeSelection = () => {
   const product = useSelector(selectIndividualProduct);

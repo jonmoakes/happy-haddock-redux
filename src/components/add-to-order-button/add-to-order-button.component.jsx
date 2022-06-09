@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import useShowNoSauceAndOtherSauceSelectedError from "../../hooks/sauces-logic/use-show-no-sauce-and-other-sauce-selected-error";
 import useCombinedCheck from "../../hooks/add-to-order-button-checks/use-combined-check";
-import useAddCartItemsToFirestore from "../../hooks/use-add-cart-item-to-firestore";
+import useAddCartItemsToFirestore from "../../hooks/firestore/use-add-cart-item-to-firestore";
 
 import AddToOrderButtonError from "./add-to-order-button-error";
 

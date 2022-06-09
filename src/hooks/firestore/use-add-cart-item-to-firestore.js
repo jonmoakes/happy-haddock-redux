@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../utils/firebase/firebase.utils";
+import { db } from "../../utils/firebase/firebase.utils";
 
-import useGetFinalItem from "./use-get-final-item";
+import useGetFinalItem from "../use-get-final-item";
 
-import { clearFinalItem } from "../store/final-item/final-item.action";
-import { clearIndividualProduct } from "../store/products/product.action";
-import { selectCurrentUser } from "../store/user/user.selector";
+import { clearFinalItem } from "../../store/final-item/final-item.action";
+import { clearIndividualProduct } from "../../store/products/product.action";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import {
   confirmAddToCartMessage,
@@ -19,9 +19,9 @@ import {
   cancelledMessage,
   okMessage,
   goToCartWhenReadyMessage,
-} from "../strings/strings";
+} from "../../strings/strings";
 
-import "../styles/confirm.css";
+import "../../styles/confirm.css";
 
 const useAddCartItemsToFirestore = () => {
   const { finalItem } = useGetFinalItem();

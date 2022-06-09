@@ -7,9 +7,9 @@ import useGetReceiptData from "./use-get-receipt-data";
 import {
   selectCustomerDetails,
   selectCartTotal,
-} from "../store/cart/cart.selector";
+} from "../../store/cart/cart.selector";
 
-import { getDate, getTime } from "../reusable-functions/get-date-time";
+import { getDate, getTime } from "../../reusable-functions/get-date-time";
 
 const useSendOwnerOrderEmail = () => {
   const { receiptData } = useGetReceiptData();
@@ -66,6 +66,9 @@ Order Details:
           }
         },
         (error) => {
+          alert(
+            `Error - The Order Was Not Sent To The Owner Via Email - Please Contact The App Owner Via The Contact Form To Conform Your Order. The Error We Recieved Was ${error.message}`
+          );
           console.log(error);
         }
       );

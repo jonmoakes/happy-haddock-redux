@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
-import useHandleSizeSelection from "../../hooks/use-handle-size-selection";
+import useHandleSizeSelection from "../../hooks/handlers/use-handle-size-selection";
 import SingleSize from "../options/choose-product-size/single-size.component";
 import DoubleSize from "../options/choose-product-size/double-size.component";
 import SmallSize from "../options/choose-product-size/small-size.component";

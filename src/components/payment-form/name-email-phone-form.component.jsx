@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import useHandleCustomerDetailsChange from "../../hooks/use-handle-customer-details-form-change";
+import useHandleCustomerDetailsChange from "../../hooks/handlers/use-handle-customer-details-form-change";
 import useShowCardInputCheck from "../../hooks/use-show-card-input-check";
 
 import {

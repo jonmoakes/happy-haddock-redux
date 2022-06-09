@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../utils/firebase/firebase.utils";
+import { db } from "../../utils/firebase/firebase.utils";
 import { format } from "date-fns";
 
-import useGetReceiptData from "./use-get-receipt-data";
+import useGetReceiptData from "../emails-and-receipt/use-get-receipt-data";
 
 import {
   selectCustomerDetails,
   selectCartTotal,
-} from "../store/cart/cart.selector";
+} from "../../store/cart/cart.selector";
 
-import { getDate, getTime } from "../reusable-functions/get-date-time";
+import { getDate, getTime } from "../../reusable-functions/get-date-time";
 
 const useAddOrderTofirestore = () => {
   const { receiptData } = useGetReceiptData();
@@ -49,6 +49,9 @@ const useAddOrderTofirestore = () => {
         orders: [...orders, firestoreOrderDetails],
       });
     } catch (error) {
+      alert(
+        `Error Adding Order To Database - Please Contact The Owner Via The Contact Form To Confirm Your Order. The Error We Received Was ${error.message}.`
+      );
       console.log(error);
     }
   };

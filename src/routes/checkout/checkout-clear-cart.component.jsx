@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
+import useClearCartInFirestore from "../../hooks/firestore/use-clear-cart-in-firestore";
 
 import {
   clearCartQuestion,

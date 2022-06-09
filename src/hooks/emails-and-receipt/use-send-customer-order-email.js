@@ -7,9 +7,9 @@ import useGetReceiptData from "./use-get-receipt-data";
 import {
   selectCustomerDetails,
   selectCartTotal,
-} from "../store/cart/cart.selector";
+} from "../../store/cart/cart.selector";
 
-import { getDate, getTime } from "../reusable-functions/get-date-time";
+import { getDate, getTime } from "../../reusable-functions/get-date-time";
 
 const useSendCustomerOrderEmail = () => {
   const { receiptData } = useGetReceiptData();
@@ -61,6 +61,9 @@ ___________________
           }
         },
         (error) => {
+          alert(
+            `Error - An Email Confirmation Was Not Sent To You - Please Contact The App Owner Via The Contact Form. The Error We Recieved Was ${error.message}`
+          );
           console.log(error);
         }
       );

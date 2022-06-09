@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import useSetSearchField from "../../hooks/use-set-search-field";
+import useSetSearchField from "../../hooks/handlers/use-set-search-field";
 
 import {
   selectProductsMap,

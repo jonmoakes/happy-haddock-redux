@@ -1,21 +1,17 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import {
-  errorSendingMessage,
-  missingEmailFieldsErrorMessage,
-  okMessage,
-} from "../../strings/strings";
+import { okMessage, errorSendingMessage } from "../../strings/strings";
 
 import "../../styles/confirm.css";
 
-const useMissingEmailFieldsError = () => {
+const useContactEmailErrorSwal = () => {
   const swal = withReactContent(Swal);
 
-  const missingEmailFieldsError = () => {
+  const contactEmailErrorSwal = (errorMessage) => {
     swal.fire({
       title: errorSendingMessage,
-      text: missingEmailFieldsErrorMessage,
+      text: `error message: ${errorMessage}`,
       background: "black",
       backdrop: `
 rgba(0,0,123,0.8)`,
@@ -27,7 +23,7 @@ rgba(0,0,123,0.8)`,
     });
   };
 
-  return { missingEmailFieldsError };
+  return { contactEmailErrorSwal };
 };
 
-export default useMissingEmailFieldsError;
+export default useContactEmailErrorSwal;

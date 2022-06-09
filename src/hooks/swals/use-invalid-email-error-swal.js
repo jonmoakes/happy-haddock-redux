@@ -1,17 +1,17 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { okMessage, errorSendingMessage } from "../../strings/strings";
+import { errorSendingMessage, okMessage } from "../../strings/strings";
 
 import "../../styles/confirm.css";
 
-const useContactEmailError = () => {
+const useInvalidEmailErrorSwal = () => {
   const swal = withReactContent(Swal);
 
-  const contactEmailError = (errorMessage) => {
+  const invalidEmailErrorSwal = () => {
     swal.fire({
       title: errorSendingMessage,
-      text: `error message: ${errorMessage}`,
+      text: "you entered and invalid email address. please try again.",
       background: "black",
       backdrop: `
 rgba(0,0,123,0.8)`,
@@ -23,7 +23,7 @@ rgba(0,0,123,0.8)`,
     });
   };
 
-  return { contactEmailError };
+  return { invalidEmailErrorSwal };
 };
 
-export default useContactEmailError;
+export default useInvalidEmailErrorSwal;

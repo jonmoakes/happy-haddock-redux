@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import useHandleIsProcessing from "../../hooks/use-handle-is-processing";
-import useMissingEmailFieldsError from "../../hooks/swals/use-missing-email-fields-error";
-import useInvalidEmailError from "../../hooks/swals/use-invalid-email-error";
-import useContactEmailSuccess from "../../hooks/swals/use-contact-email-success";
-import useContactEmailError from "../../hooks/swals/use-contact-email-error";
+import useHandleIsProcessing from "../../hooks/handlers/use-handle-is-processing";
+import useMissingEmailFieldsErrorSwal from "../../hooks/swals/use-missing-email-fields-error-swal";
+import useInvalidEmailErrorSwal from "../../hooks/swals/use-invalid-email-error-swal";
+import useContactEmailSuccessSwal from "../../hooks/swals/use-contact-email-success-swal";
+import useContactEmailErrorSwal from "../../hooks/swals/use-contact-email-error-swal";
 
 import Loader from "../loader/loader.component";
 
@@ -21,16 +21,16 @@ import {
 const SendMessage = ({ formDetails, setFormDetails }) => {
   const { isProcessing, startIsProcessing, startIsNotProcessing } =
     useHandleIsProcessing();
-  const { missingEmailFieldsError } = useMissingEmailFieldsError();
-  const { invalidEmailError } = useInvalidEmailError();
-  const { contactEmailSuccess } = useContactEmailSuccess();
-  const { contactEmailError } = useContactEmailError();
+  const { missingEmailFieldsErrorSwal } = useMissingEmailFieldsErrorSwal();
+  const { invalidEmailErrorSwal } = useInvalidEmailErrorSwal();
+  const { contactEmailSuccessSwal } = useContactEmailSuccessSwal();
+  const { contactEmailErrorSwal } = useContactEmailErrorSwal();
 
   const { name, email, message } = formDetails;
 
   const handleEmailSendSuccess = () => {
     return [
-      contactEmailSuccess(),
+      contactEmailSuccessSwal(),
       document.getElementById("contact-form").reset(),
       setFormDetails({ name: "", email: "", message: "" }),
     ];
@@ -38,10 +38,10 @@ const SendMessage = ({ formDetails, setFormDetails }) => {
 
   const sendEmail = async () => {
     if (!name || !email || !message) {
-      missingEmailFieldsError();
+      missingEmailFieldsErrorSwal();
       return;
     } else if (!validateEmail(email)) {
-      invalidEmailError();
+      invalidEmailErrorSwal();
       return;
     }
     startIsProcessing();
@@ -59,7 +59,7 @@ const SendMessage = ({ formDetails, setFormDetails }) => {
         (error) => {
           const errorMessage = error.message;
           startIsNotProcessing();
-          contactEmailError(errorMessage);
+          contactEmailErrorSwal(errorMessage);
         }
       );
   };

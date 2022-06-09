@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { setCustomerDetails } from "../store/cart/cart.action";
-import { selectCustomerDetails } from "../store/cart/cart.selector";
+import { setCustomerDetails } from "../../store/cart/cart.action";
+import { selectCustomerDetails } from "../../store/cart/cart.selector";
 
 const useHandleCustomerDetailsFormChange = () => {
   const customerDetails = useSelector(selectCustomerDetails);
