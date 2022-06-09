@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { selectCurrentUser } from "../../store/user/user.selectors";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 import { MenuLink } from "./navbar.styles";
 

@@ -10,7 +10,7 @@ import NavContact from "./nav-contact.component";
 import NavSignOut from "./nav-sign-out.component";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import NavHamburger from "./nav-hamburger.component";
-// import NavDashboard from "./nav-dashboard.component";
+import NavDashboard from "./nav-dashboard.component";
 
 import { Nav, Menu } from "./navbar.styles";
 
@@ -24,15 +24,11 @@ const Navigation = () => {
         <Menu showHamburgerMenu={showHamburgerMenu}>
           <NavMenu />
           <NavSignInAndUp />
+          <NavDashboard />
           <NavContact />
           <NavSignOut />
           <CartIcon />
         </Menu>
-
-        {/* 
-          <NavDashboard />
-         
-        */}
       </Nav>
       <Outlet />
     </>

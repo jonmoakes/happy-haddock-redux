@@ -19,8 +19,7 @@ const useAddOrderTofirestore = () => {
   const customerDetails = useSelector(selectCustomerDetails);
   const totalPrice = useSelector(selectCartTotal);
   const { name, email, phoneNumber } = customerDetails;
-
-  const cutToTwoDecimalPoints = totalPrice.toFixed(2) * (0.1).toFixed(2);
+  const cutToTwoDecimalPoints = totalPrice * 0.1;
 
   const fullReceipt = `${receiptData}\nGrand Total:\n${totalPrice.toFixed(
     2
@@ -35,7 +34,7 @@ const useAddOrderTofirestore = () => {
     orderDate: `${format(new Date(getDate()), "dd MMMM yyyy")}`,
     orderTime: getTime(),
     totalPrice: totalPrice.toFixed(2),
-    solarisAppsCut: cutToTwoDecimalPoints,
+    solarisAppsCut: cutToTwoDecimalPoints.toFixed(2),
   };
 
   const addOrderToFirestore = async () => {
