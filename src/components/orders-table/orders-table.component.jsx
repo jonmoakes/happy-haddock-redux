@@ -1,8 +1,20 @@
 import { useMemo, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../utils/firebase/firebase.utils";
 
-import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { selectChosenPageSize } from "../../redux/table/table.selectors.js";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import {
+  selectOrders,
+  selectChosenTableOrder,
+  selectChosenPageSize,
+} from "../../store/table/table.selector";
+
+import {
+  updateOrders,
+  updateChosenTableOrder,
+  updateChosenPageSize,
+} from "../../store/table/table.action";
 
 import {
   useTable,
@@ -12,13 +24,6 @@ import {
   useRowSelect,
   useColumnOrder,
 } from "react-table";
-
-import {
-  selectOrders,
-  selectTableOrder,
-} from "../../redux/table/table.selectors";
-
-import { firestore } from "../../firebase/firebase.utils";
 
 import TableHelp from "./table-help.component";
 import { COLUMNS } from "./columns";
@@ -42,55 +47,48 @@ import {
   PageButton,
 } from "./orders-table.styles";
 
-import alert from "../../assets/alert.mp3";
+import alert from "../../assets/alert-sound.mp3";
 
 const OrdersTable = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const currentUser = useSelector(selectCurrentUser);
+  const chosenTableOrder = useSelector(selectChosenTableOrder);
+  const chosenPageSize = useSelector(selectChosenPageSize);
   let orders = useSelector(selectOrders);
 
-  const chosenTableOrder = useSelector(selectTableOrder);
-  const chosenPageSize = useSelector(selectChosenPageSize);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!currentUser) return;
     setIsLoading(true);
     let unsubscribeFromSnapshot = null;
-    const userRef = firestore.doc(
-      `users/${process.env.REACT_APP_APP_OWNER_ID}`
-    );
 
     try {
-      unsubscribeFromSnapshot = userRef.onSnapshot((snapshot) => {
-        if (snapshot.exists) {
-          const { orders, chosenTableOrder, newOrder } = snapshot.data();
+      unsubscribeFromSnapshot = onSnapshot(
+        doc(db, "users", process.env.REACT_APP_APP_OWNER_ID),
+        (doc) => {
+          const { orders, chosenTableOrder, newOrder } = doc.data();
           if (newOrder === true) {
             const alertSound = new Audio(alert);
             alertSound.play();
           }
-          dispatch({ type: "UPDATE_ORDERS", payload: orders });
-          dispatch({
-            type: "UPDATE_CHOSEN_TABLE_ORDER",
-            payload: chosenTableOrder,
-          });
-
-          setIsLoading(false);
-        } else {
-          setErrorMessage("snapshot error");
+          dispatch(updateOrders(orders));
+          dispatch(updateChosenTableOrder(chosenTableOrder));
           setIsLoading(false);
         }
-      });
+      );
     } catch (error) {
       setIsLoading(false);
       setErrorMessage(error.message);
+      console.log(error);
     }
 
     return () => {
       unsubscribeFromSnapshot();
     };
-  }, [dispatch, currentUser]);
+  }, [currentUser, dispatch]);
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => orders, [orders]);
@@ -298,10 +296,7 @@ const OrdersTable = () => {
                 value={pageSize}
                 onChange={(e) => {
                   setPageSize(Number(e.target.value));
-                  dispatch({
-                    type: "UPDATE_CHOSEN_PAGE_SIZE",
-                    payload: Number(e.target.value),
-                  });
+                  dispatch(updateChosenPageSize(Number(e.target.value)));
                 }}
               >
                 {[5, 10, 25, 50, 75, 100, 150, 200].map((pageSize) => (

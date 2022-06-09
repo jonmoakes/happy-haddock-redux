@@ -1,4 +1,4 @@
-import { Div } from "../styles/div/div.styles";
+import { Div } from "../../styles/div/div.styles";
 
 const NoEntriesInfo = ({ data, errorMessage }) => (
   <>

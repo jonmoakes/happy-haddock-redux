@@ -3,11 +3,11 @@ import { useAsyncDebounce } from "react-table";
 
 import Loader from "../loader/loader.component";
 
-import { SearchBar } from "../styles/searchbar/searchbar.styles";
+import { SearchBarInput } from "../../styles/searchbar-input/searchbar-input.styles";
 
-import { Div } from "../styles/div/div.styles";
+import { Div } from "../../styles/div/div.styles";
 
-import { ClearButtonDiv, Button } from "../styles/help-div/help-div.styles";
+import { ClearButtonDiv, Button } from "../../styles/help-div/help-div.styles";
 
 const SearchBox = ({
   chosenEntry,
@@ -35,7 +35,7 @@ const SearchBox = ({
       {isSearching && <Loader />}
       {chosenEntry.length === 0 && errorMessage === "" && data.length !== 0 && (
         <Div>
-          <SearchBar
+          <SearchBarInput
             className="table-seach-bar"
             value={value || ""}
             type="search"

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { ErrorDiv } from "../styles/form/form.styles";
+import { ErrorDiv } from "../../styles/form/form.styles";
 
 const StyledLink = styled(Link)`
   text-decoration: none;

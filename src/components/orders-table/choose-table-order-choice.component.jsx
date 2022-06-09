@@ -2,22 +2,23 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { firestore } from "../../firebase/firebase.utils";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../utils/firebase/firebase.utils";
 
 import {
   ShowTableOrderChoiceButton,
   HideTableOrderChoiceButton,
   TableOrderSelectButton,
 } from "./orders-table.styles";
-import { BounceInDownDiv } from "../styles/bounce-in-down-div/bounce-in-down-div.styles";
+import { BounceInDownDiv } from "../../styles/bounce-in-down-div/bounce-in-down-div.styles";
 
 import { okMessage } from "../../strings/strings";
 
-import "../styles/confirm.css";
+import "../../styles/confirm.css";
 
 const ChooseTableOrderChoice = ({ rows }) => {
   const [showTableOrderChoice, setShowTableOrderChoice] = useState(false);
-  const [chosenTableOrder, setChosenTableOrder] = useState(null);
+  const [newTableOrder, setNewTableOrder] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const swal = withReactContent(Swal);
@@ -103,26 +104,26 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
   useEffect(() => {
     async function addTableOrderChoiceToFirestore() {
-      const userRef = await firestore.doc(
-        `users/${process.env.REACT_APP_APP_OWNER_ID}`
+      const ownerRef = await doc(
+        db,
+        "users",
+        process.env.REACT_APP_APP_OWNER_ID
       );
+
+      const userSnapshot = await getDoc(ownerRef);
+
       try {
-        userRef.get().then((doc) => {
-          if (doc.exists) {
-            if (chosenTableOrder) {
-              const newTableOrder = Object.values(chosenTableOrder);
-              userRef.update({
-                chosenTableOrder: [...newTableOrder],
-              });
-            }
-          }
+        if (!userSnapshot.exists) return;
+        const newOrder = Object.values(newTableOrder);
+        await updateDoc(ownerRef, {
+          chosenTableOrder: [...newOrder],
         });
       } catch (error) {
         setErrorMessage(error);
       }
     }
     addTableOrderChoiceToFirestore();
-  }, [chosenTableOrder]);
+  }, [newTableOrder]);
 
   return (
     <>
@@ -155,24 +156,24 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setChosenTableOrder(tableOrder[0])}
+                  onClick={() => setNewTableOrder(tableOrder[0])}
                 >
                   order details, customer details, price details
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setChosenTableOrder(tableOrder[1])}
+                  onClick={() => setNewTableOrder(tableOrder[1])}
                 >
                   order details, price details, customer details
                 </TableOrderSelectButton>
               </div>
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setChosenTableOrder(tableOrder[2])}
+                  onClick={() => setNewTableOrder(tableOrder[2])}
                 >
                   customer details, order details, price details{" "}
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setChosenTableOrder(tableOrder[3])}
+                  onClick={() => setNewTableOrder(tableOrder[3])}
                 >
                   customer details, price details, order details
                 </TableOrderSelectButton>
@@ -180,12 +181,12 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setChosenTableOrder(tableOrder[4])}
+                  onClick={() => setNewTableOrder(tableOrder[4])}
                 >
                   price details, customer details, order details
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setChosenTableOrder(tableOrder[5])}
+                  onClick={() => setNewTableOrder(tableOrder[5])}
                 >
                   price details, order details, customer details
                 </TableOrderSelectButton>

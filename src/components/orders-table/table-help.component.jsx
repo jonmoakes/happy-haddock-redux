@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import {
   BounceInDownDiv,
   Text,
-} from "../styles/bounce-in-down-div/bounce-in-down-div.styles";
+} from "../../styles/bounce-in-down-div/bounce-in-down-div.styles";
 
-import { HelpDiv, Button } from "../styles/help-div/help-div.styles";
+import { HelpDiv, Button } from "../../styles/help-div/help-div.styles";
 
 import { ContactLink } from "./orders-table.styles";
 

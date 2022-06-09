@@ -19,7 +19,8 @@ const useAddOrderTofirestore = () => {
   const customerDetails = useSelector(selectCustomerDetails);
   const totalPrice = useSelector(selectCartTotal);
   const { name, email, phoneNumber } = customerDetails;
-  const cutToTwoDecimalPoints = totalPrice * (0.1).toFixed(2);
+
+  const cutToTwoDecimalPoints = totalPrice.toFixed(2) * (0.1).toFixed(2);
 
   const fullReceipt = `${receiptData}\nGrand Total:\n${totalPrice.toFixed(
     2
@@ -45,9 +46,20 @@ const useAddOrderTofirestore = () => {
       if (!userSnapshot.exists) return;
       const data = await userSnapshot.data();
       const { orders } = data;
+
       await updateDoc(ordersRef, {
         orders: [...orders, firestoreOrderDetails],
-      });
+      })
+        .then(
+          await updateDoc(ordersRef, {
+            newOrder: true,
+          })
+        )
+        .then(
+          await updateDoc(ordersRef, {
+            newOrder: false,
+          })
+        );
     } catch (error) {
       alert(
         `Error Adding Order To Database - Please Contact The Owner Via The Contact Form To Confirm Your Order. The Error We Received Was ${error.message}.`

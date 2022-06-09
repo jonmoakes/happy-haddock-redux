@@ -26,6 +26,7 @@ const Navigation = lazy(() =>
 const Home = lazy(() => import("./routes/home/home.component"));
 const SignIn = lazy(() => import("./routes/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("./routes/sign-up/sign-up.component"));
+const Dashboard = lazy(() => import("./routes/dashboard/dashboard.component"));
 const Menu = lazy(() => import("./routes/menu/menu.component"));
 const IndividualProduct = lazy(() =>
   import("./routes/individual-product/individual-product.component")
@@ -96,15 +97,34 @@ const App = () => {
               <Route
                 path="sign-in"
                 element={
-                  !currentUser ? <SignIn /> : <Navigate replace to="/menu" />
+                  currentUser ? (
+                    <Navigate replace to="/dashboard" />
+                  ) : (
+                    <SignIn />
+                  )
                 }
               />
               <Route
                 path="sign-up"
                 element={
-                  !currentUser ? <SignUp /> : <Navigate replace to="/menu" />
+                  currentUser ? <Navigate replace to="/menu" /> : <SignUp />
                 }
               />
+              <Route
+                path="dashboard"
+                element={
+                  currentUser &&
+                  currentUser.id === process.env.REACT_APP_APP_OWNER_ID ? (
+                    <Dashboard />
+                  ) : currentUser &&
+                    currentUser.id !== process.env.REACT_APP_APP_OWNER_ID ? (
+                    <Navigate replace to="/menu" />
+                  ) : (
+                    currentUser === null && <Navigate replace to="/sign-in" />
+                  )
+                }
+              />
+
               <Route path="menu/*" element={currentUser && <Menu />} />
               <Route
                 path="product/*"

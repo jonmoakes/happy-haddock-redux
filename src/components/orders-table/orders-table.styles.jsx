@@ -4,8 +4,8 @@ import { bounceInDown } from "react-animations";
 import { Link } from "react-router-dom";
 
 import CustomButton from "../custom-button/custom-button.component";
-import { BounceInDownDiv } from "../styles/bounce-in-down-div/bounce-in-down-div.styles";
-import { Div } from "../styles/div/div.styles";
+import { BounceInDownDiv } from "../../styles/bounce-in-down-div/bounce-in-down-div.styles";
+import { Div } from "../../styles/div/div.styles";
 
 const bounceInDownAnimation = keyframes`${bounceInDown}`;
 

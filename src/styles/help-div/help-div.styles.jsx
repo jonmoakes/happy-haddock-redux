@@ -134,3 +134,50 @@ export const Button = styled.button`
     width: 80%;
   }
 `;
+
+export const ClearButtonDiv = styled.div`
+  width: 70%;
+  height: auto;
+  margin: 70px auto 0px auto;
+  background-color: lightgrey;
+  padding: 0px 20px 30px 20px;
+  border: 2px solid black;
+  border-radius: 15px;
+  animation: 1s ${bounceInDownAnimation};
+
+  h2 {
+    color: red;
+    text-shadow: none;
+  }
+
+  p {
+    font-size: 18px;
+    color: black;
+    text-shadow: none;
+
+    @media screen and (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+
+  &.table {
+    margin: 70px auto 50px auto;
+
+    @media screen and (max-width: 850px) {
+      margin: 50px auto 40px auto;
+    }
+
+    @media screen and (max-width: 600px) {
+      margin: 30px auto 30px auto;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    margin: 30px auto 0px auto;
+    width: 80%;
+  }
+`;
