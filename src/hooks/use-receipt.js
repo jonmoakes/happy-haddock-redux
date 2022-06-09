@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectCartItems } from "../../store/cart/cart.selector";
+import { selectCartItems } from "../store/cart/cart.selector";
 
 const useReceipt = () => {
   const cartItems = useSelector(selectCartItems);
@@ -39,7 +39,7 @@ const useReceipt = () => {
       (key) => saucesSelected[key]
     );
 
-    //adds a space between camle case words in it - ie sweetChilli becomes sweet chilli
+    //adds a space between camel case words in it - ie sweetChilli becomes sweet chilli
     const saucesformat = sauces.map((sauce) =>
       sauce.replace(/\B([A-Z])\B/g, " $1")
     );
@@ -62,7 +62,7 @@ const useReceipt = () => {
       : "";
 
     const chosenSaltAndVinegar = saltAndVinegar
-      ? `Salt & Vinegar?\n${saltAndVinegar.toUpperCase()}\n`
+      ? `Salt & Vinegar?\n${saltAndVinegar.toUpperCase()}\n\n`
       : "";
 
     const chosenPie = pie ? `Pie:\n${pie.toUpperCase()}\n\n` : "";
@@ -78,7 +78,7 @@ const useReceipt = () => {
 
     const chosenCheeseSlice = cheeseSliceSelected ? "CHEESE SLICE\n\n" : "";
 
-    const chosenSalad = saladSelected ? `Salad\nYES\n\n` : "";
+    const chosenSalad = saladSelected ? `\nSalad\nYES\n\n` : "";
 
     const chosenSauces = sauces.length
       ? `Sauces Selected:\n${saucesformat}\n\n`
@@ -125,9 +125,9 @@ const useReceipt = () => {
       .replace(/DRINKS /g, " ")
       .replace(/[()]/g, "")
       .replace(/start/g, "\n")
-      .replace(/end/g, "\n___________________\n\n")
-      .replace(/,/g, ", ")
-      .replace(/^(\s*\r\n){2,}/, "\r\n");
+      .replace(/end/g, "\n___________________\n\n");
+    // .replace(/,/g, ", ")
+    // .replace(/^(\s*\r\n){2,}/, "\r\n");
     return { formattedFinalReceipt };
   });
 

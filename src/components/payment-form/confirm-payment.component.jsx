@@ -6,9 +6,11 @@ import { db } from "../../utils/firebase/firebase.utils";
 import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
+import { format } from "date-fns";
 
 import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
-import useReceipt from "../../hooks/receipts/use-receipt";
+import useReceipt from "../../hooks/use-receipt";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
@@ -53,11 +55,9 @@ const ConfirmPayment = ({ customerDetails }) => {
     [receipt]
   );
 
-  const fullReceipt = `${receiptData}\n\nGrand Total:\n${totalPrice.toFixed(
+  const fullReceipt = `${receiptData}\nGrand Total:\n${totalPrice.toFixed(
     2
   )}\n\n___________________`;
-
-  console.log(fullReceipt);
 
   const firestoreOrderDetails = {
     id: uuidv4(),
@@ -69,6 +69,50 @@ const ConfirmPayment = ({ customerDetails }) => {
     orderTime: getTime(),
     totalPrice: totalPrice.toFixed(2),
     solarisAppsCut: cutToTwoDecimalPoints,
+  };
+
+  const sendCustomerOrderEmail = async () => {
+    const fullReceipt = `${receiptData}\nGrand Total:\n${totalPrice.toFixed(
+      2
+    )}\n\n___________________`;
+    const customerEmailIntro = `Hi ${name}.
+
+Here Is A Summary Of Your Order You Placed With The Happy Haddock Fish & Chip Shop.
+
+You Will Also Receive A Separate Email Receipt For Your Records.
+
+If You Have Any Queries, Please Contact Us Using The Contact Form On Our Website!
+
+Thank You For Your Custom!
+
+Order Date: ${format(new Date(getDate()), "dd MMMM yyyy")}
+
+Order Time: ${getTime()}
+___________________
+
+Your Order Details:
+`;
+
+    const customerEmailToSend = `${customerEmailIntro} ${fullReceipt}`;
+
+    const dataToSend = {
+      email,
+      customerEmailToSend,
+    };
+    await axios
+      .post("/.netlify/functions/send-customer-order-email", {
+        message: dataToSend,
+      })
+      .then(
+        (response) => {
+          if (response.status === 202) {
+            console.log("EMAIL SENT!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   const paymentHandler = async () => {
@@ -102,6 +146,18 @@ const ConfirmPayment = ({ customerDetails }) => {
       alert(paymentResult.error.message);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
+        await clearCartInFirestore();
+        swal.fire({
+          title: `${itemAddedMessage}`,
+          text: `${goToCartWhenReadyMessage}`,
+          confirmButtonText: `${okMessage}`,
+          confirmButtonColor: "#3085d6",
+          background: "black",
+          backdrop: `
+        rgba(0,0,123,0.8)`,
+          icon: "success",
+          customClass: "confirm",
+        });
         const ordersRef = doc(db, "users", process.env.REACT_APP_APP_OWNER_ID);
         const userSnapshot = await getDoc(ordersRef);
         try {
@@ -111,21 +167,10 @@ const ConfirmPayment = ({ customerDetails }) => {
           await updateDoc(ordersRef, {
             orders: [...orders, firestoreOrderDetails],
           });
-          swal
-            .fire({
-              title: `${itemAddedMessage}`,
-              text: `${goToCartWhenReadyMessage}`,
-              confirmButtonText: `${okMessage}`,
-              confirmButtonColor: "#3085d6",
-              background: "black",
-              backdrop: `
-          rgba(0,0,123,0.8)`,
-              icon: "success",
-              customClass: "confirm",
-            })
-            .then(clearCartInFirestore())
-            .then(dispatch(clearFinalItem()))
-            .then(dispatch(clearIndividualProduct()));
+
+          await sendCustomerOrderEmail();
+          dispatch(clearFinalItem());
+          dispatch(clearIndividualProduct());
         } catch (error) {
           console.log(error);
         }
@@ -191,13 +236,15 @@ const ConfirmPayment = ({ customerDetails }) => {
       </CardInputDiv>
 
       {!isProcessingPayment ? (
-        <PayButton
-          // onChange={handleErrorChange}
-          type="button"
-          onClick={confirmAddItem}
-        >
-          Pay Now
-        </PayButton>
+        <>
+          <PayButton
+            // onChange={handleErrorChange}
+            type="button"
+            onClick={confirmAddItem}
+          >
+            Pay Now
+          </PayButton>
+        </>
       ) : (
         <>
           <Loader />

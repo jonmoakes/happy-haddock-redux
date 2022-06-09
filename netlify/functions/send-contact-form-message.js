@@ -29,24 +29,24 @@ exports.handler = (event, context, callback) => {
     .catch((err) => callback(err, null));
 };
 
-exports.handler = async (event) => {
-  const { SENDGRID_API_KEY, APP_OWNER_EMAIL } = process.env;
+// exports.handler = async (event) => {
+//   const { SENDGRID_API_KEY, APP_OWNER_EMAIL } = process.env;
 
-  try {
-    const body = JSON.parse(event.body);
-    const message = body.message;
-    client.setApiKey(SENDGRID_API_KEY);
-    await sendEmail(client, message, APP_OWNER_EMAIL);
+//   try {
+//     const body = JSON.parse(event.body);
+//     const message = body.message;
+//     client.setApiKey(SENDGRID_API_KEY);
+//     await sendEmail(client, message, APP_OWNER_EMAIL);
 
-    return {
-      statusCode: 202,
-    };
-  } catch (error) {
-    console.log({ error });
+//     return {
+//       statusCode: 202,
+//     };
+//   } catch (error) {
+//     console.log({ error });
 
-    return {
-      status: 400,
-      body: JSON.stringify({ error }),
-    };
-  }
-};
+//     return {
+//       status: 400,
+//       body: JSON.stringify({ error }),
+//     };
+//   }
+// };
