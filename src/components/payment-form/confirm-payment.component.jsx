@@ -21,7 +21,6 @@ import Errors from "./errors.component";
 import Loader from "../loader/loader.component";
 
 import { PayButton, DisabledButton, CardInputDiv } from "./payment-form.styles";
-// import { ErrorDiv } from "../../styles/form/form.styles";
 
 const ConfirmPayment = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
