@@ -9,6 +9,7 @@ import useSendOwnerOrderEmail from "../../hooks/emails-and-receipt/use-send-owne
 import useOrderConfirmedSwal from "../../hooks/swals/use-order-confirmed-swal";
 import usePaymentResultErrorSwal from "../../hooks/swals/use-payment-result-error-swal";
 import useConfirmPaymentSwal from "../../hooks/swals/use-confirm-payment-swal";
+import useHandlePaymentFormErrorChange from "../../hooks/handlers/use-handle-payment-form-error-change";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
 import { clearCustomerDetails } from "../../store/cart/cart.action";
@@ -16,12 +17,15 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 import { clearIndividualProduct } from "../../store/products/product.action";
 import { clearFinalItem } from "../../store/final-item/final-item.action";
 
+import Errors from "./errors.component";
 import Loader from "../loader/loader.component";
 
 import { PayButton, DisabledButton, CardInputDiv } from "./payment-form.styles";
+// import { ErrorDiv } from "../../styles/form/form.styles";
 
 const ConfirmPayment = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
   const { clearCartInFirestore } = useClearCartInFirestore();
   const { sendCustomerOrderEmail } = useSendCustomerOrderEmail();
   const { sendOwnerOrderEmail } = useSendOwnerOrderEmail();
@@ -29,6 +33,12 @@ const ConfirmPayment = () => {
   const { orderConfirmedSwal } = useOrderConfirmedSwal();
   const { paymentResultErrorSwal } = usePaymentResultErrorSwal();
   const { confirmPaymentSwal } = useConfirmPaymentSwal();
+  const {
+    handlePaymentFormErrorChange,
+    checkoutErrorMessage,
+    warningMessage,
+    showPayButton,
+  } = useHandlePaymentFormErrorChange();
 
   const currentUser = useSelector(selectCurrentUser);
   const totalPrice = useSelector(selectCartTotal);
@@ -87,12 +97,10 @@ const ConfirmPayment = () => {
     }
   };
 
-  function confirmPayment() {
-    confirmPaymentSwal(paymentHandler);
-  }
-
   return (
     <>
+      <Errors {...{ warningMessage, checkoutErrorMessage }} />
+
       <CardInputDiv>
         <CardElement
           options={{
@@ -106,24 +114,26 @@ const ConfirmPayment = () => {
             },
             hidePostalCode: true,
           }}
+          onChange={handlePaymentFormErrorChange}
         />
       </CardInputDiv>
 
-      {!isProcessingPayment ? (
-        <>
-          <PayButton
-            // onChange={handleErrorChange}
-            type="button"
-            onClick={confirmPayment}
-          >
-            Pay Now
-          </PayButton>
-        </>
+      {showPayButton && !isProcessingPayment ? (
+        <PayButton
+          onChange={handlePaymentFormErrorChange}
+          type="button"
+          onClick={() => confirmPaymentSwal(paymentHandler)}
+        >
+          Pay Now
+        </PayButton>
       ) : (
-        <>
-          <Loader />
-          <DisabledButton type="button">Please Wait...</DisabledButton>
-        </>
+        showPayButton &&
+        isProcessingPayment && (
+          <>
+            <Loader />
+            <DisabledButton>Please Wait...</DisabledButton>
+          </>
+        )
       )}
     </>
   );

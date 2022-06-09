@@ -70,14 +70,21 @@ export const PaymentFormInstructionsText = styled.p`
   &.card-number,
   &.heading {
     text-transform: capitalize;
-    font-size: 24px;
+    font-size: 22px;
 
     @media screen and (max-width: 600px) {
       font-size: 18px;
     }
   }
+
   &.card-number {
-    color: yellow;
+    text-shadow: none;
+    color: black;
+
+    span {
+      color: yellow;
+      text-shadow: 1px 1px 1px black;
+    }
   }
 `;
 
@@ -154,4 +161,14 @@ export const DisabledButton = styled(PayButton)`
   cursor: not-allowed;
   opacity: 0.5;
   pointer-events: none;
+`;
+
+export const DemoInfoDiv = styled.div`
+  background-color: darkgrey;
+  padding: 10px;
+  width: 90%;
+  margin: 0px auto 30px auto;
+  display: grid;
+  place-content: center;
+  border-radius: 20px;
 `;

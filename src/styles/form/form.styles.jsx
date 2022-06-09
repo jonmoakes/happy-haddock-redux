@@ -266,7 +266,7 @@ export const DisabledContactButton = styled(ContactFormButton)`
 
 export const ErrorDiv = styled.div`
   background-color: red;
-  width: 100%;
+  width: 70%;
   height: auto;
   margin: 0 auto;
   border-radius: 15px;
@@ -313,7 +313,7 @@ export const ErrorDiv = styled.div`
 
   p {
     color: whitesmoke;
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px 0px;
     text-shadow: 1px 1px 1px black;
   }
@@ -323,8 +323,12 @@ export const ErrorDiv = styled.div`
     p {
       color: black;
       text-shadow: none;
-      font-size: 16px;
+      font-size: 18px;
     }
+  }
+
+  @media screen and (max-width: 1366px) {
+    width: 90%;
   }
 `;
 
