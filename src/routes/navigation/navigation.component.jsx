@@ -23,8 +23,8 @@ const Navigation = () => {
         <NavHamburger showHamburgerMenu={showHamburgerMenu} />
         <Menu showHamburgerMenu={showHamburgerMenu}>
           <NavMenu />
-          <NavSignInAndUp />
           <NavDashboard />
+          <NavSignInAndUp />
           <NavContact />
           <NavSignOut />
           <CartIcon />
