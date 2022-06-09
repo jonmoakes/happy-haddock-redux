@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+
+import useEmailAlreadyInUseSwal from "../../hooks/swals/use-email-already-in-use-swal";
+import useWeakPasswordSwal from "../../hooks/swals/use-weak-password-swal";
+import useGenericErrorSwal from "../../hooks/swals/use-genereic-error-swal";
+import useDisplayNameTooLongSwal from "../../hooks/swals/use-display-name-too-long-swal";
+import usePasswordsDontMatchSwal from "../../hooks/swals/use-passwords-dont-match-swal";
 
 import { signUpStart, resetErrorMessage } from "../../store/user/user.action";
 import {
@@ -16,14 +20,6 @@ import { Form, PageLink, SmallScreenDiv } from "../../styles/form/form.styles";
 
 import { Div } from "../../styles/div/div.styles";
 
-import {
-  okMessage,
-  displayNameTooLongMessage,
-  passwordsDontMatchMessage,
-  emailAlreadyInUse,
-  weakPassword,
-} from "../../strings/strings";
-
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -33,10 +29,16 @@ const defaultFormFields = {
 
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
+
+  const { emailAlreadyInUseSwal } = useEmailAlreadyInUseSwal();
+  const { weakPasswordSwal } = useWeakPasswordSwal();
+  const { genericErrorSwal } = useGenericErrorSwal();
+  const { displayNameTooLongSwal } = useDisplayNameTooLongSwal();
+  const { passwordsDontMatchSwal } = usePasswordsDontMatchSwal();
+
   const isLoading = useSelector(selectIsSignInLoading);
   const error = useSelector(selectUserError);
 
-  const swal = withReactContent(Swal);
   const dispatch = useDispatch();
 
   const { displayName, email, password, confirmPassword } = formFields;
@@ -44,52 +46,25 @@ const SignUp = () => {
   useEffect(() => {
     if (!error) return;
     if (error.code.includes("auth/email-already-in-use")) {
-      swal
-        .fire({
-          title: emailAlreadyInUse,
-          background: "black",
-          backdrop: `
-  rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: false,
-        })
-        .then(dispatch(resetErrorMessage()))
-        .then(resetFormFields());
+      emailAlreadyInUseSwal();
+      dispatch(resetErrorMessage());
+      resetFormFields();
       return;
     } else if (error.code.includes("weak-password")) {
-      swal
-        .fire({
-          title: weakPassword,
-          background: "black",
-          backdrop: `
-  rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: false,
-        })
-        .then(dispatch(resetErrorMessage()));
+      weakPasswordSwal();
+      dispatch(resetErrorMessage());
     } else {
-      swal
-        .fire({
-          title: `${error.code}`,
-          background: "black",
-          backdrop: `
-  rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: true,
-        })
-        .then(dispatch(resetErrorMessage()))
-        .then(resetFormFields());
+      genericErrorSwal(error);
+      dispatch(resetErrorMessage());
+      resetFormFields();
     }
-  }, [error, swal, dispatch]);
+  }, [
+    error,
+    emailAlreadyInUseSwal,
+    weakPasswordSwal,
+    genericErrorSwal,
+    dispatch,
+  ]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -104,30 +79,10 @@ const SignUp = () => {
     event.preventDefault();
 
     if (displayName.length > 8) {
-      swal.fire({
-        title: `${displayNameTooLongMessage}`,
-        background: "black",
-        backdrop: `
-  rgba(0,0,123,0.8)`,
-        icon: "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: `${okMessage}`,
-        customClass: "confirm",
-        allowOutsideClick: false,
-      });
+      displayNameTooLongSwal();
       return;
     } else if (password !== confirmPassword) {
-      swal.fire({
-        title: `${passwordsDontMatchMessage}`,
-        background: "black",
-        backdrop: `
-  rgba(0,0,123,0.8)`,
-        icon: "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: `${okMessage}`,
-        customClass: "confirm",
-        allowOutsideClick: false,
-      });
+      passwordsDontMatchSwal();
       return;
     } else {
       dispatch(signUpStart(email, password, displayName));

@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+import useNetworkErrorSwal from "../../hooks/swals/use-network-error-swal";
+import useErrorSigningInSwal from "../../hooks/swals/use-error-signing-in-swal";
+import usePasswordResetSuccessSwal from "../../hooks/swals/use-password-reset-success-swal";
+import useEmailAddressNotFoundSwal from "../../hooks/swals/use-email-address-not-found-swal";
+import useGenericErrorSwal from "../../hooks/swals/use-genereic-error-swal";
 
 import {
   googleSignInStart,
@@ -27,16 +31,7 @@ import {
   SmallScreenDiv,
 } from "../../styles/form/form.styles";
 
-import {
-  okMessage,
-  passwordResetSuccessMessage,
-  passwordResetSuccessText,
-  errorSigningInTitle,
-  errorSigningInText,
-  emailAddressNotFound,
-  noNetworkDetected,
-  networkRequestFailedError,
-} from "../../strings/strings";
+import { networkRequestFailedError } from "../../strings/strings";
 
 import "../../styles/confirm.css";
 
@@ -51,47 +46,30 @@ const SignInForm = () => {
   const [passwordResetLoader, setPasswordResetLoader] = useState(false);
   const [showForgotPasswordField, setShowForgotPasswordField] = useState(false);
 
+  const { networkErrorSwal } = useNetworkErrorSwal();
+  const { errorSigningInSwal } = useErrorSigningInSwal();
+  const { passwordResetSuccessSwal } = usePasswordResetSuccessSwal();
+  const { emailAddressNotFoundSwal } = useEmailAddressNotFoundSwal();
+  const { genericErrorSwal } = useGenericErrorSwal();
+
   const isLoading = useSelector(selectIsSignInLoading);
   const error = useSelector(selectUserError);
 
   const dispatch = useDispatch();
-  const swal = withReactContent(Swal);
+
   const auth = getAuth();
   const { email, password, emailForPasswordReset } = formFields;
 
   useEffect(() => {
     if (error && error.code.includes(networkRequestFailedError)) {
-      swal
-        .fire({
-          title: noNetworkDetected,
-          background: "black",
-          backdrop: `
-    rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: true,
-        })
-        .then(dispatch(resetErrorMessage()));
+      networkErrorSwal();
+      dispatch(resetErrorMessage());
     } else if (error && !error.code.includes(networkRequestFailedError)) {
       resetFormFields();
-      swal
-        .fire({
-          title: errorSigningInTitle,
-          text: errorSigningInText,
-          background: "black",
-          backdrop: `
-    rgba(0,0,123,0.8)`,
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: `${okMessage}`,
-          customClass: "confirm",
-          allowOutsideClick: true,
-        })
-        .then(dispatch(resetErrorMessage()));
+      errorSigningInSwal();
+      dispatch(resetErrorMessage());
     }
-  }, [error, swal, dispatch]);
+  }, [error, errorSigningInSwal, networkErrorSwal, dispatch]);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -111,18 +89,7 @@ const SignInForm = () => {
     try {
       await dispatch(emailSignInStart(email, password));
     } catch (error) {
-      swal.fire({
-        title: errorSigningInTitle,
-        text: errorSigningInText,
-        background: "black",
-        backdrop: `
-     rgba(0,0,123,0.8)`,
-        icon: "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: `${okMessage}`,
-        customClass: "confirm",
-        allowOutsideClick: false,
-      });
+      errorSigningInSwal();
       resetFormFields();
       return;
     }
@@ -136,52 +103,17 @@ const SignInForm = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         setPasswordResetLoader(false);
-        swal
-          .fire({
-            title: passwordResetSuccessMessage,
-            text: passwordResetSuccessText,
-            background: "black",
-            backdrop: `
-      rgba(0,0,123,0.8)`,
-            icon: "success",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: `${okMessage}`,
-            customClass: "confirm",
-            allowOutsideClick: false,
-          })
-          .then(resetFormFields());
+        passwordResetSuccessSwal();
+        resetFormFields();
       })
       .catch((error) => {
         setPasswordResetLoader(false);
         if (error.code.includes("auth/user-not-found")) {
-          swal
-            .fire({
-              title: emailAddressNotFound,
-              background: "black",
-              backdrop: `
-      rgba(0,0,123,0.8)`,
-              icon: "error",
-              confirmButtonColor: "#3085d6",
-              confirmButtonText: `${okMessage}`,
-              customClass: "confirm",
-              allowOutsideClick: true,
-            })
-            .then(resetFormFields());
+          emailAddressNotFoundSwal();
+          resetFormFields();
         } else {
-          swal
-            .fire({
-              title: error.code,
-              text: error.message,
-              background: "black",
-              backdrop: `
-      rgba(0,0,123,0.8)`,
-              icon: "error",
-              confirmButtonColor: "#3085d6",
-              confirmButtonText: `${okMessage}`,
-              customClass: "confirm",
-              allowOutsideClick: true,
-            })
-            .then(resetFormFields());
+          genericErrorSwal(error);
+          resetFormFields();
         }
       });
   };
