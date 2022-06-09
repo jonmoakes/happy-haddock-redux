@@ -44,6 +44,15 @@ export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
         ...state,
         customerDetails: payload,
       };
+    case CART_ACTION_TYPES.CLEAR_CUSTOMER_DETAILS:
+      return {
+        ...state,
+        customerDetails: {
+          name: "",
+          email: "",
+          phoneNumber: "",
+        },
+      };
     default:
       return state;
   }

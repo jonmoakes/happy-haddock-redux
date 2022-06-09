@@ -19,7 +19,7 @@ const AddToOrderButton = ({ children, ...props }) => {
       {showNoSauceAndOtherSauceSelectedError() ? (
         <AddToOrderButtonError />
       ) : combinedCheck() ? (
-        <AddToOrderButtonContainer onClick={confirmAddItem}>
+        <AddToOrderButtonContainer type="button" onClick={confirmAddItem}>
           add to order
         </AddToOrderButtonContainer>
       ) : (

@@ -22,10 +22,10 @@ const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
 
   useEffect(() => {
-    if (!cartItems.length) {
+    if (cartItems && !cartItems.length) {
       setRedirectToMenu(true);
     }
-  }, [cartItems.length, dispatch]);
+  }, [cartItems, dispatch]);
 
   return (
     <HeadingContainerDiv>

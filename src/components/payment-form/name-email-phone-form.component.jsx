@@ -7,6 +7,7 @@ import useShowCardInputCheck from "../../hooks/use-show-card-input-check";
 import {
   selectContactMethod,
   selectShowCardInput,
+  selectCustomerDetails,
 } from "../../store/cart/cart.selector";
 
 import EmailLabel from "./email-label.component";
@@ -22,9 +23,9 @@ import { PaymentFormDiv } from "./payment-form.styles";
 import { Form } from "../../styles/form/form.styles";
 
 const NameEmailPhoneForm = () => {
-  const { handleCustomerDetailsFormChange, customerDetails } =
-    useHandleCustomerDetailsChange();
+  const { handleCustomerDetailsFormChange } = useHandleCustomerDetailsChange();
   const { showCardInputCheck } = useShowCardInputCheck();
+  const customerDetails = useSelector(selectCustomerDetails);
   const showCardInput = useSelector(selectShowCardInput);
 
   const contactMethod = useSelector(selectContactMethod);
@@ -76,7 +77,7 @@ const NameEmailPhoneForm = () => {
               {showCardInput && (
                 <>
                   <PaymentFormPayNowInstructions />
-                  <ConfirmPayment {...{ customerDetails }} />
+                  <ConfirmPayment />
                 </>
               )}
             </Form>

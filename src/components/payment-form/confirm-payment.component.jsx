@@ -1,25 +1,21 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector, useDispatch } from "react-redux";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../utils/firebase/firebase.utils";
-import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import axios from "axios";
-import { format } from "date-fns";
 
 import useClearCartInFirestore from "../../hooks/use-clear-cart-in-firestore";
-import useReceipt from "../../hooks/use-receipt";
+import useAddOrderTofirestore from "../../hooks/use-add-order-to-firestore";
+import useSendCustomerOrderEmail from "../../hooks/use-send-customer-order-email";
+import useSendOwnerOrderEmail from "../../hooks/use-send-owner-order-email";
 
 import { selectCartTotal } from "../../store/cart/cart.selector";
+import { clearCustomerDetails } from "../../store/cart/cart.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { clearIndividualProduct } from "../../store/products/product.action";
 import { clearFinalItem } from "../../store/final-item/final-item.action";
 
 import Loader from "../loader/loader.component";
-
-import { getDate, getTime } from "../../reusable-functions/get-date-time";
 
 import { PayButton, DisabledButton, CardInputDiv } from "./payment-form.styles";
 
@@ -33,87 +29,19 @@ import {
   itemNotAddedToCartMessage,
 } from "../../strings/strings";
 
-const ConfirmPayment = ({ customerDetails }) => {
+const ConfirmPayment = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const { clearCartInFirestore } = useClearCartInFirestore();
-  const { receipt } = useReceipt();
+  const { sendCustomerOrderEmail } = useSendCustomerOrderEmail();
+  const { sendOwnerOrderEmail } = useSendOwnerOrderEmail();
+  const { addOrderToFirestore } = useAddOrderTofirestore();
 
   const currentUser = useSelector(selectCurrentUser);
   const totalPrice = useSelector(selectCartTotal);
-
-  const priceCut = totalPrice * 0.1;
-  const cutToTwoDecimalPoints = priceCut.toFixed(2);
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
   const swal = withReactContent(Swal);
-
-  const { name, email, phoneNumber } = customerDetails;
-
-  const receiptData = useMemo(
-    () => receipt.map(({ formattedFinalReceipt }) => formattedFinalReceipt),
-    [receipt]
-  );
-
-  const fullReceipt = `${receiptData}\nGrand Total:\n${totalPrice.toFixed(
-    2
-  )}\n\n___________________`;
-
-  const firestoreOrderDetails = {
-    id: uuidv4(),
-    name: name,
-    email: email,
-    phoneNumber: phoneNumber,
-    order: fullReceipt,
-    orderDate: getDate(),
-    orderTime: getTime(),
-    totalPrice: totalPrice.toFixed(2),
-    solarisAppsCut: cutToTwoDecimalPoints,
-  };
-
-  const sendCustomerOrderEmail = async () => {
-    const fullReceipt = `${receiptData}\nGrand Total:\n${totalPrice.toFixed(
-      2
-    )}\n\n___________________`;
-    const customerEmailIntro = `Hi ${name}.
-
-Here Is A Summary Of Your Order You Placed With The Happy Haddock Fish & Chip Shop.
-
-You Will Also Receive A Separate Email Receipt For Your Records.
-
-If You Have Any Queries, Please Contact Us Using The Contact Form On Our Website!
-
-Thank You For Your Custom!
-
-Order Date: ${format(new Date(getDate()), "dd MMMM yyyy")}
-
-Order Time: ${getTime()}
-___________________
-
-Your Order Details:
-`;
-
-    const customerEmailToSend = `${customerEmailIntro} ${fullReceipt}`;
-
-    const dataToSend = {
-      email,
-      customerEmailToSend,
-    };
-    await axios
-      .post("/.netlify/functions/send-customer-order-email", {
-        message: dataToSend,
-      })
-      .then(
-        (response) => {
-          if (response.status === 202) {
-            console.log("EMAIL SENT!");
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  };
 
   const paymentHandler = async () => {
     if (!stripe || !elements) return;
@@ -158,17 +86,11 @@ Your Order Details:
           icon: "success",
           customClass: "confirm",
         });
-        const ordersRef = doc(db, "users", process.env.REACT_APP_APP_OWNER_ID);
-        const userSnapshot = await getDoc(ordersRef);
         try {
-          if (!userSnapshot.exists) return;
-          const data = await userSnapshot.data();
-          const { orders } = data;
-          await updateDoc(ordersRef, {
-            orders: [...orders, firestoreOrderDetails],
-          });
-
+          await addOrderToFirestore();
           await sendCustomerOrderEmail();
+          await sendOwnerOrderEmail();
+          dispatch(clearCustomerDetails());
           dispatch(clearFinalItem());
           dispatch(clearIndividualProduct());
         } catch (error) {

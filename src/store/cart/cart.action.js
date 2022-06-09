@@ -70,3 +70,6 @@ export const handleShowCardInput = (payload) => {
 export const setCustomerDetails = (payload) => {
   return createAction(CART_ACTION_TYPES.SET_CUSTOMER_DETAILS, payload);
 };
+export const clearCustomerDetails = () => {
+  return createAction(CART_ACTION_TYPES.CLEAR_CUSTOMER_DETAILS);
+};
