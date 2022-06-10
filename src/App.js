@@ -95,6 +95,20 @@ const App = () => {
             <Route path="/" element={<Navigation />}>
               <Route index element={<Home />} />
               <Route
+                path="dashboard"
+                element={
+                  currentUser &&
+                  currentUser.id === process.env.REACT_APP_APP_OWNER_ID ? (
+                    <Dashboard />
+                  ) : currentUser &&
+                    currentUser.id !== process.env.REACT_APP_APP_OWNER_ID ? (
+                    <Navigate replace to="/menu" />
+                  ) : (
+                    currentUser === null && <Navigate replace to="/sign-in" />
+                  )
+                }
+              />
+              <Route
                 path="sign-in"
                 element={
                   currentUser ? (
@@ -108,20 +122,6 @@ const App = () => {
                 path="sign-up"
                 element={
                   currentUser ? <Navigate replace to="/menu" /> : <SignUp />
-                }
-              />
-              <Route
-                path="dashboard"
-                element={
-                  currentUser &&
-                  currentUser.id === process.env.REACT_APP_APP_OWNER_ID ? (
-                    <Dashboard />
-                  ) : currentUser &&
-                    currentUser.id !== process.env.REACT_APP_APP_OWNER_ID ? (
-                    <Navigate replace to="/menu" />
-                  ) : (
-                    currentUser === null && <Navigate replace to="/sign-in" />
-                  )
                 }
               />
 

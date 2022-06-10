@@ -22,8 +22,8 @@ const Navigation = () => {
         <NavLogo />
         <NavHamburger showHamburgerMenu={showHamburgerMenu} />
         <Menu showHamburgerMenu={showHamburgerMenu}>
-          <NavMenu />
           <NavDashboard />
+          <NavMenu />
           <NavSignInAndUp />
           <NavContact />
           <NavSignOut />
