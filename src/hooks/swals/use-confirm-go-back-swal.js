@@ -32,7 +32,7 @@ const useConfirmGoBackSwal = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          navigate(-2);
+          navigate(-1);
         }
       });
   };
