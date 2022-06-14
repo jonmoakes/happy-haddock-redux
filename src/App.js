@@ -1,19 +1,14 @@
-import { lazy, Suspense, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { GlobalStyle } from "./global-styles";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "./utils/firebase/firebase.utils";
 
-import { checkUserSession } from "./store/user/user.action";
-import { updateCartItems, chooseContactMethod } from "./store/cart/cart.action";
+import useCheckUserSession from "./hooks/use-check-user-session";
+import useCartItemsSnapshotListener from "./hooks/firestore/use-cart-items-snapshot-listener";
+import useClearFinalItemContactMethodHideHamburger from "./hooks/use-clear-final-item-contact-method-hide-hamburger";
+
 import { selectCurrentUser } from "./store/user/user.selector";
-import { clearFinalItem } from "./store/final-item/final-item.action";
-import { selectShowHelpText } from "./store/products/product.selector";
-import { selectContactMethod } from "./store/cart/cart.selector";
-import { hideHamburgerMenu } from "./store/hamburger-menu/hamburger-menu.action";
-import { selectShowHamburgerMenu } from "./store/hamburger-menu/hamburger-menu.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
@@ -42,48 +37,10 @@ const CookiePolicy = lazy(() =>
 
 const App = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const showHelpText = useSelector(selectShowHelpText);
-  const contactMethod = useSelector(selectContactMethod);
-  const showHamburgerMenu = useSelector(selectShowHamburgerMenu);
-  const dispatch = useDispatch();
-  const location = useLocation();
 
-  useEffect(() => {
-    dispatch(checkUserSession());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (!currentUser) return;
-    let unsubscribeFromSnapshot = null;
-
-    try {
-      unsubscribeFromSnapshot = onSnapshot(
-        doc(db, "users", currentUser.id),
-        (doc) => {
-          const { cartItems } = doc.data();
-          dispatch(updateCartItems(cartItems));
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-
-    return () => {
-      unsubscribeFromSnapshot();
-    };
-  }, [currentUser, dispatch]);
-
-  useEffect(() => {
-    return () => {
-      if (location.pathname.includes("product")) {
-        dispatch(clearFinalItem());
-      } else if (location.pathname === "/checkout" && contactMethod) {
-        dispatch(dispatch(chooseContactMethod("")));
-      } else if (showHamburgerMenu) {
-        dispatch(hideHamburgerMenu());
-      }
-    };
-  }, [dispatch, location, showHelpText, contactMethod, showHamburgerMenu]);
+  useCheckUserSession();
+  useCartItemsSnapshotListener();
+  useClearFinalItemContactMethodHideHamburger();
 
   return (
     <div>
