@@ -1,4 +1,4 @@
-export const tableOrderOptions = [
+export const OrdersTableOrderOptions = [
   [
     "orderDate",
     "orderTime",

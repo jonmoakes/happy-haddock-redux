@@ -7,6 +7,8 @@ import { GlobalStyle } from "./global-styles";
 import useCheckUserSession from "./hooks/use-check-user-session";
 import useCartItemsSnapshotListener from "./hooks/firestore/use-cart-items-snapshot-listener";
 import useClearFinalItemContactMethodHideHamburger from "./hooks/use-clear-final-item-contact-method-hide-hamburger";
+// import useOrdersTableSnapshotListener from "./hooks/firestore/use-orders-table-snapshot-listener";
+// import useUpdateChosenTableOrder from "./hooks/firestore/use-update-chosen-table-order";
 
 import { selectCurrentUser } from "./store/user/user.selector";
 
@@ -36,11 +38,10 @@ const CookiePolicy = lazy(() =>
 );
 
 const App = () => {
-  const currentUser = useSelector(selectCurrentUser);
-
   useCheckUserSession();
   useCartItemsSnapshotListener();
   useClearFinalItemContactMethodHideHamburger();
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <div>
@@ -89,14 +90,8 @@ const App = () => {
               />
               <Route path="contact" element={<Contact />} />
               <Route path="checkout" element={currentUser && <Checkout />} />
-              <Route
-                path="privacy-policy"
-                element={currentUser && <PrivacyPolicy />}
-              />
-              <Route
-                path="cookie-policy"
-                element={currentUser && <CookiePolicy />}
-              />
+              <Route path="privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="cookie-policy" element={<CookiePolicy />} />
             </Route>
           </Routes>
           <Footer />

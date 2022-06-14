@@ -166,7 +166,7 @@ export const TableDiv = styled.div`
   }
 `;
 
-export const Table = styled.table`
+export const TableWithStyle = styled.table`
   border-collapse: collapse;
   margin: 0px auto 200px auto;
   background-color: #ffe900;

@@ -5,10 +5,10 @@ export const updateOrders = (payload) => {
   return createAction(TABLE_ACTION_TYPES.UPDATE_ORDERS, payload);
 };
 
-export const updateChosenTableOrder = (payload) => {
+export const setChosenTableOrder = (payload) => {
   return createAction(TABLE_ACTION_TYPES.UPDATE_CHOSEN_TABLE_ORDER, payload);
 };
 
-export const updateChosenPageSize = (payload) => {
+export const setChosenPageSize = (payload) => {
   return createAction(TABLE_ACTION_TYPES.UPDATE_CHOSEN_PAGE_SIZE, payload);
 };

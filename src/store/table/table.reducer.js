@@ -24,6 +24,7 @@ export const tableReducer = (state = INITIAL_STATE, action) => {
         ...state,
         chosenPageSize: payload,
       };
+
     default:
       return state;
   }

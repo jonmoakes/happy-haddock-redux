@@ -2,7 +2,7 @@ import CustomButton from "../custom-button/custom-button.component";
 
 import { SumInfoDiv } from "./orders-table.styles";
 
-const SumInfo = () => {
+const OrdersTableSumInfo = () => {
   return (
     <>
       <SumInfoDiv>
@@ -24,4 +24,4 @@ const SumInfo = () => {
   );
 };
 
-export default SumInfo;
+export default OrdersTableSumInfo;

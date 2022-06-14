@@ -1,8 +1,8 @@
 import { Div } from "../../styles/div/div.styles";
 
-const NoEntriesInfo = ({ data, errorMessage }) => (
+const OrdersTableNoEntriesInfo = ({ data }) => (
   <>
-    {data.length === 0 && errorMessage === "" && (
+    {data.length === 0 && (
       <Div className="no-entries">
         <p>no entries yet. you will see data when you receive an order.</p>
       </Div>
@@ -10,4 +10,4 @@ const NoEntriesInfo = ({ data, errorMessage }) => (
   </>
 );
 
-export default NoEntriesInfo;
+export default OrdersTableNoEntriesInfo;

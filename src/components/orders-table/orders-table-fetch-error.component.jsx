@@ -7,20 +7,15 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const FetchError = ({ errorMessage }) => (
+const OrdersTableFetchError = ({ errorMessage }) => (
   <>
     {errorMessage === "" ? null : (
       <ErrorDiv className="table-error">
         <h2>sorry, there has been an Error.</h2>
         <p className="emoji"> &#128533;</p>
         <p>the error message is as follows:</p>
-        {
-          (errorMessage = "snapshot error" ? (
-            <p>couldn't fetch table data from the database.</p>
-          ) : (
-            { errorMessage }
-          ))
-        }
+        <p>{errorMessage}</p>
+
         <h2>some things you can try:</h2>
         <ul>
           <li>Check Your Internet connection.</li>
@@ -41,4 +36,4 @@ const FetchError = ({ errorMessage }) => (
   </>
 );
 
-export default FetchError;
+export default OrdersTableFetchError;

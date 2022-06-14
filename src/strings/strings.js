@@ -86,6 +86,8 @@ export const errorSubmittingPaymentMessage =
   "Sorry, There Was An Error Submitting Payment.\nYour Card Has Not Been Charged.\nPlease Try Again.";
 export const contactAppOwnerMessage =
   "Please Contact The App Owner Via the Contact Form If You Require More Help.";
+export const noDatabaseDocFoundMessage =
+  "No database Document Found. Please contact the app owner if the problem persists.";
 
 //sizeOptions
 export const single = "single";

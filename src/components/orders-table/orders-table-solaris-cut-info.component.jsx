@@ -1,8 +1,8 @@
-import SumInfo from "./sum-info.component";
+import OrdersTableSumInfo from "./orders-table-sum-info.component";
 
 import { CutAmountDiv, ContactLink } from "./orders-table.styles";
 
-const SolarisCutInfo = ({ orders, chosenEntry }) => {
+const OrdersTableSolarisCutInfo = ({ orders, chosenEntry }) => {
   const getSelectedIncomes = orders.map((order) => {
     return Number(order.solarisAppsCut);
   });
@@ -27,11 +27,11 @@ const SolarisCutInfo = ({ orders, chosenEntry }) => {
           <h2>combined total of selected entries:</h2>
           <p className="amount">£{sum.toFixed(2)}</p>
           <hr />
-          <SumInfo />
+          <OrdersTableSumInfo />
         </CutAmountDiv>
       )}
     </>
   );
 };
 
-export default SolarisCutInfo;
+export default OrdersTableSolarisCutInfo;

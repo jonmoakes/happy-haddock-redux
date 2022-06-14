@@ -16,7 +16,7 @@ export const OptionsForm = styled.form`
   animation: 1s ${bounceInDownAnimation};
 
   input {
-    accent-color: #37ff00;
+    accent-color: red;
   }
 
   label {

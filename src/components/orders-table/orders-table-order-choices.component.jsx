@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../utils/firebase/firebase.utils";
-
-import useGenericErrorSwal from "../../hooks/swals/use-genereic-error-swal";
+import { setChosenTableOrder } from "../../store/table/table.action";
 
 import {
   ShowTableOrderChoiceButton,
@@ -12,44 +10,12 @@ import {
 } from "./orders-table.styles";
 import { BounceInDownDiv } from "../../styles/bounce-in-down-div/bounce-in-down-div.styles";
 
-import { tableOrderOptions } from "./table-order-options";
+import { OrdersTableOrderOptions } from "./orders-table-order-options";
 import "../../styles/confirm.css";
 
-const ChooseTableOrderChoice = ({ rows }) => {
+const OrdersTableOrderChoices = ({ rows }) => {
   const [showTableOrderChoice, setShowTableOrderChoice] = useState(false);
-  const [newTableOrder, setNewTableOrder] = useState([]);
-  const [error, setError] = useState("");
-
-  const { genericErrorSwal } = useGenericErrorSwal();
-
-  useEffect(() => {
-    if (error) {
-      genericErrorSwal(error);
-    }
-  }, [error, genericErrorSwal]);
-
-  useEffect(() => {
-    async function addTableOrderChoiceToFirestore() {
-      const ownerRef = await doc(
-        db,
-        "users",
-        process.env.REACT_APP_APP_OWNER_ID
-      );
-
-      const userSnapshot = await getDoc(ownerRef);
-
-      try {
-        if (!userSnapshot.exists) return;
-        const newOrder = Object.values(newTableOrder);
-        await updateDoc(ownerRef, {
-          chosenTableOrder: [...newOrder],
-        });
-      } catch (error) {
-        setError(error);
-      }
-    }
-    addTableOrderChoiceToFirestore();
-  }, [newTableOrder]);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -82,24 +48,32 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrderOptions[0])}
+                  onClick={() =>
+                    dispatch(setChosenTableOrder(OrdersTableOrderOptions[0]))
+                  }
                 >
                   order details, customer details, price details
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrderOptions[1])}
+                  onClick={() =>
+                    dispatch(setChosenTableOrder(OrdersTableOrderOptions[1]))
+                  }
                 >
                   order details, price details, customer details
                 </TableOrderSelectButton>
               </div>
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrderOptions[2])}
+                  onClick={() =>
+                    dispatch(setChosenTableOrder(OrdersTableOrderOptions[2]))
+                  }
                 >
                   customer details, order details, price details{" "}
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrderOptions[3])}
+                  onClick={() =>
+                    dispatch(setChosenTableOrder(OrdersTableOrderOptions[3]))
+                  }
                 >
                   customer details, price details, order details
                 </TableOrderSelectButton>
@@ -107,12 +81,16 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrderOptions[4])}
+                  onClick={() =>
+                    dispatch(setChosenTableOrder(OrdersTableOrderOptions[4]))
+                  }
                 >
                   price details, customer details, order details
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrderOptions[5])}
+                  onClick={() =>
+                    dispatch(setChosenTableOrder(OrdersTableOrderOptions[5]))
+                  }
                 >
                   price details, order details, customer details
                 </TableOrderSelectButton>
@@ -132,4 +110,4 @@ const ChooseTableOrderChoice = ({ rows }) => {
   );
 };
 
-export default ChooseTableOrderChoice;
+export default OrdersTableOrderChoices;

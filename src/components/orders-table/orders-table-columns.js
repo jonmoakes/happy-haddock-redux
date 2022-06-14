@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { EmailLink } from "./orders-table.styles";
 
-export const COLUMNS = [
+export const ORDERS_TABLE_COLUMNS = [
   {
     Header: "Order Date",
     accessor: "orderDate",

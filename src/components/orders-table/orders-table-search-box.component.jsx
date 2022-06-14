@@ -9,31 +9,30 @@ import { Div } from "../../styles/div/div.styles";
 
 import { ClearButtonDiv, Button } from "../../styles/help-div/help-div.styles";
 
-const SearchBox = ({
+const OrdersTableSearchBox = ({
   chosenEntry,
-  errorMessage,
   rows,
   data,
-  filter,
-  setFilter,
+  globalFilter,
+  setGlobalFilter,
 }) => {
-  const [value, setValue] = useState(filter);
+  const [value, setValue] = useState(globalFilter);
   const [isSearching, setIsSearching] = useState(false);
 
   const onChange = useAsyncDebounce((value) => {
-    setFilter(value || undefined);
+    setGlobalFilter(value || undefined);
     setIsSearching(false);
   }, 400);
 
   const clearSearch = () => {
     setValue("");
-    setFilter(undefined);
+    setGlobalFilter(undefined);
   };
 
   return (
     <>
       {isSearching && <Loader />}
-      {chosenEntry.length === 0 && errorMessage === "" && data.length !== 0 && (
+      {chosenEntry.length === 0 && !!data.length && (
         <Div>
           <SearchBarInput
             className="table-seach-bar"
@@ -49,22 +48,19 @@ const SearchBox = ({
         </Div>
       )}
 
-      {value !== "" &&
-        rows.length === 0 &&
-        errorMessage === "" &&
-        data.length !== 0 && (
-          <>
-            <ClearButtonDiv className="table">
-              <h2>no result found....</h2>
-              <p>please refine your search query</p>
-              <p>or</p>
-              <p>tap the button below to show all entries again.</p>
-              <Button onClick={clearSearch}>show all entries</Button>
-            </ClearButtonDiv>
-          </>
-        )}
+      {value !== "" && rows.length === 0 && data.length !== 0 && (
+        <>
+          <ClearButtonDiv className="table">
+            <h2>no result found....</h2>
+            <p>please refine your search query</p>
+            <p>or</p>
+            <p>tap the button below to show all entries again.</p>
+            <Button onClick={clearSearch}>show all entries</Button>
+          </ClearButtonDiv>
+        </>
+      )}
     </>
   );
 };
 
-export default SearchBox;
+export default OrdersTableSearchBox;

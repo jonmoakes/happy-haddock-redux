@@ -9,6 +9,8 @@ export const LoaderDiv = styled.div`
   left: 0;
   right: 0;
   z-index: 30;
+  background-color: black;
+  opacity: 0.8;
 `;
 
 export const LoaderIcon = styled(LoaderSVG)`
