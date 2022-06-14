@@ -4,14 +4,13 @@ import DecreaseQuantity from "./decrease-quantity.component";
 
 import {
   CheckoutItemContainer,
-  Text,
+  CheckoutItemText,
   ArrowContainer,
   Value,
 } from "./checkout-item.styles";
 
 const CheckoutItem = ({ cartItem }) => {
   const { quantity, price, selectedOptionsCombinedPrice } = cartItem;
-
   const itemSinglePrice = (price + selectedOptionsCombinedPrice) * quantity;
 
   return (
@@ -22,7 +21,9 @@ const CheckoutItem = ({ cartItem }) => {
         <Value>{quantity}</Value>
         <IncreaseQuantity {...{ cartItem }} />
       </ArrowContainer>
-      <Text>£{((Number(itemSinglePrice) * 100) / 100).toFixed(2)}</Text>
+      <CheckoutItemText>
+        £{((Number(itemSinglePrice) * 100) / 100).toFixed(2)}
+      </CheckoutItemText>
     </CheckoutItemContainer>
   );
 };

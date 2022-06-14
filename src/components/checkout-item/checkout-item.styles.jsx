@@ -26,7 +26,7 @@ export const NameDiv = styled.div`
   margin-bottom: 10px;
 `;
 
-export const Text = styled.span`
+export const CheckoutItemText = styled.span`
   width: 34%;
   color: yellow;
   font-size: 20px;

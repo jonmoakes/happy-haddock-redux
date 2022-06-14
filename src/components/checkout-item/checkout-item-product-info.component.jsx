@@ -17,7 +17,7 @@ import TwoCondiments from "./sections/two-condiments.component";
 import ConeOfChipsWithSauce from "./sections/cone-of-chips-with-sauce.component";
 import SpecialInstructions from "./sections/special-instructions.component";
 
-import { Text } from "./checkout-item.styles";
+import { CheckoutItemText } from "./checkout-item.styles";
 
 const CheckoutItemProductInfo = ({ cartItem }) => {
   const {
@@ -45,7 +45,7 @@ const CheckoutItemProductInfo = ({ cartItem }) => {
 
   return (
     <>
-      <Text>
+      <CheckoutItemText>
         <ProductName {...{ name }} />
         <Sizes {...{ chosenSize }} />
         <DonerKebabType {...{ donerKebabType }} />
@@ -66,7 +66,7 @@ const CheckoutItemProductInfo = ({ cartItem }) => {
         <TwoCondiments {...{ twoCondiments }} />
         <ConeOfChipsWithSauce {...{ coneOfChipsSauce }} />
         <SpecialInstructions {...{ specialInstructions }} />
-      </Text>
+      </CheckoutItemText>
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { selectCartItems } from "../../store/cart/cart.selector";
+import useClearCartInFirestore from "../../hooks/firestore/use-clear-cart-in-firestore";
 
 import CheckoutPageQuantityInstructions from "./checkout-quantity-instructions.component";
 import CheckoutPageClearCart from "./checkout-clear-cart.component";
@@ -17,15 +18,17 @@ import CheckoutPageStripeInfo from "./checkout-stripe-info.component";
 import { HeadingContainerDiv, CheckoutPageDiv } from "./checkout.styles";
 
 const Checkout = () => {
+  const { clearCartInFirestore } = useClearCartInFirestore();
   const [redirectToMenu, setRedirectToMenu] = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
 
   useEffect(() => {
     if (cartItems && !cartItems.length) {
+      clearCartInFirestore();
       setRedirectToMenu(true);
     }
-  }, [cartItems, dispatch]);
+  }, [cartItems, dispatch, clearCartInFirestore]);
 
   return (
     <HeadingContainerDiv>

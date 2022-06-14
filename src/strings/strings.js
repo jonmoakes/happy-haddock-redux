@@ -91,7 +91,8 @@ export const contactAppOwnerMessage =
   "Please Contact The App Owner Via the Contact Form If You Require More Help.";
 export const noDatabaseDocFoundMessage =
   "No database Document Found. Please contact the app owner if the problem persists.";
-
+export const errorClearingCartMessage =
+  "Error Clearing Cart - Please Manually Clear Your Cart Via The 'Clear Cart' Button On The Checkout Page. Please Contact the App Owner If The Error Persists Using The Contact Form.";
 //sizeOptions
 export const single = "single";
 export const double = "double";

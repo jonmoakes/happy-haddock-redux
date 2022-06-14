@@ -59,6 +59,12 @@ export const AddToOrderButtonContainer = styled.button`
 export const Text = styled.p`
   font-size: 20px;
 
+  span {
+    &.order-button-color {
+      color: #00ff2a;
+    }
+  }
+
   @media screen and (max-width: 600px) {
     font-size: 16px;
   }
