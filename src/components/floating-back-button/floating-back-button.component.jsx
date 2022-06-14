@@ -38,7 +38,8 @@ const FloatingBackButton = () => {
 
   return (
     <>
-      {width <= 1024 &&
+      {window.matchMedia("(display-mode: standalone)").matches &&
+        width <= 1024 &&
         (location.pathname.includes("menu/") ? (
           <RelativePositionDiv>
             <BackButton onClick={() => navigate(-1)}>
@@ -46,6 +47,7 @@ const FloatingBackButton = () => {
             </BackButton>
           </RelativePositionDiv>
         ) : (
+          window.matchMedia("(display-mode: standalone)").matches &&
           location.pathname.includes("product") && (
             <RelativePositionDiv>
               <BackButton onClick={confirmGoBackSwal}>
