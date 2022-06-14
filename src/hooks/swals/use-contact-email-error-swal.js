@@ -17,7 +17,7 @@ const useContactEmailErrorSwal = () => {
 rgba(0,0,123,0.8)`,
       icon: "error",
       confirmButtonColor: "#3085d6",
-      confirmButtonText: `${okMessage}`,
+      confirmButtonText: okMessage,
       customClass: "confirm",
       allowOutsideClick: false,
     });

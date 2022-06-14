@@ -14,7 +14,7 @@ const useConfirmPaymentSwal = () => {
   const confirmPaymentSwal = (paymentHandler, cardElement) => {
     swal
       .fire({
-        title: `${areYouSureYouWishToOrderMessage}`,
+        title: areYouSureYouWishToOrderMessage,
         background: "black",
         backdrop: `
     rgba(0,0,123,0.8)`,
@@ -22,7 +22,7 @@ const useConfirmPaymentSwal = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "red",
-        confirmButtonText: `${confirmPlaceOrderMessage}`,
+        confirmButtonText: confirmPlaceOrderMessage,
         customClass: "confirm",
         allowOutsideClick: false,
         allowEscapeKey: false,
@@ -37,11 +37,11 @@ const useConfirmPaymentSwal = () => {
           Swal.DismissReason.backdrop.esc
         ) {
           swal.fire({
-            title: `${cancelledMessage}`,
+            title: cancelledMessage,
             allowOutsideClick: false,
             allowEscapeKey: false,
-            text: `${orderNotPlacedMessage}`,
-            confirmButtonText: `${okMessage}`,
+            text: orderNotPlacedMessage,
+            confirmButtonText: okMessage,
             confirmButtonColor: "#3085d6",
             background: "black",
             backdrop: `

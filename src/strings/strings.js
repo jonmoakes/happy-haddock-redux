@@ -41,6 +41,7 @@ export const passwordResetSuccessText =
 export const signUpSuccessMessage = "thank you for signing up ";
 export const signUpSuccessInstructionsMessage =
   "a cart icon will appear when you have added items to your basket to take you to the secure checkout. on small screens, you can access the app navigation links using the 'hamburger' menu ( the 3 horizontal lines in the top right corner of the screen ). tap the green 'tap to show help' button at the top of the page for more information on how to use the app. :)";
+export const signOutSuccessMessage = "you have successfully signed out.";
 
 //cancel messages
 export const itemNotAddedToCartMessage = "The Item Was Not Added To your Cart.";
@@ -79,6 +80,12 @@ export const networkRequestFailedError = "network-request-failed";
 export const errorSendingMessage = "error sending message.";
 export const missingEmailFieldsErrorMessage =
   "please make sure that the name, email and message fields have all been entered.";
+export const invalidEmailErrorMessage =
+  "you entered and invalid email address. please try again.";
+export const errorSubmittingPaymentMessage =
+  "Sorry, There Was An Error Submitting Payment.\nYour Card Has Not Been Charged.\nPlease Try Again.";
+export const contactAppOwnerMessage =
+  "Please Contact The App Owner Via the Contact Form If You Require More Help.";
 
 //sizeOptions
 export const single = "single";

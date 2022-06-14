@@ -9,9 +9,11 @@ import useSendOwnerOrderEmail from "../emails-and-receipt/use-send-owner-order-e
 import useOrderConfirmedSwal from "../swals/use-order-confirmed-swal";
 import usePaymentResultErrorSwal from "../swals/use-payment-result-error-swal";
 
-import { selectCartTotal } from "../../store/cart/cart.selector";
+import {
+  selectCartTotal,
+  selectCustomerDetails,
+} from "../../store/cart/cart.selector";
 import { clearCustomerDetails } from "../../store/cart/cart.action";
-import { selectCurrentUser } from "../../store/user/user.selector";
 import { clearIndividualProduct } from "../../store/products/product.action";
 import { clearFinalItem } from "../../store/final-item/final-item.action";
 
@@ -25,8 +27,10 @@ const usePaymentFormHandler = () => {
   const { orderConfirmedSwal } = useOrderConfirmedSwal();
   const { paymentResultErrorSwal } = usePaymentResultErrorSwal();
 
-  const currentUser = useSelector(selectCurrentUser);
   const totalPrice = useSelector(selectCartTotal);
+  const customerDetails = useSelector(selectCustomerDetails);
+
+  const { name, email, phoneNumber } = customerDetails;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -53,7 +57,9 @@ const usePaymentFormHandler = () => {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          name: currentUser ? currentUser.displayName : "Guest",
+          name,
+          email,
+          phone: phoneNumber,
         },
       },
     });

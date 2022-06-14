@@ -12,9 +12,9 @@ const useItemAddedSuccessSwal = () => {
 
   const itemAddedSuccessSwal = () => {
     swal.fire({
-      title: `${itemAddedMessage}`,
-      text: `${goToCartWhenReadyMessage}`,
-      confirmButtonText: `${okMessage}`,
+      title: itemAddedMessage,
+      text: goToCartWhenReadyMessage,
+      confirmButtonText: okMessage,
       confirmButtonColor: "#3085d6",
       background: "black",
       backdrop: `

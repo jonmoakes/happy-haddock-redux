@@ -163,12 +163,10 @@ export const Form = styled.form`
     margin-bottom: 16px;
     font-size: 18px;
     height: 200px;
-    font-family: "Russo One";
+    font-family: "inherit";
     outline: none;
-
-    &.capitalize {
       text-transform: capitalize;
-    }
+    
 
     &:focus {
       box-shadow: 4px 4px 4px black;

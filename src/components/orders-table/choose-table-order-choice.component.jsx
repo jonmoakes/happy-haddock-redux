@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase/firebase.utils";
+
+import useGenericErrorSwal from "../../hooks/swals/use-genereic-error-swal";
 
 import {
   ShowTableOrderChoiceButton,
@@ -12,95 +12,21 @@ import {
 } from "./orders-table.styles";
 import { BounceInDownDiv } from "../../styles/bounce-in-down-div/bounce-in-down-div.styles";
 
-import { okMessage } from "../../strings/strings";
-
+import { tableOrderOptions } from "./table-order-options";
 import "../../styles/confirm.css";
 
 const ChooseTableOrderChoice = ({ rows }) => {
   const [showTableOrderChoice, setShowTableOrderChoice] = useState(false);
   const [newTableOrder, setNewTableOrder] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState("");
 
-  const swal = withReactContent(Swal);
-
-  const tableOrder = [
-    [
-      "orderDate",
-      "orderTime",
-      "order",
-      "name",
-      "email",
-      "phoneNumber",
-      "totalPrice",
-      "solarisAppsCut",
-    ],
-    [
-      "orderDate",
-      "orderTime",
-      "order",
-      "totalPrice",
-      "solarisAppsCut",
-      "name",
-      "email",
-      "phoneNumber",
-    ],
-    [
-      "name",
-      "email",
-      "phoneNumber",
-      "orderDate",
-      "orderTime",
-      "order",
-      "totalPrice",
-      "solarisAppsCut",
-    ],
-    [
-      "name",
-      "email",
-      "totalPrice",
-      "solarisAppsCut",
-      "phoneNumber",
-      "orderDate",
-      "orderTime",
-      "order",
-    ],
-    [
-      "totalPrice",
-      "solarisAppsCut",
-      "name",
-      "email",
-      "phoneNumber",
-      "orderDate",
-      "orderTime",
-      "order",
-    ],
-    [
-      "totalPrice",
-      "solarisAppsCut",
-      "orderDate",
-      "orderTime",
-      "order",
-      "name",
-      "email",
-      "phoneNumber",
-    ],
-  ];
+  const { genericErrorSwal } = useGenericErrorSwal();
 
   useEffect(() => {
-    if (errorMessage) {
-      swal.fire({
-        title: `${errorMessage}`,
-        background: "black",
-        backdrop: `
-    rgba(0,0,123,0.8)`,
-        icon: "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: `${okMessage}`,
-        customClass: "confirm",
-        allowOutsideClick: true,
-      });
+    if (error) {
+      genericErrorSwal(error);
     }
-  }, [errorMessage, swal]);
+  }, [error, genericErrorSwal]);
 
   useEffect(() => {
     async function addTableOrderChoiceToFirestore() {
@@ -119,7 +45,7 @@ const ChooseTableOrderChoice = ({ rows }) => {
           chosenTableOrder: [...newOrder],
         });
       } catch (error) {
-        setErrorMessage(error);
+        setError(error);
       }
     }
     addTableOrderChoiceToFirestore();
@@ -156,24 +82,24 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrder[0])}
+                  onClick={() => setNewTableOrder(tableOrderOptions[0])}
                 >
                   order details, customer details, price details
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrder[1])}
+                  onClick={() => setNewTableOrder(tableOrderOptions[1])}
                 >
                   order details, price details, customer details
                 </TableOrderSelectButton>
               </div>
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrder[2])}
+                  onClick={() => setNewTableOrder(tableOrderOptions[2])}
                 >
                   customer details, order details, price details{" "}
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrder[3])}
+                  onClick={() => setNewTableOrder(tableOrderOptions[3])}
                 >
                   customer details, price details, order details
                 </TableOrderSelectButton>
@@ -181,12 +107,12 @@ const ChooseTableOrderChoice = ({ rows }) => {
 
               <div>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrder[4])}
+                  onClick={() => setNewTableOrder(tableOrderOptions[4])}
                 >
                   price details, customer details, order details
                 </TableOrderSelectButton>
                 <TableOrderSelectButton
-                  onClick={() => setNewTableOrder(tableOrder[5])}
+                  onClick={() => setNewTableOrder(tableOrderOptions[5])}
                 >
                   price details, order details, customer details
                 </TableOrderSelectButton>

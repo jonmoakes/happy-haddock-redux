@@ -29,12 +29,7 @@ const ContactForm = () => {
         <label>Your Email:</label>
         <input type="email" name="email" onChange={handleChange} />
         <label>Your Message:</label>
-        <textarea
-          className="text"
-          type="text"
-          name="message"
-          onChange={handleChange}
-        />
+        <textarea type="text" name="message" onChange={handleChange} />
       </Form>
 
       <SendMessage {...{ formDetails, setFormDetails }} />
