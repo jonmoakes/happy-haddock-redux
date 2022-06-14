@@ -1,15 +1,15 @@
 import { ErrorDiv } from "../../styles/form/form.styles";
 
-const Errors = ({ warningMessage, checkoutErrorMessage }) => (
+const Errors = ({ warning, error }) => (
   <>
-    {warningMessage ? (
+    {warning ? (
       <ErrorDiv className="warning">
-        <p>{warningMessage}</p>
+        <p>{warning}</p>
       </ErrorDiv>
     ) : (
-      checkoutErrorMessage && (
+      error && (
         <ErrorDiv>
-          <p>{checkoutErrorMessage}</p>
+          <p>{error}</p>
         </ErrorDiv>
       )
     )}

@@ -98,7 +98,6 @@ export const CardInputDiv = styled.div`
   width: 50%;
   margin: 30px auto 50px auto;
   padding: 30px 20px 0px 20px;
-  border: 2px solid red;
   border-radius: 15px;
 
   @media screen and (max-width: 1366px) {

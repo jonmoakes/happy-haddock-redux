@@ -31,6 +31,7 @@ const usePaymentFormHandler = () => {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
+
   const paymentFormHandler = async () => {
     if (!stripe || !elements) return;
     setIsProcessingPayment(true);

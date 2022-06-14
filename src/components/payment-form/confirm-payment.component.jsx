@@ -2,54 +2,38 @@ import { CardElement } from "@stripe/react-stripe-js";
 
 import usePaymentFormHandler from "../../hooks/handlers/use-payment-form-handler";
 import useConfirmPaymentSwal from "../../hooks/swals/use-confirm-payment-swal";
-import useHandlePaymentFormErrorChange from "../../hooks/handlers/use-handle-payment-form-error-change";
+import useHandlePaymentFormChange from "../../hooks/handlers/use-handle-payment-form-change";
 
 import Errors from "./errors.component";
 import Loader from "../loader/loader.component";
 
 import { PayButton, DisabledButton, CardInputDiv } from "./payment-form.styles";
+import { options } from "./card-input-options";
 
 const ConfirmPayment = () => {
   const { isProcessingPayment, paymentFormHandler } = usePaymentFormHandler();
   const { confirmPaymentSwal } = useConfirmPaymentSwal();
-  const {
-    handlePaymentFormErrorChange,
-    checkoutErrorMessage,
-    warningMessage,
-    showPayButton,
-  } = useHandlePaymentFormErrorChange();
+  const { handleChange, error, warning, showButton } =
+    useHandlePaymentFormChange();
 
   return (
     <>
-      <Errors {...{ warningMessage, checkoutErrorMessage }} />
+      <Errors {...{ warning, error }} />
 
       <CardInputDiv>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "18px",
-                "::placeholder": {
-                  color: "blue",
-                },
-              },
-            },
-            hidePostalCode: true,
-          }}
-          onChange={handlePaymentFormErrorChange}
-        />
+        <CardElement {...{ options }} onChange={handleChange} />
       </CardInputDiv>
 
-      {showPayButton && !isProcessingPayment ? (
+      {showButton && !isProcessingPayment ? (
         <PayButton
-          onChange={handlePaymentFormErrorChange}
+          onChange={handleChange}
           type="button"
           onClick={() => confirmPaymentSwal(paymentFormHandler)}
         >
           Pay Now
         </PayButton>
       ) : (
-        showPayButton &&
+        showButton &&
         isProcessingPayment && (
           <>
             <Loader />
