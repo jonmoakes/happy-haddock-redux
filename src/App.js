@@ -7,12 +7,11 @@ import { GlobalStyle } from "./global-styles";
 import useCheckUserSession from "./hooks/use-check-user-session";
 import useCartItemsSnapshotListener from "./hooks/firestore/use-cart-items-snapshot-listener";
 import useClearFinalItemContactMethodHideHamburger from "./hooks/use-clear-final-item-contact-method-hide-hamburger";
-// import useOrdersTableSnapshotListener from "./hooks/firestore/use-orders-table-snapshot-listener";
-// import useUpdateChosenTableOrder from "./hooks/firestore/use-update-chosen-table-order";
 
 import { selectCurrentUser } from "./store/user/user.selector";
 
 import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
+import FloatingBackButton from "./components/floating-back-button/floating-back-button.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
 import Loader from "./components/loader/loader.component";
 import Footer from "./components/footer/footer.component";
@@ -47,6 +46,7 @@ const App = () => {
     <div>
       <GlobalStyle />
       <ScrollToTopAuto />
+      <FloatingBackButton />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loader />}>
           <Routes>

@@ -21,6 +21,9 @@ export const yesSignMeOutMessage = "yes, sign me out!";
 export const confirmIncreaseQuantityMessage =
   "increase quantity of this item by 1?";
 export const confirmDecreaseQuantityMessage = "decrease quantity of item by 1?";
+export const confimGoBackMessage = "are you sure you wish to back?";
+export const resetOptionsMessage = "any chosen options will be reset.";
+export const goBack = "go back";
 
 // success messages
 export const itemAddedMessage =
