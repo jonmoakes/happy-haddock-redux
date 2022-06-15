@@ -11,6 +11,7 @@ export const Button = styled.button`
   text-transform: capitalize;
   cursor: pointer;
   border-radius: 15px;
+  border: 2px solid black;
   transition: all 0.2s ease-in-out;
   outline: none;
   font-family: inherit;
