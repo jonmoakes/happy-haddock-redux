@@ -23,12 +23,13 @@ import {
 const ChooseTwoCondiments = () => {
   const [chosenTwoCondiments, setChosenTwoCondiments] =
     useState(defaultCondiments);
+
   const product = useSelector(selectIndividualProduct);
   const twoCondimentsSelected = useSelector(selectTwoCondiments);
 
+  const dispatch = useDispatch();
   const { optionsAvailable } = product;
   const condimentsAvailable = optionsAvailable[0].condimentsAvailable;
-  const dispatch = useDispatch();
 
   const handleCondimentsChange = (event) => {
     const { name } = event.target;

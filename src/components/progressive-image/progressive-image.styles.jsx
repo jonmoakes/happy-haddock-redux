@@ -4,7 +4,7 @@ export const StyledImage = styled.img`
   width: 900px;
   height: 442px;
   border: 2px solid black;
-  border-radius: 20px;
+  border-radius: 15px;
   margin: 15px auto 0px auto;
 
   &.loading {

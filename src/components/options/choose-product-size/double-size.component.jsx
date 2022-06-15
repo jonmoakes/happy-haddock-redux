@@ -12,7 +12,7 @@ const DoubleSize = () => {
 
   return (
     <>
-      {sizePrices[0].doublePrice !== 0 && (
+      {!!doublePrice && (
         <RadioDiv>
           <label>double ( + £{doublePrice.toFixed(2)} )</label>
           <input type="radio" value={double} name="size" required />

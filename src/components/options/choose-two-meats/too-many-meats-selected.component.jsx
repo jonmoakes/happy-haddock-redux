@@ -2,7 +2,11 @@ import { Div } from "../../../styles/options-error/options-error.styles";
 
 const TooManyMeatsSelected = () => (
   <Div>
-    <p> &uarr; please choose 2 meats :) &uarr;</p>
+    <p>
+      &uarr;&uarr;
+      <br />
+      please choose 2 meats
+    </p>
   </Div>
 );
 

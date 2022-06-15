@@ -17,13 +17,13 @@ export const Form = styled.form`
     padding: 0px 30px;
 
     h2 {
-      color:whitesmoke;
-      text-decoration:none;
+      color: whitesmoke;
+      text-decoration: none;
     }
 
-      hr {
-    width:10%;
-  }
+    hr {
+      width: 10%;
+    }
 
     @media screen and (max-width: 850px) {
       width: 80%;
@@ -36,8 +36,6 @@ export const Form = styled.form`
 
   @media screen and (max-width: 450px) {
     padding: 20px 10px;
-
-
   }
 
   label {
@@ -46,8 +44,8 @@ export const Form = styled.form`
     color: #ffe61b;
 
     &.forgot-password {
-      color:whitesmoke;
-      float:unset;
+      color: whitesmoke;
+      float: unset;
     }
 
     @media screen and (max-width: 450px) {
@@ -66,12 +64,12 @@ export const Form = styled.form`
     margin-top: 6px;
     margin-bottom: 20px;
     font-size: 18px;
-    font-family: "inherit"
+    font-family: "inherit";
     outline: none;
 
     &.reset-pass-input {
-      margin-top:20px;
-      margin-bottom:50px;
+      margin-top: 20px;
+      margin-bottom: 50px;
     }
 
     &.email {
@@ -165,11 +163,9 @@ export const Form = styled.form`
     height: 200px;
     font-family: "inherit";
     outline: none;
-      text-transform: capitalize;
-    
+    text-transform: capitalize;
 
     &:focus {
-      box-shadow: 4px 4px 4px black;
       border-color: salmon;
     }
 
@@ -177,8 +173,6 @@ export const Form = styled.form`
       font-size: 16px;
     }
   }
-
-  
 
   span {
     font-size: 16px;
@@ -189,7 +183,7 @@ export const Form = styled.form`
     }
 
     &.error-message {
-      color:red
+      color: red;
     }
 
     &.heading {

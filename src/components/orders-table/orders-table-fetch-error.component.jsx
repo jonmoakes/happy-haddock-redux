@@ -9,7 +9,7 @@ const StyledLink = styled(Link)`
 
 const OrdersTableFetchError = ({ errorMessage }) => (
   <>
-    {errorMessage === "" ? null : (
+    {errorMessage && (
       <ErrorDiv className="table-error">
         <h2>sorry, there has been an Error.</h2>
         <p className="emoji"> &#128533;</p>

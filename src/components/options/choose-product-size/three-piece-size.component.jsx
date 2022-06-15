@@ -12,7 +12,7 @@ const ThreePieceSize = () => {
 
   return (
     <>
-      {threePiecePrice !== 0 && (
+      {!!threePiecePrice && (
         <RadioDiv>
           <label>3 pieces ( + £{threePiecePrice.toFixed(2)} )</label>
           <input type="radio" value={threePieces} name="size" />

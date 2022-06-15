@@ -2,25 +2,21 @@ import { Link } from "react-router-dom";
 
 import CustomButton from "../custom-button/custom-button.component";
 
-import {
-  ErrorImageOverlay,
-  ErrorImageContainer,
-  ErrorImageText,
-} from "./error-fallback.styles";
+import { ErrorImageContainer, ErrorImageText } from "./error-fallback.styles";
 
 const ErrorFallback = () => (
-  <ErrorImageOverlay>
-    <ErrorImageContainer imageUrl="https://i.imgur.com/g3hgqe8.png" />
+  <ErrorImageContainer imageUrl="https://i.imgur.com/g3hgqe8.png">
     <ErrorImageText>
-      Sorry, Something Has Broken! Please Try Checking Your internet Connection.
+      Sorry, Something Has Broken! :( Please Try Checking Your internet
+      Connection.
     </ErrorImageText>
 
     <ErrorImageText>
       Or You Can Click{" "}
       <Link to="/">
-        <span style={{ color: "#e2284a" }}>Here</span>
+        <span style={{ textShadow: "1px 1px 1px black" }}>Here</span>
       </Link>{" "}
-      To Try Returning To Our Home Page :)
+      To Try Returning To Our Home Page.
     </ErrorImageText>
 
     <ErrorImageText>
@@ -31,9 +27,9 @@ const ErrorFallback = () => (
     </CustomButton>
 
     <ErrorImageText>
-      and if that doesn't work, please <Link to="contact">contact me</Link>
+      finally, if that doesn't work, please <Link to="contact">Contact me</Link>
     </ErrorImageText>
-  </ErrorImageOverlay>
+  </ErrorImageContainer>
 );
 
 export default ErrorFallback;

@@ -1,4 +1,4 @@
-import { InfoText } from "../../../styles/options-form/options-form.styles";
+import { InfoText } from "../../styles/options-form/options-form.styles";
 
 const OptionsPriceInfo = () => (
   <>

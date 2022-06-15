@@ -16,7 +16,7 @@ export const InfoContainer = styled.div`
   background-color: lightgrey;
   padding: 20px 10px;
   border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 15px;
   animation: 1s ${fadeLeftAnimation};
 

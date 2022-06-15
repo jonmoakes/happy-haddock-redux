@@ -6,15 +6,14 @@ import OpeningHours from "./opening-hours.component";
 
 import { Container } from "../../styles/container/container.styles";
 
-const Home = () => {
-  return (
-    <Container>
-      <Intro />
-      <OrderOnlineInfo />
-      <SignInUpLinks />
-      <OpeningHours />
-      <Outlet />
-    </Container>
-  );
-};
+const Home = () => (
+  <Container>
+    <Intro />
+    <OrderOnlineInfo />
+    <SignInUpLinks />
+    <OpeningHours />
+    <Outlet />
+  </Container>
+);
+
 export default Home;

@@ -8,7 +8,6 @@ import { signOutStart } from "../../store/user/user.action";
 import {
   signOutConfirmMessage,
   yesSignMeOutMessage,
-  successMessage,
   signOutSuccessMessage,
 } from "../../strings/strings";
 
@@ -44,7 +43,7 @@ const useConfirmSignOutSwal = () => {
             background: "black",
             backdrop: `
         rgba(0,0,123,0.8)`,
-            icon: successMessage,
+            icon: "success",
             timer: 2000,
             customClass: "confirm",
             allowOutsideClick: true,

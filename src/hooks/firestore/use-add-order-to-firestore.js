@@ -13,6 +13,8 @@ import {
 
 import { getDate, getTime } from "../../reusable-functions/get-date-time";
 
+import { errorAddingOrderToDatabaseMessage } from "../../strings/strings";
+
 const useAddOrderTofirestore = () => {
   const { receiptData } = useGetReceiptData();
 
@@ -60,9 +62,7 @@ const useAddOrderTofirestore = () => {
           })
         );
     } catch (error) {
-      alert(
-        `Error Adding Order To Database - Please Contact The Owner Via The Contact Form To Confirm Your Order. The Error We Received Was ${error.message}.`
-      );
+      alert(`${errorAddingOrderToDatabaseMessage} ${error.message}.`);
       console.log(error);
     }
   };

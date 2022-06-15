@@ -8,12 +8,12 @@ import { single } from "../../../strings/strings";
 
 const SingleSize = () => {
   const product = useSelector(selectIndividualProduct);
-
   const { sizePrices } = product;
+  const doublePrice = sizePrices[0].doublePrice;
 
   return (
     <>
-      {sizePrices[0].doublePrice !== 0 && (
+      {!!doublePrice && (
         <RadioDiv>
           <hr />
           <label>single</label>

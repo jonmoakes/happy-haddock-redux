@@ -22,12 +22,13 @@ import {
 
 const ChooseTwoMeats = () => {
   const [chosenTwoMeats, setChosenTwoMeats] = useState(defaultMeats);
+
   const product = useSelector(selectIndividualProduct);
   const twoMeatsSelected = useSelector(selectTwoMeats);
 
+  const dispatch = useDispatch();
   const { optionsAvailable } = product;
   const meatsAvailable = optionsAvailable[0].meatsAvailable;
-  const dispatch = useDispatch();
 
   const handleMeatsChange = (event) => {
     const { name } = event.target;

@@ -9,9 +9,8 @@ const bounceInDownAnimation = keyframes`${bounceInDown}`;
 
 export const PwaDiv = styled.div`
   width: 50%;
-  margin: -120px auto 0px auto;
   height: auto;
-
+  margin: -120px auto 0px auto;
   padding-bottom: 100px;
 
   p {
@@ -42,7 +41,7 @@ export const IosButton = styled.button`
   background-color: #64d2ff;
   border: 2px solid black;
   margin: 0px 5px;
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   text-align: center;
   width: 250px;
@@ -87,45 +86,19 @@ export const AndroidButton = styled(IosButton)`
 `;
 
 export const InstructionsDiv = styled.div`
-  width: 100%;
+  width: 90%;
   height: auto;
   animation: 1s ${bounceInDownAnimation};
   background-color: lightgrey;
-  padding: 20px 50px;
   border: 2px solid black;
   border-radius: 15px;
   margin: 20px auto 20px auto;
+  padding: 20px;
 
   p {
     color: black;
     text-shadow: none;
     font-size: 18px;
-
-    @media screen and (max-width: 600px) {
-      font-size: 16px;
-    }
-
-    @media screen and (max-width: 450px) {
-      font-size: 14px;
-    }
-  }
-
-  ul {
-    margin: 0px auto;
-    font-size: 18px;
-
-    @media screen and (max-width: 600px) {
-      font-size: 16px;
-    }
-
-    @media screen and (max-width: 450px) {
-      font-size: 14px;
-    }
-  }
-
-  li {
-    text-shadow: none;
-    color: red;
 
     @media screen and (max-width: 600px) {
       font-size: 16px;
@@ -156,6 +129,14 @@ export const InstructionsDiv = styled.div`
     @media screen and (max-width: 450px) {
       font-size: 14px;
     }
+  }
+
+  &.ios {
+    background-color: #64d2ff;
+  }
+
+  &.android {
+    background-color: #a0bf36;
   }
 
   @media screen and (max-width: 1024px) {

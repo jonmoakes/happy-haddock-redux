@@ -8,10 +8,11 @@ import { small } from "../../../strings/strings";
 const SmallSize = () => {
   const product = useSelector(selectIndividualProduct);
   const { sizePrices } = product;
+  const smallPrice = sizePrices[0].smallPrice;
 
   return (
     <>
-      {sizePrices[0].smallPrice && (
+      {!!smallPrice && (
         <RadioDiv>
           <hr />
           <label>small</label>

@@ -43,7 +43,7 @@ const App = () => {
   const currentUser = useSelector(selectCurrentUser);
 
   return (
-    <div>
+    <>
       <GlobalStyle />
       <ScrollToTopAuto />
       <FloatingBackButton />
@@ -97,7 +97,7 @@ const App = () => {
           <Footer />
         </Suspense>
       </ErrorBoundary>
-    </div>
+    </>
   );
 };
 

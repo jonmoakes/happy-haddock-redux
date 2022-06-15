@@ -4,9 +4,9 @@ import { Navigate } from "react-router-dom";
 
 import { selectIndividualProduct } from "../../store/products/product.selector";
 
-import RequiredInfoText from "./required-info-text/required-info-text.component";
-import ProductCombinedOptions from "./product-combined-options/product-combined-options.component";
-import PriceInfo from "./price-info/price-info.component";
+import RequiredInfoText from "./required-info-text.component";
+import ProductCombinedOptions from "./product-combined-options.component";
+import PriceInfo from "./price-info.component";
 import ProductTotalInfo from "./product-total-info.component";
 import AddToOrderButton from "../../components/add-to-order-button/add-to-order-button.component";
 

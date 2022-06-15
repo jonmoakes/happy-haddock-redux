@@ -17,6 +17,7 @@ const CategoryProductsToDisplay = ({
       ),
     [products, searchField]
   );
+
   return (
     <Div className="products-div">
       {!searchField ? (

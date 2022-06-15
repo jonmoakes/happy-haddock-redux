@@ -12,7 +12,7 @@ const FourPieceSize = () => {
 
   return (
     <>
-      {fourPiecePrice !== 0 && (
+      {!!fourPiecePrice && (
         <RadioDiv>
           <label>4 pieces ( + £{fourPiecePrice.toFixed(2)} )</label>
           <input type="radio" value={fourPieces} name="size" />

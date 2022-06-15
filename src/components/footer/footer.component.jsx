@@ -61,6 +61,7 @@ const Footer = () => {
               <PrivacyLink to="/cookie-policy">Cookie Policy</PrivacyLink>
             </span>
           </PrivacyDiv>
+
           <CopywriteText>Copyright © Solaris Apps, 2022</CopywriteText>
           <CopywriteText>
             app design by{" "}

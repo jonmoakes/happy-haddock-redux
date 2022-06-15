@@ -130,7 +130,7 @@ export const RequiredDiv = styled.div`
     background-color: black;
     padding: 4px;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
   }
 
   @media screen and (max-width: 1366px) {
@@ -200,7 +200,7 @@ export const QuantityInput = styled.input`
   display: block;
   width: 80%;
   height: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   border: 2px solid black;
   font-family: inherit;
   outline: none;

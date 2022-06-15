@@ -12,7 +12,7 @@ const TwentyNuggetsSize = () => {
 
   return (
     <>
-      {twentyNuggetsPrice !== 0 && (
+      {!!twentyNuggetsPrice && (
         <RadioDiv>
           <label>20 nuggets ( +£{twentyNuggetsPrice.toFixed(2)} )</label>
           <input type="radio" value={twentyNuggets} name="size" />

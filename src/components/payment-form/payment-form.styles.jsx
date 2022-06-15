@@ -30,7 +30,7 @@ export const ContactButton = styled.button`
   height: 50px;
   background-color: lightgrey;
   font-familt: inherit;
-  border-radius: 5px;
+  border-radius: 15px;
   outline: none;
   border: none;
   margin: 10px;
@@ -169,5 +169,5 @@ export const DemoInfoDiv = styled.div`
   margin: 0px auto 30px auto;
   display: grid;
   place-content: center;
-  border-radius: 20px;
+  border-radius: 15px;
 `;

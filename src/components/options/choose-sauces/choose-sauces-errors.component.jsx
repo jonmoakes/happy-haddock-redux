@@ -13,9 +13,16 @@ const ChooseSaucesErrors = () => {
   return (
     <Div>
       {showOneSauceOptionCheck() ? (
-        <p> &uarr; choose one sauce only :) &uarr;</p>
+        <p>
+          &uarr; &uarr;
+          <br />
+          choose one sauce only
+        </p>
       ) : showMultipleSaucesOptionCheck() ? (
-        <p> &uarr; choose up to 3 sauces :) &uarr;</p>
+        <p>
+          &uarr; &uarr;
+          <br /> choose up to 3 sauces
+        </p>
       ) : (
         showNoSauceAndOtherSauceSelectedError() && (
           <p>

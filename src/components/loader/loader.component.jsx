@@ -2,7 +2,7 @@ import { LoaderDiv, LoaderIcon } from "./loader.styles";
 
 const Loader = () => {
   return (
-    <LoaderDiv id="loader">
+    <LoaderDiv>
       <LoaderIcon />
     </LoaderDiv>
   );

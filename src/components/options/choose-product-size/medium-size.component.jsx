@@ -12,7 +12,7 @@ const MediumSize = () => {
 
   return (
     <>
-      {mediumPrice !== 0 && (
+      {!!mediumPrice && (
         <RadioDiv>
           <label>medium ( + £{mediumPrice.toFixed(2)} )</label>
           <input type="radio" value={medium} name="size" />

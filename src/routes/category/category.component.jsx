@@ -24,8 +24,10 @@ import { Container } from "../../styles/container/container.styles";
 const Category = () => {
   const { searchField, resetSearchField, handleSearchFieldChange } =
     useSetSearchField();
+
   const productsMap = useSelector(selectProductsMap);
   const { category } = useParams();
+
   const [products, setProducts] = useState(productsMap[category]);
   const isLoading = useSelector(selectProductsIsLoading);
   const showHelpText = useSelector(selectShowHelpText);

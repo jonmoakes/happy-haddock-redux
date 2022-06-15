@@ -93,7 +93,7 @@ export const PaginationSelect = styled.select`
   width: 200px;
   padding: 10px;
 
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid black;
   outline: none;
 
@@ -122,7 +122,7 @@ export const SubjectsInputsDiv = styled.div`
   background-color: plum;
   padding: 20px 10px 30px 10px;
   border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 15px;
   margin: 40px auto 0px auto;
   width: 90%;
 
@@ -169,7 +169,7 @@ export const InfoDiv = styled.div`
 `;
 
 export const ClearButton = styled.button`
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid black;
   margin-top: 20px;
   width: 50%;

@@ -21,8 +21,8 @@ const ChooseSauces = () => {
   const [chosenSauces, setChosenSauces] = useState(defaultSauces);
   const product = useSelector(selectIndividualProduct);
 
-  const { name, optionsAvailable } = product;
   const dispatch = useDispatch();
+  const { name, optionsAvailable } = product;
 
   const handleSaucesChange = (event) => {
     const { name } = event.target;

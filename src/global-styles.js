@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
         width:100%;
         background-color:#1D82CC;
     }
+
     body {
         margin: 0px auto 100px auto;
         -webkit-font-smoothing: antialiased;
@@ -30,16 +31,26 @@ export const GlobalStyle = createGlobalStyle`
             display: table;
             margin: -15px auto 0px auto;
             font-size:18px;
-
-            @media screen and (max-width:1366px) {
-                list-style-type: none;
-            }
+            list-style-type: none;
         }
           
         li {
             margin-bottom: 10px;
-            text-shadow: 1px 1px 1px black;
-            color:yellow;
+            text-shadow: none;
+            color: red;
+
+            &.times { 
+                color:yellow;
+                text-shadow:1px 1px 1px black;
+            }
+
+            @media screen and (max-width: 600px) {
+            font-size: 16px;
+            }
+
+            @media screen and (max-width: 450px) {
+            font-size: 14px;
+            }
         }
 
         hr {
@@ -62,8 +73,6 @@ export const GlobalStyle = createGlobalStyle`
                     color: #ffe61b
                 }
              }
-        }
-
-        
+        }   
     }
 `;

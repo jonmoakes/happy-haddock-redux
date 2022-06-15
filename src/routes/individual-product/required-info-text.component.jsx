@@ -1,4 +1,4 @@
-import { InfoText } from "../../../styles/options-form/options-form.styles";
+import { InfoText } from "../../styles/options-form/options-form.styles";
 const RequiredInfoText = () => (
   <InfoText>
     please note items marked <span>required</span> must be selected in order to

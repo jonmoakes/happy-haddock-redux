@@ -1,15 +1,15 @@
 import { InstructionsDiv } from "./footer.styles";
 
 const IosInstructions = () => (
-  <InstructionsDiv>
+  <InstructionsDiv className="ios">
     <p>
       if you aren't looking at the website on Safari
       <br />
       launch it and navigate to the app's page:
     </p>
-    <p className="link">https://happy-haddock.herokuapp.com</p>
+    <p className="link">https://happy-haddock.netlify.app</p>
 
-    <ul className="instructions">
+    <ul>
       <li>
         Tap the Bookmark icon at the bottom of the screen ( iPhones ) or top
         right of the screen ( iPads )

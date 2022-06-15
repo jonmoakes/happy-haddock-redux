@@ -17,7 +17,7 @@ export const ShowTableOrderChoiceButton = styled.button`
   padding: 10px;
   display: inline;
   margin: -15px auto 10px auto;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid black;
   text-transform: capitalize;
   cursor: pointer;
@@ -64,7 +64,7 @@ export const TableOrderSelectButton = styled.button`
   padding: 10px;
   display: inline;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid black;
   text-transform: capitalize;
   cursor: pointer;
@@ -267,7 +267,7 @@ export const PaginationInput = styled.input`
   width: 200px;
   height: 40px;
   font-size: 20px;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid black;
   text-align: center;
 `;
@@ -276,7 +276,7 @@ export const PaginationSelect = styled.select`
   width: 200px;
   height: 40px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid black;
   outline: none;
   color: black;

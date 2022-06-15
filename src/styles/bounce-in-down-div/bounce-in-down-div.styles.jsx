@@ -28,7 +28,7 @@ export const BounceInDownDiv = styled.div`
 
     span {
       &.table-order-span {
-        background-color: whitesmoke;
+        background-color: red;
         border: 1px solid black;
         padding: 2px;
         border-radius: 5px;

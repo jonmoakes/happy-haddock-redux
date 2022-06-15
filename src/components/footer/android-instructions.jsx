@@ -1,15 +1,15 @@
 import { InstructionsDiv } from "./footer.styles";
 
 const AndroidInstructions = () => (
-  <InstructionsDiv>
+  <InstructionsDiv className="android">
     <p>
       if you aren't looking at the website on google chrome
       <br />
       launch it and navigate to the app's page:
     </p>
-    <p className="link">https://happy-haddock.herokuapp.com</p>
+    <p className="link">https://happy-haddock.netlify.app</p>
 
-    <ul className="instructions">
+    <ul>
       <li>
         tap the overflow button
         <br />
@@ -19,7 +19,7 @@ const AndroidInstructions = () => (
 
       <li>Wait a second for the app's logo to load.</li>
       <li>
-        Accept theHappy Haddock name for the shortcut
+        Accept the Happy Haddock name for the shortcut
         <br />
         <span>( or enter one you like better ).</span>
       </li>

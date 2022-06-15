@@ -13,7 +13,7 @@ export const CheckoutItemContainer = styled.div`
   font-size: 20px;
   align-items: center;
   background-color: black;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 50px;
 
   @media screen and (max-width: 1366px) {

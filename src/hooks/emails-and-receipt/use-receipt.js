@@ -78,7 +78,7 @@ const useReceipt = () => {
 
     const chosenCheeseSlice = cheeseSliceSelected ? "CHEESE SLICE\n\n" : "";
 
-    const chosenSalad = saladSelected ? `\nSalad\nYES\n\n` : "";
+    const chosenSalad = saladSelected ? `\nSalad:\nYES\n\n` : "";
 
     const chosenSauces = sauces.length
       ? `Sauces Selected:\n${saucesformat}\n\n`
@@ -106,7 +106,7 @@ const useReceipt = () => {
     const chosenCurry = curry ? "CURRY\n" : "";
     const chosenGravy = gravy ? "GRAVY\n" : "";
 
-    const chosenMeat = oneMeat ? `MEAT:\n${oneMeat.toUpperCase()}\n\n` : "";
+    const chosenMeat = oneMeat ? `Meat:\n${oneMeat.toUpperCase()}\n\n` : "";
 
     const chosenTwoMeatsHeading =
       doner || tikka || mediterranean ? "Meats Selected:\n" : "";
@@ -116,7 +116,7 @@ const useReceipt = () => {
 
     const itemPrice = (price + selectedOptionsCombinedPrice) * quantity;
 
-    const finalReceipt = `start${itemName}${itemSize}${chosenDonerKebabType}${chosenChickenKebabType}${chosenMixedKebabType}${chosenSaltAndVinegar}${chosenPie}${chosenAddOns}${chosenGratedCheese}${chosenDonerMeat}${chosenCheeseSlice}${chosenSalad}${chosenSauces.toUpperCase()}${chosenCan}${chosenBottle}${chosenConeOfChipsSauce}${chosenSingleCondiment}${chosenMeat}${chosenTwoMeatsHeading}${chosenDoner}${chosenTikka}${chosenMed}${chosenTwoCondimentsHeading}${chosenPeas}${chosenBeans}${chosenCurry}${chosenGravy}\nSpecial Instructions\n${specialInstructions.toUpperCase()}\n\nQuantity\n${quantity}\n\nTotal Product Price [ Inc Any Options If Chosen / Available ]\n${itemPrice.toFixed(
+    const finalReceipt = `start${itemName}${itemSize}${chosenDonerKebabType}${chosenChickenKebabType}${chosenMixedKebabType}${chosenSaltAndVinegar}${chosenPie}${chosenAddOns}${chosenGratedCheese}${chosenDonerMeat}${chosenCheeseSlice}${chosenSalad}${chosenSauces.toUpperCase()}${chosenCan}${chosenBottle}${chosenConeOfChipsSauce}${chosenSingleCondiment}${chosenMeat}${chosenTwoMeatsHeading}${chosenDoner}${chosenTikka}${chosenMed}${chosenTwoCondimentsHeading}${chosenPeas}${chosenBeans}${chosenCurry}${chosenGravy}\nSpecial Instructions:\n${specialInstructions.toUpperCase()}\n\nQuantity:\n${quantity}\n\nTotal Product Price [ Inc Any Options If Chosen / Available ]:\n${itemPrice.toFixed(
       2
     )}end`;
 
@@ -126,8 +126,6 @@ const useReceipt = () => {
       .replace(/[()]/g, "")
       .replace(/start/g, "\n")
       .replace(/end/g, "\n___________________\n\n");
-    // .replace(/,/g, ", ")
-    // .replace(/^(\s*\r\n){2,}/, "\r\n");
     return { formattedFinalReceipt };
   });
 

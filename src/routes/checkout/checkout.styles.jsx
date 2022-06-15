@@ -79,7 +79,7 @@ export const TotalPriceDiv = styled.div`
   padding: 5px 20px 20px 20px;
   margin-top: 50px;
   margin-bottom: 10px;
-  border-radius: 20px;
+  border-radius: 15px;
 
   @media screen and (max-width: 1366px) {
     box-shadow: none;
