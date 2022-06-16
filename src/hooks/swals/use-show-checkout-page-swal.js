@@ -21,8 +21,8 @@ const useShowcheckoutPageSwal = () => {
   const showCheckoutPageSwal = () => {
     swal
       .fire({
-        title: `${areYouSureMessage}`,
-        text: `${forwardToCheckoutMessage}`,
+        title: areYouSureMessage,
+        text: forwardToCheckoutMessage,
         background: "black",
         backdrop: `
       rgba(0,0,123,0.8)`,
@@ -30,7 +30,7 @@ const useShowcheckoutPageSwal = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "red",
-        confirmButtonText: `${goToCheckoutMessage}`,
+        confirmButtonText: goToCheckoutMessage,
         customClass: "confirm",
         allowOutsideClick: false,
         reverseButtons: true,

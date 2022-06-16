@@ -15,7 +15,7 @@ const useOrderConfirmedSwal = () => {
     swal.fire({
       title: `thank you for your order ${name}`,
       text: `A Confirmation Email Has Been Sent To ${email}`,
-      confirmButtonText: `${okMessage}`,
+      confirmButtonText: okMessage,
       confirmButtonColor: "#3085d6",
       allowOutsideClick: false,
       allowEscapeKey: false,

@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase/firebase.utils";
-import { format } from "date-fns";
 
 import useGetReceiptData from "../emails-and-receipt/use-get-receipt-data";
 
@@ -33,7 +32,7 @@ const useAddOrderTofirestore = () => {
     email: email,
     phoneNumber: phoneNumber,
     order: fullReceipt,
-    orderDate: `${format(new Date(getDate()), "dd MMMM yyyy")}`,
+    orderDate: getDate(),
     orderTime: getTime(),
     totalPrice: totalPrice.toFixed(2),
     solarisAppsCut: cutToTwoDecimalPoints.toFixed(2),

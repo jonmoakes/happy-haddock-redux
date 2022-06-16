@@ -20,7 +20,7 @@ const useConfirmClearCartSwal = () => {
   const confirmClearCartSwal = () => {
     swal
       .fire({
-        title: `${clearCartQuestion}`,
+        title: clearCartQuestion,
         background: "black",
         backdrop: `
     rgba(0,0,123,0.8)`,
@@ -28,7 +28,7 @@ const useConfirmClearCartSwal = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "red",
-        confirmButtonText: `${clearCartButtonText}`,
+        confirmButtonText: clearCartButtonText,
         customClass: "confirm",
         allowOutsideClick: false,
         reverseButtons: true,

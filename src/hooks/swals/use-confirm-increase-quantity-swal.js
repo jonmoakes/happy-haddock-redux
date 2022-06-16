@@ -21,7 +21,7 @@ const useConfirmIncreaseQuantitySwal = () => {
   const confirmIncreaseQuantitySwal = (cartItem) => {
     swal
       .fire({
-        title: `${confirmIncreaseQuantityMessage}`,
+        title: confirmIncreaseQuantityMessage,
         background: "black",
         backdrop: `
     rgba(0,0,123,0.8)`,
@@ -29,7 +29,7 @@ const useConfirmIncreaseQuantitySwal = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "red",
-        confirmButtonText: `${yesMessage}`,
+        confirmButtonText: yesMessage,
         customClass: "confirm",
         allowOutsideClick: true,
         reverseButtons: true,
@@ -38,7 +38,7 @@ const useConfirmIncreaseQuantitySwal = () => {
         if (result.isConfirmed) {
           swal
             .fire({
-              title: `${successMessage}`,
+              title: successMessage,
               showConfirmButton: false,
               timer: 1000,
               background: "black",
