@@ -5,7 +5,7 @@ const sendOwnerOrderEmail = (client, message) => {
     const data = {
       from: process.env.APP_OWNER_EMAIL,
       subject: "Happy Haddock - You Received A New Order!",
-      to: process.env.APP_OWNER_EMAIL,
+      to: process.env.APP_SEND_TO_EMAIL,
       text: message.ownerEmailToSend,
     };
 

@@ -5,7 +5,7 @@ const sendEmail = (client, emailToSend) => {
     const data = {
       from: process.env.APP_OWNER_EMAIL,
       subject: "Happy Haddock - A New User Has Just Signed Up!",
-      to: process.env.APP_OWNER_EMAIL,
+      to: process.env.APP_SEND_TO_EMAIL,
       text: emailToSend,
     };
 
