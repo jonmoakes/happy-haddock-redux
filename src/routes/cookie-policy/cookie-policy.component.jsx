@@ -114,14 +114,8 @@ const CookiePolicy = () => (
       <p>7: Our details</p>
       <p>7.1: This website is owned and operated by Jonathan Oakes.</p>
       <p>
-        7.2: You can contact us:
-        <br />
-        (a) Using our website <Link to="/contact">contact form</Link> or
-        <br />
-        (b) By email,{" "}
-        <span style={{ textTransform: "lowercase" }}>
-          jonathan@solaris-apps.co.uk
-        </span>
+        7.2: You can contact us Using our website{" "}
+        <Link to="/contact">contact form</Link>
       </p>
       <p>
         Return <Link to="/">home</Link>

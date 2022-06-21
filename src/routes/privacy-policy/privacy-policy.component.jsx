@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Container } from "../../styles/container/container.styles";
 import { Div } from "../../styles/div/div.styles";
 
-import { Lowercase } from "./privacy-policy.styles";
-
 const PrivacyPolicy = () => (
   <Container>
     <Div>
@@ -41,12 +39,13 @@ const PrivacyPolicy = () => (
       <p>2.2: The Data</p>
       <p>
         Protection Compliance Manager is responsible for ensuring compliance
-        with the Act and with this policy. That post is held by Jonathan Oakes:
-        <br />
-        <Lowercase>jonathan@solaris-apps.co.uk</Lowercase>
-        <br />
-        Any questions or concerns about the operation of this policy should be
-        referred in the first instance to the afformentioned person.
+        with the Act and with this policy. That post is held by Jonathan Oakes.
+        You can contact him using the link below. Any questions or concerns
+        about the operation of this policy should be referred in the first
+        instance to the afformentioned person.
+      </p>
+      <p>
+        <Link to="/contact">contact me</Link>
       </p>
       <p>
         2.3: If you consider that the policy has not been followed in respect of

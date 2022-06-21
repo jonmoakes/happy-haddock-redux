@@ -5,7 +5,7 @@ const sendEmail = (client, emailToSend) => {
     const data = {
       from: process.env.APP_OWNER_EMAIL,
       subject: "Message From Happy Haddock Contact Form",
-      to: process.env.APP_SEND_TO_EMAIL,
+      to: process.env.APP_OWNER_EMAIL,
       text: emailToSend,
     };
 
