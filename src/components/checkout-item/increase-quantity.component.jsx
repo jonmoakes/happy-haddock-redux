@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import useConfirmIncreaseQuantitySwal from "../../hooks/swals/use-confirm-increase-quantity-swal";
 import useUpdateItemsInFirestore from "../../hooks/firestore/use-update-cart-items-in-firestore";
 
@@ -9,9 +7,7 @@ const IncreaseQuantity = ({ cartItem }) => {
   const { confirmIncreaseQuantitySwal } = useConfirmIncreaseQuantitySwal();
   const { updateCartItemInFirestore } = useUpdateItemsInFirestore();
 
-  useEffect(() => {
-    updateCartItemInFirestore();
-  }, [updateCartItemInFirestore]);
+  updateCartItemInFirestore();
 
   return (
     <>

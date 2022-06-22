@@ -10,7 +10,6 @@ import useClearFinalItemContactMethodHideHamburger from "./hooks/use-clear-final
 
 import { selectCurrentUser } from "./store/user/user.selector";
 
-import ScrollToTopAuto from "./components/scroll-to-top-auto/scroll-to-top-auto.component";
 import FloatingBackButton from "./components/floating-back-button/floating-back-button.component";
 import ErrorFallback from "./components/error-fallback/error-fallback.component";
 import Loader from "./components/loader/loader.component";
@@ -41,11 +40,11 @@ const App = () => {
   useCartItemsSnapshotListener();
   useClearFinalItemContactMethodHideHamburger();
   const currentUser = useSelector(selectCurrentUser);
+  window.scrollTo(0, 0);
 
   return (
     <>
       <GlobalStyle />
-      <ScrollToTopAuto />
       <FloatingBackButton />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loader />}>

@@ -31,26 +31,28 @@ const Checkout = () => {
   }, [cartItems, dispatch, clearCartInFirestore]);
 
   return (
-    <HeadingContainerDiv>
-      <h1>Checkout</h1>
+    <>
+      {redirectToMenu && <Navigate to="/menu" replace />}
+      <HeadingContainerDiv>
+        <h1>Checkout</h1>
 
-      <CheckoutPageQuantityInstructions />
-      <CheckoutPageOptionsPriceInfo />
-      <CheckoutPageClearCart />
-      <CheckoutPageDiv>
-        <CheckoutPageHeaderBlock />
+        <CheckoutPageQuantityInstructions />
+        <CheckoutPageOptionsPriceInfo />
+        <CheckoutPageClearCart />
+        <CheckoutPageDiv>
+          <CheckoutPageHeaderBlock />
 
-        {cartItems.length &&
-          cartItems.map((cartItem) => (
-            <CheckoutItem key={cartItem.id} cartItem={cartItem} />
-          ))}
+          {cartItems.length &&
+            cartItems.map((cartItem) => (
+              <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+            ))}
 
-        <CheckoutPageTotalPriceInfo />
-        <PaymentForm />
-        <CheckoutPageStripeInfo />
-        {redirectToMenu && <Navigate to="/menu" replace />}
-      </CheckoutPageDiv>
-    </HeadingContainerDiv>
+          <CheckoutPageTotalPriceInfo />
+          <PaymentForm />
+          <CheckoutPageStripeInfo />
+        </CheckoutPageDiv>
+      </HeadingContainerDiv>
+    </>
   );
 };
 

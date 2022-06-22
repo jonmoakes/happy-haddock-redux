@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import useSetSearchField from "../../hooks/handlers/use-set-search-field";
@@ -22,20 +22,18 @@ import { TitleDiv } from "../../styles/product-item/product-item.styles";
 import { Container } from "../../styles/container/container.styles";
 
 const Category = () => {
+  const [products, setProducts] = useState(null);
   const { searchField, resetSearchField, handleSearchFieldChange } =
     useSetSearchField();
 
   const productsMap = useSelector(selectProductsMap);
-  const { category } = useParams();
-
-  const [products, setProducts] = useState(productsMap[category]);
   const isLoading = useSelector(selectProductsIsLoading);
   const showHelpText = useSelector(selectShowHelpText);
-  const dispatch = useDispatch();
+  const { category } = useParams();
 
   useEffect(() => {
     setProducts(productsMap[category]);
-  }, [category, productsMap, dispatch, showHelpText]);
+  }, [category, productsMap, showHelpText]);
 
   return (
     <Container>

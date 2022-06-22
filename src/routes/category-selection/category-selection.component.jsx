@@ -22,10 +22,11 @@ import { TitleDiv } from "../../styles/product-item/product-item.styles";
 import { Container } from "../../styles/container/container.styles";
 
 const CategorySelection = () => {
+  const [products, setProducts] = useState(null);
   const { searchField, resetSearchField, handleSearchFieldChange } =
     useSetSearchField();
+
   const productsMap = useSelector(selectProductsMap);
-  const [products, setProducts] = useState(productsMap);
   const isLoading = useSelector(selectProductsIsLoading);
   const showHelpText = useSelector(selectShowHelpText);
 
