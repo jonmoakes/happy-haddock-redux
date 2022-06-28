@@ -9,7 +9,7 @@ const useUpdateItemsInFirestore = () => {
   const currentUser = useSelector(selectCurrentUser);
   const cartItems = useSelector(selectCartItems);
 
-  const updateCartItemInFirestore = async () => {
+  const updateCartItemsInFirestore = async () => {
     const userRef = await doc(db, "users", currentUser.id);
     const userSnapshot = await getDoc(userRef);
 
@@ -23,7 +23,7 @@ const useUpdateItemsInFirestore = () => {
     }
   };
 
-  return { updateCartItemInFirestore };
+  return { updateCartItemsInFirestore };
 };
 
 export default useUpdateItemsInFirestore;

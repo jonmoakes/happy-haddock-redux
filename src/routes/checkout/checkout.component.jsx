@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { selectCartItems } from "../../store/cart/cart.selector";
-import useClearCartInFirestore from "../../hooks/firestore/use-clear-cart-in-firestore";
+import useUpdateItemsInFirestore from "../../hooks/firestore/use-update-cart-items-in-firestore";
 
 import CheckoutPageQuantityInstructions from "./checkout-quantity-instructions.component";
 import CheckoutPageClearCart from "./checkout-clear-cart.component";
@@ -18,21 +18,22 @@ import CheckoutPageStripeInfo from "./checkout-stripe-info.component";
 import { HeadingContainerDiv, CheckoutPageDiv } from "./checkout.styles";
 
 const Checkout = () => {
-  const { clearCartInFirestore } = useClearCartInFirestore();
-  const [redirectToMenu, setRedirectToMenu] = useState(false);
-  const dispatch = useDispatch();
+  const { updateCartItemsInFirestore } = useUpdateItemsInFirestore();
   const cartItems = useSelector(selectCartItems);
 
   useEffect(() => {
-    if (cartItems && !cartItems.length) {
-      clearCartInFirestore();
-      setRedirectToMenu(true);
-    }
-  }, [cartItems, dispatch, clearCartInFirestore]);
+    return () => {
+      updateCartItemsInFirestore();
+    };
+  }, [updateCartItemsInFirestore]);
+
+  window.onbeforeunload = function () {
+    return false;
+  };
 
   return (
     <>
-      {redirectToMenu && <Navigate to="/menu" replace />}
+      {!cartItems.length && <Navigate to="/menu" replace />}
       <HeadingContainerDiv>
         <h1>Checkout</h1>
 
@@ -42,10 +43,13 @@ const Checkout = () => {
         <CheckoutPageDiv>
           <CheckoutPageHeaderBlock />
 
-          {cartItems.length &&
+          {cartItems.length ? (
             cartItems.map((cartItem) => (
               <CheckoutItem key={cartItem.id} cartItem={cartItem} />
-            ))}
+            ))
+          ) : (
+            <p>your cart is empty</p>
+          )}
 
           <CheckoutPageTotalPriceInfo />
           <PaymentForm />
